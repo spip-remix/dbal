@@ -12,27 +12,23 @@ use PHPUnit\Framework\TestCase;
 
 class QueryEchappeTextesTest extends TestCase
 {
-	public static function setUpBeforeClass(): void
-	{
+	public static function setUpBeforeClass(): void {
 		find_in_path('base/connect_sql.php', '', true);
 	}
 
-	protected function setUp(): void
-	{
+	protected function setUp(): void {
 		query_echappe_textes('', 'uniqid');
 	}
 
 	/**
 	 * @dataProvider providerConnectSqlQueryEchappeTextes
 	 */
-	public function testConnectSqlQueryEchappeTextes($expected, ...$args): void
-	{
+	public function testConnectSqlQueryEchappeTextes($expected, ...$args): void {
 		$actual = query_echappe_textes(...$args);
 		$this->assertSame($expected, $actual);
 	}
 
-	public static function providerConnectSqlQueryEchappeTextes(): array
-	{
+	public static function providerConnectSqlQueryEchappeTextes(): array {
 		$md5 = substr(md5('uniqid'), 0, 4);
 		return [
 			[

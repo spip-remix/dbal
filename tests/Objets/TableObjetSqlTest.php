@@ -12,22 +12,19 @@ use PHPUnit\Framework\TestCase;
 
 class TableObjetSqlTest extends TestCase
 {
-	public static function setUpBeforeClass(): void
-	{
+	public static function setUpBeforeClass(): void {
 		find_in_path('base/connect_sql.php', '', true);
 	}
 
 	/**
 	 * @dataProvider providerConnectSqlTableObjetSql
 	 */
-	public function testConnectSqlTableObjetSql($expected, ...$args): void
-	{
+	public function testConnectSqlTableObjetSql($expected, ...$args): void {
 		$actual = table_objet_sql(...$args);
 		$this->assertSame($expected, $actual);
 	}
 
-	public static function providerConnectSqlTableObjetSql(): array
-	{
+	public static function providerConnectSqlTableObjetSql(): array {
 		return [[
 			0 => 'spip_articles',
 			1 => 'articles',

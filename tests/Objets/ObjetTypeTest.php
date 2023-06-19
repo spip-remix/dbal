@@ -12,22 +12,19 @@ use PHPUnit\Framework\TestCase;
 
 class ObjetTypeTest extends TestCase
 {
-	public static function setUpBeforeClass(): void
-	{
+	public static function setUpBeforeClass(): void {
 		find_in_path('base/connect_sql.php', '', true);
 	}
 
 	/**
 	 * @dataProvider providerConnectSqlObjetType
 	 */
-	public function testConnectSqlObjetType($expected, ...$args): void
-	{
+	public function testConnectSqlObjetType($expected, ...$args): void {
 		$actual = objet_type(...$args);
 		$this->assertSame($expected, $actual);
 	}
 
-	public static function providerConnectSqlObjetType(): array
-	{
+	public static function providerConnectSqlObjetType(): array {
 		return [[
 			0 => 'article',
 			1 => 'articles',
