@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Spip\Test\Sql\Objets;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class QueryEchappeTextesTest extends TestCase
@@ -20,10 +21,8 @@ class QueryEchappeTextesTest extends TestCase
 		query_echappe_textes('', 'uniqid');
 	}
 
-	/**
-	 * @dataProvider providerConnectSqlQueryEchappeTextes
-	 */
-	public function testConnectSqlQueryEchappeTextes($expected, ...$args): void {
+	#[DataProvider('providerConnectSqlQueryEchappeTextes')]
+ public function testConnectSqlQueryEchappeTextes($expected, ...$args): void {
 		$actual = query_echappe_textes(...$args);
 		$this->assertSame($expected, $actual);
 	}

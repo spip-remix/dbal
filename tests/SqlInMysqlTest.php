@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Spip\Test\Sql;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class SqlInMysqlTest extends TestCase
@@ -18,10 +19,8 @@ class SqlInMysqlTest extends TestCase
 		}
 	}
 
-	/**
-	 * @dataProvider providerMysqlSqliIn
-	 * */
-	public function testMysqlSqlIn($expected, ...$args): void {
+	#[DataProvider('providerMysqlSqliIn')]
+ public function testMysqlSqlIn($expected, ...$args): void {
 		$this->assertEquals($expected, sql_in(...$args));
 	}
 

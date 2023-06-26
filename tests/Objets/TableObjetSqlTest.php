@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Spip\Test\Sql\Objets;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class TableObjetSqlTest extends TestCase
@@ -16,10 +17,8 @@ class TableObjetSqlTest extends TestCase
 		find_in_path('base/connect_sql.php', '', true);
 	}
 
-	/**
-	 * @dataProvider providerConnectSqlTableObjetSql
-	 */
-	public function testConnectSqlTableObjetSql($expected, ...$args): void {
+	#[DataProvider('providerConnectSqlTableObjetSql')]
+ public function testConnectSqlTableObjetSql($expected, ...$args): void {
 		$actual = table_objet_sql(...$args);
 		$this->assertSame($expected, $actual);
 	}

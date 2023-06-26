@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Spip\Test\Sql\Objets;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class IdTableObjetTest extends TestCase
@@ -16,10 +17,8 @@ class IdTableObjetTest extends TestCase
 		find_in_path('base/connect_sql.php', '', true);
 	}
 
-	/**
-	 * @dataProvider providerConnectSqlIdTableObjet
-	 */
-	public function testConnectSqlIdTableObjet($expected, ...$args): void {
+	#[DataProvider('providerConnectSqlIdTableObjet')]
+ public function testConnectSqlIdTableObjet($expected, ...$args): void {
 		$actual = id_table_objet(...$args);
 		$this->assertSame($expected, $actual);
 	}
