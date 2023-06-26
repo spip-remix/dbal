@@ -20,7 +20,7 @@ class SqlInSqliteTest extends TestCase
 	}
 
 	#[DataProvider('providerSqliteSqliIn')]
- public function testSqliteSqlIn($expected, ...$args): void {
+	public function testSqliteSqlIn($expected, ...$args): void {
 		$this->assertEquals($expected, sql_in(...$args));
 	}
 

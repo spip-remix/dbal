@@ -22,7 +22,7 @@ class QueryEchappeTextesTest extends TestCase
 	}
 
 	#[DataProvider('providerConnectSqlQueryEchappeTextes')]
- public function testConnectSqlQueryEchappeTextes($expected, ...$args): void {
+	public function testConnectSqlQueryEchappeTextes($expected, ...$args): void {
 		$actual = query_echappe_textes(...$args);
 		$this->assertSame($expected, $actual);
 	}

@@ -20,7 +20,7 @@ class SqlInMysqlTest extends TestCase
 	}
 
 	#[DataProvider('providerMysqlSqliIn')]
- public function testMysqlSqlIn($expected, ...$args): void {
+	public function testMysqlSqlIn($expected, ...$args): void {
 		$this->assertEquals($expected, sql_in(...$args));
 	}
 

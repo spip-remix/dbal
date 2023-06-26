@@ -18,7 +18,7 @@ class TableObjetSqlTest extends TestCase
 	}
 
 	#[DataProvider('providerConnectSqlTableObjetSql')]
- public function testConnectSqlTableObjetSql($expected, ...$args): void {
+	public function testConnectSqlTableObjetSql($expected, ...$args): void {
 		$actual = table_objet_sql(...$args);
 		$this->assertSame($expected, $actual);
 	}

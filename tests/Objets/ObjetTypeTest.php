@@ -18,7 +18,7 @@ class ObjetTypeTest extends TestCase
 	}
 
 	#[DataProvider('providerConnectSqlObjetType')]
- public function testConnectSqlObjetType($expected, ...$args): void {
+	public function testConnectSqlObjetType($expected, ...$args): void {
 		$actual = objet_type(...$args);
 		$this->assertSame($expected, $actual);
 	}
