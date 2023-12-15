@@ -396,21 +396,21 @@ class SqlSchemaTableTest extends TestCase
 		$desc = sql_showtable($table);
 		$this->assertIsArray($desc, 'sql_alter rate MODIFY (plus de table ou sql_showtable en erreur?)');
 		$this->assertArrayHasKey('schtroumf', $desc['field'], 'sql_alter rate MODIFY varchar en text');
-		$this->assertStringContainsString('TEXT', $desc['field']['schtroumf'], 'sql_alter rate MODIFY varchar en text');
+		$this->assertStringContainsStringIgnoringCase('TEXT', $desc['field']['schtroumf'], 'sql_alter rate MODIFY varchar en text');
 
 		// ajouter des colonnes
 		sql_alter("TABLE {$table} ADD COLUMN houba BIGINT(21) NOT NULL DEFAULT '0'");
 		$desc = sql_showtable($table);
 		$this->assertIsArray($desc, 'sql_alter rate ADD COLUMN (plus de table ou sql_showtable en erreur?)');
 		$this->assertArrayHasKey('houba', $desc['field'], 'sql_alter rate ADD COLUMN');
-		$this->assertStringContainsString('INT', $desc['field']['houba'], 'sql_alter rate ADD COLUMN');
+		$this->assertStringContainsStringIgnoringCase('INT', $desc['field']['houba'], 'sql_alter rate ADD COLUMN');
 
 		// ajouter des colonnes avec "AFTER"
 		sql_alter("TABLE {$table} ADD COLUMN hop BIGINT(21) NOT NULL DEFAULT '0' AFTER id_tintin");
 		$desc = sql_showtable($table);
 		$this->assertIsArray($desc, 'sql_alter rate ADD COLUMN avec AFTER (plus de table ou sql_showtable en erreur?)');
 		$this->assertArrayHasKey('hop', $desc['field'], 'sql_alter rate ADD COLUMN avec AFTER');
-		$this->assertStringContainsString('INT', $desc['field']['hop'], 'sql_alter rate ADD COLUMN avec AFTER');
+		$this->assertStringContainsStringIgnoringCase('INT', $desc['field']['hop'], 'sql_alter rate ADD COLUMN avec AFTER');
 	}
 
 
