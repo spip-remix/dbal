@@ -1,0 +1,52 @@
+{
+    "name": "spip-remix/dbal",
+    "description": "Spip Database Abstraction Layer",
+    "license": "GPL-3.0-only",
+    "type": "spip-plugin",
+    "keywords": [
+        "dbal",
+        "abstraction",
+        "sql",
+        "layer"
+    ],
+    "authors": [
+        {
+            "name": "JamesRezo",
+            "email": "james@rezo.net"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "spip-remix/contracts": "^0.1.x-dev"
+    },
+    "require-dev": {
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*",
+        "spip-remix/sdk": "^0.1.x-dev"
+    },
+    "suggest": {
+        "ext-mysqli": "*",
+        "ext-pdo_mysql": "*",
+        "ext-pdo_pgsql": "*",
+        "ext-pgsql": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SpipRemix\\Component\\Dbal\\": "src/"
+        },
+        "files": [
+            "base/connect_sql.php",
+            "base/objets.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SpipRemix\\Component\\Dbal\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "8.1.27"
+        }
+    }
+}

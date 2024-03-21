@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<paquet prefix="dbal" version="5.0.0" etat="experimental" compatibilite="[4.1.0;[">
+	<nom>Dbal</nom>
+	<necessite nom="php" compatibilite="[8.1.0;[" />
+</paquet>
