@@ -52,6 +52,8 @@ interface TableInterface
 
     /**
      * Undocumented function.
+     *
+     * @return non-empty-string
      */
     public function getPrefixedName(): string;
 

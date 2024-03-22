@@ -21,9 +21,6 @@ class Table implements TableInterface
      */
     private array $fields = [];
 
-    /**
-     * @param string $name
-     */
     public function __construct(
         private string $name,
     ) {
@@ -46,20 +43,20 @@ class Table implements TableInterface
 
     public function getName(): string
     {
+        /** @var non-empty-string */
         return $this->name;
     }
 
     public function getFullname(): string
     {
-        /**
-         * @todo Test null schema
-         */
-        return $this->getSchema()->getName() . '.' . $this->getPrefixedName();
+        $name = $this->getSchema()?->getName();
+
+        return ($name ? $name . '.' : '') . $this->getPrefixedName();
     }
 
     public function getPrefixedName(): string
     {
-        $prefix = $this->schema?->getPrefix();
+        $prefix = $this->getSchema()?->getPrefix();
 
         return ($prefix ? $prefix . '_' : '') . $this->getName();
     }

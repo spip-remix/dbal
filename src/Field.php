@@ -24,17 +24,9 @@ class Field implements FieldInterface
         }
     }
 
-    /**
-     * Get the name of the field.
-     *
-     * SHOULD be snake cased (significant_name)
-     * ascii letters, not dot, lower case and
-     * underscore `_` to separate significant words
-     *
-     * @return non-empty-string
-     */
     public function getName(): string
     {
+        /** @var non-empty-string */
         return $this->name;
     }
 
@@ -50,11 +42,13 @@ class Field implements FieldInterface
 
     public function getDataType(): string
     {
+        /** @var non-empty-string */
         return $this->dataType;
     }
 
     public function getDefault(): ?string
     {
+        /** @var non-empty-string|null */
         return $this->default;
     }
 

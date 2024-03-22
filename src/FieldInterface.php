@@ -22,14 +22,37 @@ interface FieldInterface
      */
     public function getName(): string;
 
+    /**
+     * Undocumented function
+     *
+     * @return non-empty-string
+     */
     public function getFullName(): string;
 
+    /**
+     * Undocumented function
+     *
+     * @return non-empty-string
+     */
     public function getFullFullName(): string;
 
+    /**
+     * Undocumented function
+     *
+     * @return non-empty-string
+     */
     public function getDataType(): string;
 
+    /**
+     * Undocumented function
+     *
+     * @return non-empty-string|null
+     */
     public function getDefault(): ?string;
 
+    /**
+     * Undocumented function.
+     */
     public function getNullable(): bool;
 
     /**
