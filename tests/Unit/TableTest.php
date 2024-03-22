@@ -32,7 +32,6 @@ class TableTest extends TestCase
 
     public function testCannotInstantiateWithoutName(): void
     {
-
         // Given
         $this->expectExceptionMessage('Une table doit avoir un nom.');
 
@@ -46,7 +45,7 @@ class TableTest extends TestCase
     public function testGetField(): void
     {
         // Given
-        $table = (new Table('test'))->addField(new StubField);
+        $table = (new Table('test'))->addField(new StubField());
 
         // When
         $actual1 = $table->getField('stub');
@@ -62,10 +61,10 @@ class TableTest extends TestCase
         $this->expectExceptionMessage('Un champ portant le nom "stub" existe déjà.');
 
         // Given
-        $table = (new Table('test'))->addField(new StubField);
+        $table = (new Table('test'))->addField(new StubField());
 
         // When
-        $table->addField(new StubField);
+        $table->addField(new StubField());
 
         // Then
         // Throws an exception

@@ -9,7 +9,7 @@ return [
             'fields' => [
                 [
                     'name' => 'test',
-                    'datatype' => 'VARCHAR(255)',
+                    'dataType' => 'VARCHAR(255)',
                     'default' => null,
                     'nullable' => false,
                 ],

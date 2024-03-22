@@ -28,7 +28,6 @@ class SchemaTest extends TestCase
 
     public function testCannotInstantiateWithoutName(): void
     {
-
         // Given
         $this->expectExceptionMessage('Un schéma doit avoir un nom.');
 

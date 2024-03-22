@@ -20,6 +20,11 @@ class StubField implements FieldInterface
         return '';
     }
 
+    public function getFullFullName(): string
+    {
+        return '';
+    }
+
     public function getDataType(): string
     {
         return '';
@@ -37,7 +42,7 @@ class StubField implements FieldInterface
 
     public function getTable(): TableInterface
     {
-        return new StubTable;
+        return new StubTable();
     }
 
     public function setTable(TableInterface $table): FieldInterface

@@ -10,5 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Composerisation & pluginisation.
-- Description minimale d'un schéma de base de données
-- Description minimale d'une table de base de données
+- Description minimale d'un schéma de base de données (Schema)
+- Description minimale d'une table de base de données (Table)
+- Description minimale d'un champ de base de données (Field)

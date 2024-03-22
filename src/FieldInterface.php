@@ -24,6 +24,8 @@ interface FieldInterface
 
     public function getFullName(): string;
 
+    public function getFullFullName(): string;
+
     public function getDataType(): string;
 
     public function getDefault(): ?string;

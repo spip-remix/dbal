@@ -27,12 +27,12 @@ class StubTable implements TableInterface
 
     public function getFullname(): string
     {
-        return '';
+        return 'stub';
     }
 
     public function getPrefixedName(): string
     {
-        return '';
+        return 'stub';
     }
 
     public function getFields(): array

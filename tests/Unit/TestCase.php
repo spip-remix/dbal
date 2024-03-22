@@ -23,6 +23,6 @@ class TestCase extends FrameworkTestCase
 
     public function getTable(): TableInterface
     {
-        return new StubTable;
+        return new StubTable();
     }
 }
