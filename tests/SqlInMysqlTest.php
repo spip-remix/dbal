@@ -2,29 +2,33 @@
 
 declare(strict_types=1);
 
-namespace Spip\Test\Sql;
+namespace SpipRemix\Component\Dbal\Test;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class SqlInMysqlTest extends TestCase
 {
-	public static function setUpBeforeClass(): void {
-		find_in_path('base/abstract_sql.php', '', true);
+	public static function setUpBeforeClass(): void
+	{
+		\find_in_path('base/abstract_sql.php', '', true);
 	}
 
-	protected function setUp(): void {
+	protected function setUp(): void
+	{
 		if ($this->getSqlType() !== 'mysql') {
 			$this->markTestSkipped('Needs a Mysql database');
 		}
 	}
 
 	#[DataProvider('providerMysqlSqliIn')]
-	public function testMysqlSqlIn($expected, ...$args): void {
+	public function testMysqlSqlIn($expected, ...$args): void
+	{
 		$this->assertEquals($expected, sql_in(...$args));
 	}
 
-	public static function providerMysqlSqliIn(): array {
+	public static function providerMysqlSqliIn(): array
+	{
 		return [
 			0 =>
 			[
@@ -188,7 +192,8 @@ paragraphes',
 		];
 	}
 
-	private function getSqlType(): string {
+	private function getSqlType(): string
+	{
 		return $GLOBALS['connexions'][0]['type'] ?? '';
 	}
 }

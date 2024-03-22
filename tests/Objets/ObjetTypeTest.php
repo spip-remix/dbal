@@ -6,24 +6,27 @@ declare(strict_types=1);
  * Test unitaire de la fonction objet_type du fichier base/connect_sql.php
  */
 
-namespace Spip\Test\Sql\Objets;
+namespace SpipRemix\Component\Dbal\Test\Objets;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ObjetTypeTest extends TestCase
 {
-	public static function setUpBeforeClass(): void {
-		find_in_path('base/connect_sql.php', '', true);
+	public static function setUpBeforeClass(): void
+	{
+		\find_in_path('base/connect_sql.php', '', true);
 	}
 
 	#[DataProvider('providerConnectSqlObjetType')]
-	public function testConnectSqlObjetType($expected, ...$args): void {
+	public function testConnectSqlObjetType($expected, ...$args): void
+	{
 		$actual = objet_type(...$args);
 		$this->assertSame($expected, $actual);
 	}
 
-	public static function providerConnectSqlObjetType(): array {
+	public static function providerConnectSqlObjetType(): array
+	{
 		return [[
 			0 => 'article',
 			1 => 'articles',

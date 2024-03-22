@@ -1,2 +1,4501 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: "#^Binary operation \"\\.\\=\" between array\\|string and ' AS n' results in an error\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Call to function is_array\\(\\) with string\\|true will always evaluate to false\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Cannot access offset 'n' on array\\|string\\|false\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function description_table\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function erreur_squelette not found\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function prefixer_table_spip\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_allfetsel\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_allfetsel\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_allfetsel\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_allfetsel\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_allfetsel\\(\\) has parameter \\$select with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_allfetsel\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_allfetsel\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_allfetsel\\(\\) should return array but returns mixed\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_alltable\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_countsel\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_countsel\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_countsel\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_countsel\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_create\\(\\) has parameter \\$champs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_create\\(\\) has parameter \\$cles with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_delete\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_error_backtrace\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_explain\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_fetch\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_fetch_all\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_fetsel\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_fetsel\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_fetsel\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_fetsel\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_fetsel\\(\\) has parameter \\$select with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_fetsel\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_fetsel\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_fetsel\\(\\) should return array\\|string\\|false but returns mixed\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_get_select\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_get_select\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_get_select\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_get_select\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_get_select\\(\\) has parameter \\$select with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_get_select\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_getfetsel\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_getfetsel\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_getfetsel\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_getfetsel\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_getfetsel\\(\\) has parameter \\$select with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_getfetsel\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_hex\\(\\) should return string but returns false\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_in\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_in\\(\\) has parameter \\$valeurs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_in_quote\\(\\) has parameter \\$valeurs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_in_quote\\(\\) should return string but returns false\\.$#"
+			count: 2
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_in_select\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_in_select\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_in_select\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_in_select\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_in_select\\(\\) has parameter \\$select with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_in_select\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_insert\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_insertq\\(\\) has parameter \\$couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_insertq\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_insertq_multi\\(\\) has parameter \\$couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_insertq_multi\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_listdbs\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_multi\\(\\) should return string but returns false\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_query\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_replace\\(\\) has parameter \\$couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_replace\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_replace_multi\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_replace_multi\\(\\) has parameter \\$tab_couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_select\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_select\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_select\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_select\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_select\\(\\) has parameter \\$select with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_select\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_serveur\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_serveur\\(\\) should return array\\|string but returns array\\|bool\\|string\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_showtable\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_test_date\\(\\) should return bool but returns int\\|false\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_test_int\\(\\) should return bool but returns int\\|false\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_update\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_update\\(\\) has parameter \\$exp with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_update\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_update\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_updateq\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_updateq\\(\\) has parameter \\$exp with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Function sql_updateq\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Offset 'file' does not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\}\\.$#"
+			count: 2
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Offset 'file' does not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\}\\|null\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Offset 'line' does not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\}\\.$#"
+			count: 2
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Offset array\\|string does not exist on non\\-empty\\-array\\|non\\-falsy\\-string\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Parameter \\#1 \\$res of function sql_free expects object, mixed given\\.$#"
+			count: 3
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Parameter \\#1 \\$version of function spip_connect_sql expects string, int given\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, array\\|string given\\.$#"
+			count: 2
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Possibly invalid array key type array\\|string\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between bool and 'continue' will always evaluate to false\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Trying to invoke non\\-falsy\\-string but it might not be a callable\\.$#"
+			count: 44
+			path: base/abstract_sql.php
+
+		-
+			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array\\|string results in an error\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Cannot access offset 'last' on array\\|bool\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Constant _DIR_RESTREINT not found\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Constant _DIR_TMP not found\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Constant _ROOT_RESTREINT not found\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function _T not found\\.$#"
+			count: 2
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function _q\\(\\) has parameter \\$a with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function minipres not found\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function query_echappe_textes\\(\\) has parameter \\$uniqid with no type specified\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function query_echappe_textes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function query_reinjecte_textes\\(\\) has parameter \\$textes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function redirige_url_ecrire not found\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function spip_connect\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function spip_connect_db\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function spip_connect_main\\(\\) has parameter \\$connexion with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function spip_connect_sql\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function spip_connect_sql\\(\\) should return array\\|bool\\|string but returns callable\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 2
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function spip_sql_erreur\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Parameter \\#1 \\$function of function function_exists expects string, array\\|bool\\|string given\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Parameter \\#1 \\$query of function query_echappe_textes expects string, null given\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Parameter \\#3 \\$offset of function substr_replace expects array\\|int, int\\<0, max\\>\\|false given\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between \\*NEVER\\* and null will always evaluate to false\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Trying to invoke non\\-falsy\\-string but it might not be a callable\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: base/connect_sql.php
+
+		-
+			message: "#^Function alterer_base\\(\\) has parameter \\$tables_inc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/create.php
+
+		-
+			message: "#^Function alterer_base\\(\\) has parameter \\$tables_noinc with no type specified\\.$#"
+			count: 1
+			path: base/create.php
+
+		-
+			message: "#^Function alterer_base\\(\\) has parameter \\$up with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/create.php
+
+		-
+			message: "#^Function base_determine_autoinc\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/create.php
+
+		-
+			message: "#^Function creer_ou_upgrader_table\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/create.php
+
+		-
+			message: "#^Function maj_tables\\(\\) has parameter \\$upgrade_tables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/create.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: base/create.php
+
+		-
+			message: "#^Parameter \\#4 \\$autoinc of function sql_create expects bool, bool\\|string given\\.$#"
+			count: 2
+			path: base/create.php
+
+		-
+			message: "#^Variable \\$field might not be defined\\.$#"
+			count: 1
+			path: base/create.php
+
+		-
+			message: "#^Constant _ACCESS_FILE_NAME not found\\.$#"
+			count: 1
+			path: base/delete_all.php
+
+		-
+			message: "#^Constant _CACHE_RUBRIQUES not found\\.$#"
+			count: 1
+			path: base/delete_all.php
+
+		-
+			message: "#^Constant _FILE_CHMOD not found\\.$#"
+			count: 1
+			path: base/delete_all.php
+
+		-
+			message: "#^Constant _FILE_CONNECT not found\\.$#"
+			count: 1
+			path: base/delete_all.php
+
+		-
+			message: "#^Constant _FILE_META not found\\.$#"
+			count: 1
+			path: base/delete_all.php
+
+		-
+			message: "#^Function base_delete_all_dist\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: base/delete_all.php
+
+		-
+			message: "#^Function pipeline invoked with 2 parameters, 0 required\\.$#"
+			count: 1
+			path: base/delete_all.php
+
+		-
+			message: "#^Function spip_unlink not found\\.$#"
+			count: 5
+			path: base/delete_all.php
+
+		-
+			message: "#^Argument of an invalid type array\\|string supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Cannot access an offset on mixed\\.$#"
+			count: 3
+			path: base/dump.php
+
+		-
+			message: "#^Cannot access offset 'dump_status_copie' on mixed\\.$#"
+			count: 2
+			path: base/dump.php
+
+		-
+			message: "#^Cannot access offset 'errors' on mixed\\.$#"
+			count: 3
+			path: base/dump.php
+
+		-
+			message: "#^Cannot access offset 'etape' on mixed\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Cannot access offset 'id_auteur' on array\\|string\\|false\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Cannot access offset 'tables_copiees' on mixed\\.$#"
+			count: 23
+			path: base/dump.php
+
+		-
+			message: "#^Cannot access offset mixed on mixed\\.$#"
+			count: 2
+			path: base/dump.php
+
+		-
+			message: "#^Constant _DIR_DUMP not found\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function _T not found\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_copier_tables\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_copier_tables\\(\\) has parameter \\$tables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_detruire_copieur_si_besoin\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_inserer_copie\\(\\) has parameter \\$desc_dest with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_inserer_copie\\(\\) has parameter \\$rows with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_inserer_copie\\(\\) should return int but returns bool\\|int\\|string\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_liste_table_for_dump\\(\\) has parameter \\$exclude_tables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_liste_table_for_dump\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_lister_toutes_tables\\(\\) has parameter \\$exclude with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_lister_toutes_tables\\(\\) has parameter \\$tables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_lister_toutes_tables\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_preparer_table_dest\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_preparer_table_dest\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_preparer_table_dest\\(\\) should return array but returns array\\|bool\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_saisie_tables\\(\\) has parameter \\$exclude with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_saisie_tables\\(\\) has parameter \\$post with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_saisie_tables\\(\\) has parameter \\$tables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_saisie_tables\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_vider_tables_destination_copie\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_vider_tables_destination_copie\\(\\) has parameter \\$exclure_tables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function base_vider_tables_destination_copie\\(\\) has parameter \\$tables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function determine_upload not found\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function effacer_meta not found\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function include_fichiers_fonctions not found\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function lister_tables_noerase\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function lister_tables_noexport\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function lister_tables_noimport\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function pipeline invoked with 2 parameters, 0 required\\.$#"
+			count: 3
+			path: base/dump.php
+
+		-
+			message: "#^Function singulier_ou_pluriel not found\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function sinon not found\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function sous_repertoire not found\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 11
+			path: base/dump.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|string given\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_keys expects array, mixed given\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Parameter \\#2 \\$exist of function sql_drop_table expects bool, string given\\.$#"
+			count: 2
+			path: base/dump.php
+
+		-
+			message: "#^Parameter \\#2 \\$return of function var_export expects bool, int given\\.$#"
+			count: 1
+			path: base/dump.php
+
+		-
+			message: "#^Trying to invoke non\\-falsy\\-string but it might not be a callable\\.$#"
+			count: 4
+			path: base/dump.php
+
+		-
+			message: "#^Trying to invoke string but it might not be a callable\\.$#"
+			count: 3
+			path: base/dump.php
+
+		-
+			message: "#^Access to property \\$descr on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 6
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$from on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 3
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$from_type on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$group on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$having on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$id_boucle on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$id_table on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$join on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$limit on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$nom on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$order on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$primary on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$select on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 3
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$show on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$sql_serveur on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: base/objets.php
+
+		-
+			message: "#^Access to property \\$where on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 3
+			path: base/objets.php
+
+		-
+			message: "#^Argument of an invalid type array\\|string supplied for foreach, only iterables are supported\\.$#"
+			count: 3
+			path: base/objets.php
+
+		-
+			message: "#^Function array_set_merge\\(\\) has parameter \\$table with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function array_set_merge\\(\\) has parameter \\$valeur with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function base_auxiliaires\\(\\) has parameter \\$tables_auxiliaires with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function base_serial\\(\\) has parameter \\$tables_principales with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function calculer_select not found\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function id_table_objet\\(\\) should return string\\|null but returns int\\|string\\|null\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function instituer_boucle not found\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function lister_tables_auxiliaires\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function lister_tables_objets_sql\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function lister_tables_objets_sql\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function lister_tables_objets_surnoms\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function lister_tables_principales\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function lister_tables_spip\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function lister_toutes_tables\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function lister_types_surnoms\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function objet_lister_enfants\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function objet_lister_enfants_par_type\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function objet_lister_parents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function objet_lister_parents_par_type\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function objet_type_decrire_infos_enfants\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function objet_type_decrire_infos_parents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function pipeline invoked with 2 parameters, 0 required\\.$#"
+			count: 7
+			path: base/objets.php
+
+		-
+			message: "#^Function renseigner_table_objet_interfaces\\(\\) has parameter \\$infos with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function renseigner_table_objet_interfaces\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function renseigner_table_objet_sql\\(\\) has parameter \\$infos with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Function renseigner_table_objet_sql\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Instantiated class Spip\\\\Compilateur\\\\Noeud\\\\Boucle not found\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$objet of function objet_type_decrire_infos_parents expects string, string\\|null given\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function rtrim expects string, string\\|null given\\.$#"
+			count: 3
+			path: base/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strlen expects string, string\\|null given\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$table_sql of function renseigner_table_objet_interfaces expects string, int\\|string given\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of function table_objet expects string, string\\|null given\\.$#"
+			count: 2
+			path: base/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of function table_objet_sql expects string, string\\|null given\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Trying to invoke non\\-falsy\\-string but it might not be a callable\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Trying to invoke string but it might not be a callable\\.$#"
+			count: 6
+			path: base/objets.php
+
+		-
+			message: "#^Variable \\$parent might not be defined\\.$#"
+			count: 1
+			path: base/objets.php
+
+		-
+			message: "#^Variable \\$table might not be defined\\.$#"
+			count: 5
+			path: base/objets.php
+
+		-
+			message: "#^Call to function is_object\\(\\) with non\\-falsy\\-string\\|true will always evaluate to false\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Call to function is_resource\\(\\) with non\\-falsy\\-string\\|true will always evaluate to false\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Function _T not found\\.$#"
+			count: 7
+			path: base/repair.php
+
+		-
+			message: "#^Function admin_repair_tables\\(\\) should return string but returns false\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Function base_repair_dist\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Function calculer_rubriques not found\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Function effacer_meta not found\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Function generer_form_ecrire not found\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Function minipres not found\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Function pipeline invoked with 2 parameters, 0 required\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Function propager_les_secteurs not found\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Function spip_htmlentities not found\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, array\\|bool\\|string given\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 2
+			path: base/repair.php
+
+		-
+			message: "#^Variable \\$result_repair might not be defined\\.$#"
+			count: 1
+			path: base/repair.php
+
+		-
+			message: "#^Cannot access offset 'field' on non\\-empty\\-array\\|true\\.$#"
+			count: 1
+			path: base/trouver_table.php
+
+		-
+			message: "#^Constant _DIR_CACHE not found\\.$#"
+			count: 2
+			path: base/trouver_table.php
+
+		-
+			message: "#^Function base_trouver_table_dist\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/trouver_table.php
+
+		-
+			message: "#^Function base_trouver_table_dist\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/trouver_table.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 2
+			path: base/trouver_table.php
+
+		-
+			message: "#^Function spip_unlink not found\\.$#"
+			count: 1
+			path: base/trouver_table.php
+
+		-
+			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, array\\|string given\\.$#"
+			count: 1
+			path: base/trouver_table.php
+
+		-
+			message: "#^Part \\$objets_sql \\(array\\|string\\) of encapsed string cannot be cast to string\\.$#"
+			count: 1
+			path: base/trouver_table.php
+
+		-
+			message: "#^Constant _CACHE_CHEMIN not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Constant _CACHE_PIPELINES not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Constant _CACHE_PLUGINS_FCT not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Constant _CACHE_PLUGINS_OPT not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Constant _CACHE_PLUGINS_PATH not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Constant _CACHE_RUBRIQUES not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Constant _DIR_TMP not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Constant _IS_CLI not found\\.$#"
+			count: 2
+			path: base/upgrade.php
+
+		-
+			message: "#^Constant _TIME_OUT not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function _T not found\\.$#"
+			count: 3
+			path: base/upgrade.php
+
+		-
+			message: "#^Function auth_synchroniser_distant not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function charger_filtre not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function chemin_image not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function ecrire_meta not found\\.$#"
+			count: 4
+			path: base/upgrade.php
+
+		-
+			message: "#^Function effacer_meta not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function generer_url_ecrire not found\\.$#"
+			count: 4
+			path: base/upgrade.php
+
+		-
+			message: "#^Function http_script not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function install_debut_html not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function install_fin_html not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function installer_table_meta not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function maj_base\\(\\) has parameter \\$debut_page with no type specified\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function maj_base\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function maj_plugin\\(\\) has parameter \\$maj with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function maj_while\\(\\) has parameter \\$maj with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function maj_while\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function parametre_url not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function redirige_formulaire not found\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function serie_alter\\(\\) has parameter \\$q with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 11
+			path: base/upgrade.php
+
+		-
+			message: "#^Function spip_unlink not found\\.$#"
+			count: 7
+			path: base/upgrade.php
+
+		-
+			message: "#^Function spip_version_compare not found\\.$#"
+			count: 3
+			path: base/upgrade.php
+
+		-
+			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
+			count: 2
+			path: base/upgrade.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function str_starts_with expects string, callable given\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Parameter \\#2 \\$callback of function uksort expects callable\\(int\\|string, int\\|string\\)\\: int, 'spip_version_compare' given\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Part \\$f \\(callable\\(\\)\\: mixed\\) of encapsed string cannot be cast to string\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Trying to invoke string but it might not be a callable\\.$#"
+			count: 3
+			path: base/upgrade.php
+
+		-
+			message: "#^Variable \\$f might not be defined\\.$#"
+			count: 1
+			path: base/upgrade.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^Argument of an invalid type array\\|string supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array\\|string results in an error\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Call to function is_bool\\(\\) with float\\|int\\|string will always evaluate to false\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Cannot access offset 'Engine' on array\\|false\\|null\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Cannot access offset 'field' on non\\-empty\\-array\\|true\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Cannot access offset 'v' on array\\|false\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\|false\\|null\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Default value of the parameter \\#2 \\$couples \\(array\\) of function spip_mysql_insertq\\(\\) is incompatible with type string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function _mysql_remplacements_definitions_table\\(\\) has parameter \\$query with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function _mysql_remplacements_definitions_table\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function _mysql_remplacements_definitions_table\\(\\) should return array\\|string but returns array\\|string\\|null\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function calculer_mysql_expression\\(\\) has parameter \\$v with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function calculer_mysql_where\\(\\) has parameter \\$v with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function req_mysql_dist\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 10
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_alter\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_alter\\(\\) should return array\\|bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_count\\(\\) should return int but returns int\\<0, max\\>\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_countsel\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_countsel\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_countsel\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_countsel\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_countsel\\(\\) should return int\\|string but returns array\\|bool\\|resource\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_create\\(\\) has parameter \\$champs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_create\\(\\) has parameter \\$cles with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_create\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_create\\(\\) never returns resource so it can be removed from the return type\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_create\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_create\\(\\) should return array\\|resource\\|string\\|null but empty return statement found\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_create\\(\\) should return array\\|resource\\|string\\|null but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_create_base\\(\\) should return bool but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_create_view\\(\\) should return bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_delete\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_delete\\(\\) should return bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_delete\\(\\) should return bool\\|string but returns int\\<\\-1, max\\>\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_drop_table\\(\\) should return bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_drop_view\\(\\) should return bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_explain\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_explain\\(\\) should return array but returns array\\|false\\|null\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_fetch\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_get_charset\\(\\) has parameter \\$charset with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_get_charset\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_get_charset\\(\\) should return array but returns array\\|false\\|null\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_insert\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_insert\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_insertq\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_insertq\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_insertq_multi\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_insertq_multi\\(\\) has parameter \\$tab_couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_insertq_multi\\(\\) should return bool\\|int\\|string but returns array\\|bool\\|int\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_listdbs\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_order\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_query\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_quote\\(\\) has parameter \\$v with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_repair\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_repair\\(\\) should return array\\|bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_replace\\(\\) has parameter \\$couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_replace\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_replace\\(\\) should return bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_replace_multi\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_replace_multi\\(\\) has parameter \\$tab_couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_replace_multi\\(\\) should return bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_select\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_select\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_select\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_select\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_select\\(\\) has parameter \\$select with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_select\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_select\\(\\) never returns resource so it can be removed from the return type\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_select\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_select\\(\\) should return array\\|bool\\|resource\\|string but returns array\\|mysqli_result\\|string\\|true\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_select_as\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_showbase\\(\\) should return bool\\|mysqli_result\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_showtable\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_showtable\\(\\) should return array\\|string but returns array\\|mysqli_result\\|string\\|true\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_table_exists\\(\\) should return bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_update\\(\\) has parameter \\$champs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_update\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_update\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_update\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_update\\(\\) should return array\\|bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_updateq\\(\\) has parameter \\$champs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_updateq\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_updateq\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_updateq\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_updateq\\(\\) should return array\\|bool\\|string but empty return statement found\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function spip_mysql_updateq\\(\\) should return array\\|bool\\|string but returns array\\|bool\\|mysqli_result\\|string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Function trace_query_end not found\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^Function trace_query_start not found\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^Function utf8_noplanes not found\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^Instanceof between array\\|bool\\|resource\\|string and mysqli_result will always evaluate to false\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Offset 'charset' does not exist on non\\-empty\\-array\\|non\\-falsy\\-string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|string given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function stripos expects string, string\\|false given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$mysql of function mysqli_affected_rows expects mysqli, object given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$mysql of function mysqli_error expects mysqli, object given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$mysql of function mysqli_select_db expects mysqli, object given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$query of function query_echappe_textes expects string, string\\|false given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$r of function spip_mysql_fetch expects mysqli_result, array\\|bool\\|mysqli_result\\|string given\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$r of function spip_mysql_fetch expects mysqli_result, array\\|mysqli_result\\|string\\|true given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$r of function spip_mysql_fetch expects mysqli_result, bool\\|mysqli_result given\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$r of function spip_mysql_free expects mysqli_result, array\\|mysqli_result\\|string\\|true given\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$result of function mysqli_fetch_array expects mysqli_result, array\\|bool\\|mysqli_result\\|string given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$result of function mysqli_fetch_array expects mysqli_result, array\\|mysqli_result\\|string\\|true given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$result of function mysqli_fetch_assoc expects mysqli_result, array\\|mysqli_result\\|string\\|true given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$result of function mysqli_num_rows expects mysqli_result, Ressource given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function addslashes expects string, float\\|int\\|string given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strlen expects string, string\\|false given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function substr expects string, array\\|string given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#2 \\$mode of function mysqli_fetch_array expects int, int\\|string given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#2 \\$pieces of function join expects array, array\\|string given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, array\\|string given\\.$#"
+			count: 3
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, float\\|int\\|string given\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#2 \\$t of function spip_mysql_fetch expects string, null given\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\#4 \\$desc of function spip_mysql_insert expects array, array\\|bool given\\.$#"
+			count: 3
+			path: req/mysql.php
+
+		-
+			message: "#^Parameter \\$r of function spip_mysql_count\\(\\) has invalid type Ressource\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Part \\$v \\(array\\|string\\) of encapsed string cannot be cast to string\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^Result of \\|\\| is always false\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 2
+			path: req/mysql.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between float\\|int\\|string and null will always evaluate to false\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
+			count: 1
+			path: req/mysql.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 3
+			path: req/mysql.php
+
+		-
+			message: "#^Argument of an invalid type array\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Cannot access offset 0 on array\\<int\\|string, string\\|null\\>\\|false\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<int\\|string, string\\|null\\>\\|false\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function calculer_pg_expression\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function calculer_pg_expression\\(\\) has parameter \\$expression with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function calculer_pg_expression\\(\\) has parameter \\$join with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function calculer_pg_expression\\(\\) has parameter \\$v with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function calculer_pg_where\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function calculer_pg_where\\(\\) has parameter \\$v with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function mysql2pg_type\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function mysql2pg_type\\(\\) has parameter \\$v with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function req_pg_dist\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function req_pg_dist\\(\\) has parameter \\$addr with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function req_pg_dist\\(\\) has parameter \\$db with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function req_pg_dist\\(\\) has parameter \\$login with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function req_pg_dist\\(\\) has parameter \\$pass with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function req_pg_dist\\(\\) has parameter \\$port with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function req_pg_dist\\(\\) has parameter \\$prefixe with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 19
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_ajouter_champs_timestamp\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_ajouter_champs_timestamp\\(\\) has parameter \\$couples with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_ajouter_champs_timestamp\\(\\) has parameter \\$desc with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_ajouter_champs_timestamp\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_ajouter_champs_timestamp\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_add\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_add\\(\\) has parameter \\$arg with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_add\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_add\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_add\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_change\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_change\\(\\) has parameter \\$arg with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_change\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_change\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_change\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_drop\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_drop\\(\\) has parameter \\$arg with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_drop\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_drop\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_drop\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_modify\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_modify\\(\\) has parameter \\$arg with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_modify\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_modify\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_modify\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_rename\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_rename\\(\\) has parameter \\$arg with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_rename\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_rename\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_alter_rename\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_cite\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_cite\\(\\) has parameter \\$t with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_cite\\(\\) has parameter \\$v with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_count\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_count\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_count\\(\\) has parameter \\$res with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_count\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_countsel\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_countsel\\(\\) has parameter \\$from with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_countsel\\(\\) has parameter \\$groupby with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_countsel\\(\\) has parameter \\$having with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_countsel\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_countsel\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_countsel\\(\\) has parameter \\$where with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create\\(\\) has parameter \\$autoinc with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create\\(\\) has parameter \\$champs with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create\\(\\) has parameter \\$cles with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create\\(\\) has parameter \\$nom with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create\\(\\) has parameter \\$temporary with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_base\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_base\\(\\) has parameter \\$nom with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_base\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_base\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_index\\(\\) has parameter \\$champs with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_index\\(\\) should return bool but returns string\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_view\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_view\\(\\) has parameter \\$nom with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_view\\(\\) has parameter \\$query_select with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_view\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_create_view\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_date_proche\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_date_proche\\(\\) has parameter \\$champ with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_date_proche\\(\\) has parameter \\$interval with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_date_proche\\(\\) has parameter \\$unite with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_delete\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_delete\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_delete\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_delete\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_delete\\(\\) has parameter \\$where with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_drop_table\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_drop_table\\(\\) has parameter \\$exist with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_drop_table\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_drop_table\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_drop_table\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_drop_view\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_drop_view\\(\\) has parameter \\$exist with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_drop_view\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_drop_view\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_drop_view\\(\\) has parameter \\$view with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_errno\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_errno\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_error\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_error\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_error\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_error\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_explain\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_explain\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_explain\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_explain\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_fetch\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_fetch\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_fetch\\(\\) has parameter \\$res with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_fetch\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_fetch\\(\\) has parameter \\$t with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_free\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_free\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_free\\(\\) has parameter \\$res with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_free\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_from\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_from\\(\\) has parameter \\$from with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_from\\(\\) has parameter \\$prefixe with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_fromfield\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_fromfield\\(\\) has parameter \\$arg with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_frommysql\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_frommysql\\(\\) has parameter \\$arg with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_groupby\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_groupby\\(\\) has parameter \\$from with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_groupby\\(\\) has parameter \\$groupby with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_groupby\\(\\) has parameter \\$select with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_hex\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_hex\\(\\) has parameter \\$v with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_in\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_in\\(\\) has parameter \\$not with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_in\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_in\\(\\) has parameter \\$val with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_in\\(\\) has parameter \\$valeurs with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insert\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insert\\(\\) has parameter \\$champs with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insert\\(\\) has parameter \\$desc with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insert\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insert\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insert\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insert\\(\\) has parameter \\$valeurs with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq\\(\\) has parameter \\$couples with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq\\(\\) has parameter \\$desc with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq_multi\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq_multi\\(\\) has parameter \\$desc with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq_multi\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq_multi\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq_multi\\(\\) has parameter \\$tab_couples with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_insertq_multi\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_listdbs\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_listdbs\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_multi\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_multi\\(\\) has parameter \\$lang with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_multi\\(\\) has parameter \\$objet with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_orderby\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_orderby\\(\\) has parameter \\$order with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_orderby\\(\\) has parameter \\$select with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_query\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_query\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_query\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_query\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_query_simple\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_query_simple\\(\\) has parameter \\$link with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_query_simple\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_quote\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_quote\\(\\) has parameter \\$type with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_quote\\(\\) has parameter \\$v with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace\\(\\) has parameter \\$desc with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace\\(\\) has parameter \\$values with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace_multi\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace_multi\\(\\) has parameter \\$desc with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace_multi\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace_multi\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace_multi\\(\\) has parameter \\$tab_couples with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_replace_multi\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_seek\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_seek\\(\\) has parameter \\$r with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_seek\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_seek\\(\\) has parameter \\$row_number with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_seek\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select\\(\\) has parameter \\$from with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select\\(\\) has parameter \\$groupby with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select\\(\\) has parameter \\$having with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select\\(\\) has parameter \\$limit with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select\\(\\) has parameter \\$orderby with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select\\(\\) has parameter \\$select with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select\\(\\) has parameter \\$where with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select_as\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_select_as\\(\\) has parameter \\$args with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_sequence\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_sequence\\(\\) has parameter \\$raw with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_sequence\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_set_connect_charset\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_set_connect_charset\\(\\) has parameter \\$charset with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_set_connect_charset\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_set_connect_charset\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_showbase\\(\\) has invalid return type ressource\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_showtable\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_showtable\\(\\) has parameter \\$nom_table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_showtable\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_showtable\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_trace_query\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_trace_query\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_trace_query\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_update\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_update\\(\\) has parameter \\$couples with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_update\\(\\) has parameter \\$desc with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_update\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_update\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_update\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_update\\(\\) has parameter \\$where with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_updateq\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_updateq\\(\\) has parameter \\$couples with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_updateq\\(\\) has parameter \\$desc with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_updateq\\(\\) has parameter \\$requeter with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_updateq\\(\\) has parameter \\$serveur with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_updateq\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_pg_updateq\\(\\) has parameter \\$where with no type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function spip_versions_pg\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function trace_query_end not found\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function trace_query_start not found\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(string /array \\$champs \\: liste de champs sur lesquels s'applique l'index\\)\\: Unexpected token \"/array\", expected variable at offset 145$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Parameter \\#1 \\$nom of function spip_pg_create_index expects string, string\\|null given\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Parameter \\#1 \\$result of function pg_fetch_array expects PgSql\\\\Result, resource given\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strlen expects string, string\\|false given\\.$#"
+			count: 2
+			path: req/pg.exp.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function trim expects string, string\\|null given\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, array\\|float\\|int\\|string\\|false\\|null given\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|null given\\.$#"
+			count: 2
+			path: req/pg.exp.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
+			count: 30
+			path: req/pg.exp.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
+			count: 2
+			path: req/pg.exp.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 2
+			path: req/pg.exp.php
+
+		-
+			message: "#^Trying to invoke string but it might not be a callable\\.$#"
+			count: 1
+			path: req/pg.exp.php
+
+		-
+			message: "#^Function req_sqlite3_dist\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Function req_sqlite3_dist\\(\\) has parameter \\$addr with no type specified\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Function req_sqlite3_dist\\(\\) has parameter \\$db with no type specified\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Function req_sqlite3_dist\\(\\) has parameter \\$login with no type specified\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Function req_sqlite3_dist\\(\\) has parameter \\$pass with no type specified\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Function req_sqlite3_dist\\(\\) has parameter \\$port with no type specified\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Function req_sqlite3_dist\\(\\) has parameter \\$prefixe with no type specified\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Function spip_sqlite3_constantes\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Function spip_versions_sqlite3\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Parameter \\#1 \\$version of function _sqlite_charger_version expects string, int given\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Parameter \\#7 \\$sqlite_version of function req_sqlite_dist expects string, int given\\.$#"
+			count: 1
+			path: req/sqlite3.php
+
+		-
+			message: "#^Call to function is_int\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Call to method traiter\\(\\) on an unknown class Spip\\\\Texte\\\\Collecteur\\\\Multis\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_add_function\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_add_function\\(\\) has parameter \\$r with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_func_ceil\\(\\) should return int but returns float\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_func_date_format\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_func_floor\\(\\) should return int but returns float\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_func_greatest\\(\\) should return int but returns array\\<int\\>\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_func_instr\\(\\) should return int but returns int\\<0, max\\>\\|false\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_func_least\\(\\) should return int but returns array\\<int\\>\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_func_preg_replace\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_func_regexp_match\\(\\) should return bool but returns int\\|false\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_func_unix_timestamp\\(\\) should return int but returns int\\|false\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function _sqlite_init_functions\\(\\) never returns void so it can be removed from the return type\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Instantiated class Spip\\\\Texte\\\\Collecteur\\\\Multis not found\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^PHPDoc tag @return with type void is incompatible with native type string\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Parameter \\#1 \\$baseObject of function date_diff expects DateTimeInterface, DateTime\\|false given\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Parameter \\#1 \\$d of function _sqlite_func_unix_timestamp expects string, int given\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\<string\\>, array\\<int\\|string, array\\<string\\>\\> given\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Parameter \\#2 \\$d of function _sqlite_func_date expects int, string given\\.$#"
+			count: 3
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Parameter \\#2 \\$targetObject of function date_diff expects DateTimeInterface, DateTime\\|false given\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Parameter \\#2 \\$timestamp of function strftime expects int\\|null, int\\|false given\\.$#"
+			count: 1
+			path: req/sqlite_fonctions.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Argument of an invalid type array\\|string supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 2
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array\\|string results in an error\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Call to function is_bool\\(\\) with float\\|int\\|string will always evaluate to false\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Call to function is_null\\(\\) with float\\|int\\|string will always evaluate to false\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Call to function is_object\\(\\) with array\\|bool\\|string will always evaluate to false\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Cannot access offset 'field' on non\\-empty\\-array\\|true\\.$#"
+			count: 2
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Cannot access offset 'zzzzsqlitecount' on mixed\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Cannot access offset mixed on mixed\\.$#"
+			count: 2
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Cannot access offset string on mixed\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Cannot call method rowCount\\(\\) on array\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\|true\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Cannot cast mixed to string\\.$#"
+			count: 3
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\|false\\|null\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Constant SPIP_SQLITE3_ASSOC not found\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Constant SPIP_SQLITE3_NUM not found\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Constant _DIR_DB not found\\.$#"
+			count: 5
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Constant _DIR_ETC not found\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Constant _SPIP_CHMOD not found\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Default value of the parameter \\#3 \\$option \\(true\\) of function spip_sqlite_create_base\\(\\) is incompatible with type string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Default value of the parameter \\#4 \\$desc \\(string\\) of function spip_sqlite_update\\(\\) is incompatible with type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_ajouter_champs_timestamp\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_ajouter_champs_timestamp\\(\\) has parameter \\$couples with no type specified\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_ajouter_champs_timestamp\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_calculer_expression\\(\\) has parameter \\$v with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_calculer_order\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_calculer_select_as\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_calculer_where\\(\\) has parameter \\$v with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_charger_version\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_last_error_from_link\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_last_error_from_link\\(\\) has parameter \\$link with no type specified\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_modifier_table\\(\\) has parameter \\$colonne with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_modifier_table\\(\\) has parameter \\$opt with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_modifier_table\\(\\) has parameter \\$table with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_ref_fonctions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_remplacements_definitions_table\\(\\) has parameter \\$query with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_requete_create\\(\\) has parameter \\$champs with no type specified\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_requete_create\\(\\) has parameter \\$cles with no type specified\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_requete_create\\(\\) has parameter \\$nom with no type specified\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function _sqlite_requete_create\\(\\) should return bool\\|string but empty return statement found\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function preg_files not found\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function req_sqlite_dist\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function sous_repertoire not found\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 13
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_countsel\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_countsel\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_countsel\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_countsel\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_countsel\\(\\) should return bool\\|int\\|string but returns array\\|bool\\|int\\|resource\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create\\(\\) has parameter \\$champs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create\\(\\) has parameter \\$cles with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create\\(\\) never returns resource so it can be removed from the return type\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create\\(\\) should return array\\|resource\\|string\\|null but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create\\(\\) should return array\\|resource\\|string\\|null but returns bool\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create\\(\\) should return array\\|resource\\|string\\|null but returns false\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create_index\\(\\) has parameter \\$champs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create_index\\(\\) should return bool\\|string but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_create_view\\(\\) should return bool\\|string but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_delete\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_delete\\(\\) should return bool\\|string but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_delete\\(\\) should return bool\\|string but returns int\\<0, max\\>\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_drop_index\\(\\) should return bool but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_drop_table\\(\\) never returns string so it can be removed from the return type\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_drop_view\\(\\) should return bool\\|string but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_explain\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_explain\\(\\) should return array\\|bool\\|string but returns array\\|false\\|null\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_fetch\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_fetch\\(\\) should return array\\|false\\|null but returns mixed\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_get_charset\\(\\) has parameter \\$charset with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_hex\\(\\) should return string but returns float\\|int\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_insert\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_insert\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_insert\\(\\) should return array\\|bool\\|int\\|string but returns array\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\|true\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_insertq\\(\\) has parameter \\$couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_insertq\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_insertq\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_insertq_multi\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_insertq_multi\\(\\) has parameter \\$tab_couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_listdbs\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_optimize\\(\\) should return bool\\|string but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_query\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_quote\\(\\) has parameter \\$v with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_replace\\(\\) has parameter \\$couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_replace\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_replace\\(\\) should return bool\\|string but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_replace_multi\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_replace_multi\\(\\) has parameter \\$tab_couples with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_replace_multi\\(\\) should return bool\\|string but returns bool\\|string\\|null\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_select\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_select\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_select\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_select\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_select\\(\\) has parameter \\$select with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_select\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_select\\(\\) never returns resource so it can be removed from the return type\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_select\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_select\\(\\) should return array\\|bool\\|resource\\|string but returns array\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\|true\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_select\\(\\) should return array\\|bool\\|resource\\|string but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_showbase\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_showtable\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_showtable\\(\\) should return array\\|string but returns array\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\|true\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_table_exists\\(\\) should return bool\\|string but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_update\\(\\) has parameter \\$champs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_update\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_update\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_update\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_update\\(\\) should return array\\|bool\\|string but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_updateq\\(\\) has parameter \\$champs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_updateq\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_updateq\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_updateq\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_updateq\\(\\) should return array\\|bool\\|string but empty return statement found\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_sqlite_updateq\\(\\) should return array\\|bool\\|string but returns array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_version_compare not found\\.$#"
+			count: 2
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Function spip_versions_sqlite\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 3
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^PHPDoc tag @return has invalid value \\(\\)\\: Unexpected token \"\\\\n \", expected type at offset 314$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_keys expects array, mixed given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$champ of function _sqlite_collate_ci expects string, string\\|null given\\.$#"
+			count: 2
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$query of function spip_sqlite_query expects string, string\\|true given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$query of static method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Sqlite\\:\\:executer_requete\\(\\) expects string, string\\|true given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$query of static method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Sqlite\\:\\:traduire_requete\\(\\) expects string, array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$r of function spip_sqlite_fetch expects SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement, array\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string\\|true given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$r of function spip_sqlite_fetch expects SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement, array\\|bool\\|SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement\\|string given\\.$#"
+			count: 4
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$r of function spip_sqlite_fetch expects SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\PDOStatement, resource given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$search of function str_replace expects array\\|string, int\\|string\\|null given\\.$#"
+			count: 2
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function rtrim expects string, string\\|null given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of method PDO\\:\\:quote\\(\\) expects string, float\\|int\\|string given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#1 \\$table of function sql_showtable expects string, int\\|string\\|null given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, array\\|string given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, mixed given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, float\\|int\\|string given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|null given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#2 \\$t of function spip_sqlite_fetch expects string, null given\\.$#"
+			count: 3
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#3 \\$desc of function _sqlite_ajouter_champs_timestamp expects string, array given\\.$#"
+			count: 2
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#3 \\$desc of function _sqlite_ajouter_champs_timestamp expects string, array\\|true given\\.$#"
+			count: 3
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#3 \\$length of function substr expects int\\|null, int\\<0, max\\>\\|false given\\.$#"
+			count: 2
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
+			count: 4
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, float\\|int\\|string given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Parameter \\#4 \\$desc of function spip_sqlite_insert expects array, array\\|true given\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Part \\$k \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Part \\$v \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Trying to invoke non\\-falsy\\-string but it might not be a callable\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Trying to invoke string but it might not be a callable\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Variable \\$v on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: req/sqlite_generique.php
+
+		-
+			message: "#^Cannot call method lastInsertId\\(\\) on PDO\\|null\\.$#"
+			count: 1
+			path: src/Sqlite/Requeteur.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: src/Sqlite/Requeteur.php
+
+		-
+			message: "#^Function trace_query_end not found\\.$#"
+			count: 1
+			path: src/Sqlite/Requeteur.php
+
+		-
+			message: "#^Function trace_query_start not found\\.$#"
+			count: 1
+			path: src/Sqlite/Requeteur.php
+
+		-
+			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Requeteur\\:\\:executer_requete\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Sqlite/Requeteur.php
+
+		-
+			message: "#^Parameter \\#2 \\$link of function _sqlite_is_version expects string, PDO\\|null given\\.$#"
+			count: 1
+			path: src/Sqlite/Requeteur.php
+
+		-
+			message: "#^Property SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Requeteur\\:\\:\\$sqlite_version \\(string\\) does not accept bool\\|int\\.$#"
+			count: 1
+			path: src/Sqlite/Requeteur.php
+
+		-
+			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Sqlite\\:\\:annuler_transaction\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Sqlite/Sqlite.php
+
+		-
+			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Sqlite\\:\\:demarrer_transaction\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Sqlite/Sqlite.php
+
+		-
+			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Sqlite\\:\\:executer_requete\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Sqlite/Sqlite.php
+
+		-
+			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Sqlite\\:\\:finir_transaction\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Sqlite/Sqlite.php
+
+		-
+			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Sqlite\\:\\:last_insert_id\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Sqlite/Sqlite.php
+
+		-
+			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: src/Sqlite/Traducteur.php
+
+		-
+			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Traducteur\\:\\:_remplacerDateParTime\\(\\) has parameter \\$matches with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Sqlite/Traducteur.php
+
+		-
+			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Traducteur\\:\\:_remplacerFieldParCase\\(\\) has parameter \\$matches with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Sqlite/Traducteur.php
+
+		-
+			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Traducteur\\:\\:traduire_requete\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Sqlite/Traducteur.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function str_contains expects string, string\\|false\\|null given\\.$#"
+			count: 1
+			path: src/Sqlite/Traducteur.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strlen expects string, string\\|false given\\.$#"
+			count: 2
+			path: src/Sqlite/Traducteur.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strtoupper expects string, bool given\\.$#"
+			count: 1
+			path: src/Sqlite/Traducteur.php
+
+		-
+			message: "#^Parameter \\#2 \\$offset of function substr expects int, string given\\.$#"
+			count: 1
+			path: src/Sqlite/Traducteur.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|false\\|null given\\.$#"
+			count: 1
+			path: src/Sqlite/Traducteur.php
+
+		-
+			message: "#^Property SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Traducteur\\:\\:\\$query \\(string\\) does not accept string\\|null\\.$#"
+			count: 3
+			path: src/Sqlite/Traducteur.php
+
+		-
+			message: "#^Property SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Traducteur\\:\\:\\$textes type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Sqlite/Traducteur.php

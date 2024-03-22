@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Spip\Test\Sql;
+namespace SpipRemix\Component\Dbal\Test;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Depends;
@@ -12,7 +12,7 @@ class SqlSchemaTableTest extends TestCase
 {
 	public static function setUpBeforeClass(): void
 	{
-		find_in_path('base/abstract_sql.php', '', true);
+		\find_in_path('base/abstract_sql.php', '', true);
 	}
 
 	#[DataProvider('providerTablesData')]
@@ -38,7 +38,8 @@ class SqlSchemaTableTest extends TestCase
 	 */
 	#[Depends('testCreateTables')]
 	#[DataProvider('providerTablesData')]
-	public function testShowTable($table, $desc, $data) {
+	public function testShowTable($table, $desc, $data)
+	{
 		// lire la structure de la table
 		// la structure doit avoir le meme nombre de champs et de cle
 		// attention : la primary key DOIT etre dans les cle aussi
@@ -49,7 +50,8 @@ class SqlSchemaTableTest extends TestCase
 
 	#[Depends('testCreateTables')]
 	#[DataProvider('providerTablesData')]
-	public function testInsertData($table, $desc, $data) {
+	public function testInsertData($table, $desc, $data)
+	{
 		$this->assertNotFalse(sql_insertq_multi($table, $data));
 		$this->assertEquals(count($data), sql_countsel($table));
 	}
@@ -61,7 +63,8 @@ class SqlSchemaTableTest extends TestCase
 	 * utilise sql_quote, sql_getfetsel, sql_update et sql_updateq.
 	 */
 	#[Depends('testInsertData')]
-	public function testMajTimestamp() {
+	public function testMajTimestamp()
+	{
 		$table = 'spip_test_tintin';
 		$where1 = 'id_tintin=' . sql_quote(1);
 		$where2 = 'id_tintin=' . sql_quote(2);
@@ -115,7 +118,8 @@ class SqlSchemaTableTest extends TestCase
 	 * Selections diverses selon criteres
 	 */
 	#[Depends('testInsertData')]
-	public function testSelections() {
+	public function testSelections()
+	{
 		$data = $this->providerTablesData()['tintin'][2];
 
 		$res = sql_select('*', 'spip_test_tintin');
@@ -149,7 +153,8 @@ class SqlSchemaTableTest extends TestCase
 
 
 	#[Depends('testInsertData')]
-	public function testSelectionsMulti() {
+	public function testSelectionsMulti()
+	{
 		$data = $this->providerTablesData()['milou'][2];
 
 		// selection avec sql_multi
@@ -161,35 +166,29 @@ class SqlSchemaTableTest extends TestCase
 		$this->assertEquals(1, sql_fetch($res)['id_milou'], 'sql_multi order by multi raté');
 
 		// le bon texte avec multi
-		foreach (
-			[
+		foreach ([
 				'fr' => 'Crac',
 				'en' => 'Krack',
-			] as $lg => $res
-		) {
+			] as $lg => $res) {
 			$multi = sql_getfetsel(sql_multi('grrrr', $lg), 'spip_test_milou', 'id_milou=' . sql_quote(2));
 			$this->assertEquals($res, $multi, 'sql_multi mal rendu');
 		}
 
 		// le bon texte avec multi et accents
-		foreach (
-			[
+		foreach ([
 				'fr' => 'Aérien',
 				'en' => 'Aérieny',
-			] as $lg => $res
-		) {
+			] as $lg => $res) {
 			$multi = sql_getfetsel(sql_multi('alcool', $lg), 'spip_test_haddock', 'id_haddock=' . sql_quote(2));
 			$this->assertEquals($res, $multi, 'sql_multi avec accents, mal rendu');
 		}
 
 		// le bon texte avec multi et debut et fin de chaine
-		foreach (
-			[
+		foreach ([
 				'fr' => 'Un début de chaine : Vinasse, et [la fin]',
 				'en' => 'Un début de chaine : Vinassy, et [la fin]',
 				'de' => 'Un début de chaine : Vinasse, et [la fin]',
-			] as $lg => $res
-		) {
+			] as $lg => $res) {
 			$multi = sql_getfetsel(sql_multi('alcool', $lg), 'spip_test_haddock', 'id_haddock=' . sql_quote(4));
 			$this->assertEquals($res, $multi, 'sql_multi avec crochets, mal rendu');
 		}
@@ -201,7 +200,8 @@ class SqlSchemaTableTest extends TestCase
 	 * Selections diverses entre plusieurs tables
 	 */
 	#[Depends('testInsertData')]
-	public function testSelectionsEntreTable() {
+	public function testSelectionsEntreTable()
+	{
 		// selection 2 tables
 		// ! nombre en dur !
 		$res = sql_select(
@@ -265,20 +265,18 @@ class SqlSchemaTableTest extends TestCase
 	 * Selections mathematiques
 	 */
 	#[Depends('testInsertData')]
-	function testMathFunctions() {
-		foreach (
-			[
+	function testMathFunctions()
+	{
+		foreach ([
 				'COUNT' => 3,
 				'SUM' => 9000,
 				'AVG' => 3000,
-			] as $func => $expected
-		) {
+			] as $func => $expected) {
 			$nb = sql_getfetsel("{$func}(un_int) AS nb", ['spip_test_tintin']);
 			$this->assertEquals($expected, $nb, "Selection {$func} en echec");
 		}
 
-		foreach (
-			[
+		foreach ([
 				'EXP(0)' => exp(0),
 				'ROUND(3.56)' => round(3.56),
 				'ROUND(3.5684,2)' => round(3.5684, 2),
@@ -292,8 +290,7 @@ class SqlSchemaTableTest extends TestCase
 				'2/2' => (2 / 2),
 				'md5(8)' => md5('8'),
 				'md5(' . sql_quote('a') . ')' => md5('a'),
-			] as $func => $expected
-		) {
+			] as $func => $expected) {
 			$nb = sql_getfetsel("{$func} AS nb", ['spip_test_tintin'], ['id_tintin=' . sql_quote(1)]);
 			$this->assertEquals($expected, $nb, "Selection {$func} en echec");
 		}
@@ -304,13 +301,12 @@ class SqlSchemaTableTest extends TestCase
 	 */
 	#[Depends('testInsertData')]
 
-	function testStringFunctions() {
-		foreach (
-			[
+	function testStringFunctions()
+	{
+		foreach ([
 				'CONCAT(' . sql_quote('cou') . ',' . sql_quote('cou') . ')' => 'coucou',
 				'CONCAT(' . sql_quote('cou,') . ',' . sql_quote('cou') . ')' => 'cou,cou',
-			] as $func => $expected
-		) {
+			] as $func => $expected) {
 			$nb = sql_getfetsel("{$func} AS nb", ['spip_test_tintin'], ['id_tintin=' . sql_quote(1)]);
 			$this->assertEquals($expected, $nb, "Selection {$func} en echec");
 		}
@@ -321,7 +317,8 @@ class SqlSchemaTableTest extends TestCase
 	 */
 	#[Depends('testCreateTables')]
 
-	function testErrorFunctions() {
+	function testErrorFunctions()
+	{
 		// requete sans erreur
 		sql_select('*', 'spip_test_tintin');
 		$this->assertEquals('', sql_error(), 'sql_error() non vide lors d’une requete sans erreur');
@@ -337,7 +334,8 @@ class SqlSchemaTableTest extends TestCase
 	 * Update de data
 	 */
 	#[Depends('testInsertData')]
-	public function testUpdateData() {
+	public function testUpdateData()
+	{
 		// ajouter un champ
 		$nb = sql_getfetsel('un_bigint', 'spip_test_tintin', 'id_tintin=' . sql_quote(1));
 		sql_update('spip_test_tintin', [
@@ -352,7 +350,8 @@ class SqlSchemaTableTest extends TestCase
 	 */
 	#[Depends('testInsertData')]
 
-	public function test_delete_data() {
+	public function test_delete_data()
+	{
 		$nb = sql_countsel('spip_test_tintin');
 		// supprimer une ligne
 		sql_delete('spip_test_tintin', 'id_tintin=' . sql_quote(1));
@@ -367,7 +366,8 @@ class SqlSchemaTableTest extends TestCase
 	 * Alter colonne
 	 */
 	#[Depends('testCreateTables')]
-	function testAlterColumns() {
+	function testAlterColumns()
+	{
 		$table = 'spip_test_tintin';
 
 		// supprimer une colonne
@@ -419,7 +419,8 @@ class SqlSchemaTableTest extends TestCase
 	 */
 	#[Depends('testCreateTables')]
 
-	public function testAlterRenameTable() {
+	public function testAlterRenameTable()
+	{
 
 		$table_before = 'spip_test_tintin';
 		$table_after = 'spip_test_castafiore';
@@ -443,7 +444,8 @@ class SqlSchemaTableTest extends TestCase
 	 */
 	#[Depends('testCreateTables')]
 
-	public function testAlterIndex() {
+	public function testAlterIndex()
+	{
 		$table = 'spip_test_milou';
 
 		// supprimer un index
@@ -483,7 +485,8 @@ class SqlSchemaTableTest extends TestCase
 	 */
 	#[Depends('testCreateTables')]
 
-	public function testAlterPrimary() {
+	public function testAlterPrimary()
+	{
 		$table = 'spip_test_kirikou';
 		sql_drop_table($table, true);
 
@@ -523,7 +526,8 @@ class SqlSchemaTableTest extends TestCase
 	#[Depends('testAlterColumns')]
 	#[Depends('testAlterIndex')]
 
-	function testAlterMultiple() {
+	function testAlterMultiple()
+	{
 		$table = 'spip_test_milou';
 
 		// supprimer des colonnes
@@ -571,9 +575,7 @@ class SqlSchemaTableTest extends TestCase
 						"un_texte" => "TEXT NOT NULL DEFAULT ''",
 						"maj" => "TIMESTAMP"
 					],
-					'key' => [
-
-					],
+					'key' => [],
 					'nb_key_attendues' => 1 // attention : la primary key DOIT etre dans les cle aussi
 				],
 				[

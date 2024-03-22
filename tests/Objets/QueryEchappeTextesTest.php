@@ -6,28 +6,34 @@ declare(strict_types=1);
  * Test unitaire de la fonction query_echappe_textes du fichier base/connect_sql.php
  */
 
-namespace Spip\Test\Sql\Objets;
+namespace SpipRemix\Component\Dbal\Test\Objets;
 
+use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversFunction('query_echappe_textes')]
 class QueryEchappeTextesTest extends TestCase
 {
-	public static function setUpBeforeClass(): void {
-		find_in_path('base/connect_sql.php', '', true);
+	public static function setUpBeforeClass(): void
+	{
+		\find_in_path('base/connect_sql.php', '', true);
 	}
 
-	protected function setUp(): void {
+	protected function setUp(): void
+	{
 		query_echappe_textes('', 'uniqid');
 	}
 
 	#[DataProvider('providerConnectSqlQueryEchappeTextes')]
-	public function testConnectSqlQueryEchappeTextes($expected, ...$args): void {
+	public function testConnectSqlQueryEchappeTextes($expected, ...$args): void
+	{
 		$actual = query_echappe_textes(...$args);
 		$this->assertSame($expected, $actual);
 	}
 
-	public static function providerConnectSqlQueryEchappeTextes(): array {
+	public static function providerConnectSqlQueryEchappeTextes(): array
+	{
 		$md5 = substr(md5('uniqid'), 0, 4);
 		return [
 			[

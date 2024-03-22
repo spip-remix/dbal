@@ -6,24 +6,27 @@ declare(strict_types=1);
  * Test unitaire de la fonction table_objet_sql du fichier base/connect_sql.php
  */
 
-namespace Spip\Test\Sql\Objets;
+namespace SpipRemix\Component\Dbal\Test\Objets;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class TableObjetSqlTest extends TestCase
 {
-	public static function setUpBeforeClass(): void {
-		find_in_path('base/connect_sql.php', '', true);
+	public static function setUpBeforeClass(): void
+	{
+		\find_in_path('base/connect_sql.php', '', true);
 	}
 
 	#[DataProvider('providerConnectSqlTableObjetSql')]
-	public function testConnectSqlTableObjetSql($expected, ...$args): void {
+	public function testConnectSqlTableObjetSql($expected, ...$args): void
+	{
 		$actual = table_objet_sql(...$args);
 		$this->assertSame($expected, $actual);
 	}
 
-	public static function providerConnectSqlTableObjetSql(): array {
+	public static function providerConnectSqlTableObjetSql(): array
+	{
 		return [[
 			0 => 'spip_articles',
 			1 => 'articles',
