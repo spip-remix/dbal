@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SpipRemix\Component\Dbal\Test\Fixtures;
 
 use SpipRemix\Component\Dbal\FieldInterface;
-use SpipRemix\Component\Dbal\SchemaInterface;
 use SpipRemix\Component\Dbal\TableInterface;
 
 class StubField implements FieldInterface

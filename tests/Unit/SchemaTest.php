@@ -12,7 +12,7 @@ use SpipRemix\Component\Dbal\TableInterface;
 #[CoversClass(Schema::class)]
 class SchemaTest extends TestCase
 {
-    public function testInstanciation(): void
+    public function testInstantiation(): void
     {
         // Given
         $arraySchema = $this->getSchema();

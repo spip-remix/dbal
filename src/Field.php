@@ -19,9 +19,13 @@ class Field implements FieldInterface
         private ?string $default = \null,
         private bool $nullable = \false,
     ) {
-        if ($name == '' || $dataType == '') {
-            throw new \Exception('Un champ doit avoir un nom et un dataType.');
+        $exploded = $this->explodeDatatype($name, $dataType);
+        if (\is_null($exploded)) {
+            throw new \Exception('Un champ doit avoir et nom et un dataType valide.');
         }
+
+        $this->default = $default ?? ($exploded['default'] ?? \null);
+        $this->nullable = $nullable ?: ($exploded['nullable'] ?? \false);
     }
 
     public function getName(): string
@@ -67,5 +71,37 @@ class Field implements FieldInterface
         $this->table = $table;
 
         return $this;
+    }
+
+    /**
+     * Convert the dataType into $dataType, $default, $nullable..
+     *
+     * @param string $dataType
+     *
+     * @return array{name:non-empty-string,dataType:non-empty-string,default?:?non-empty-string,nullable?:bool}|null
+     */
+    private function explodeDatatype(string $name, string $dataType): ?array
+    {
+        if ($name == '' || $dataType == '') {
+            return null;
+        }
+        $formattedDataType = ['name' => $name];
+
+        $nullable = str_contains(strtoupper($dataType), 'NOT NULL');
+        $dataType = (string) preg_replace(', ?NOT NULL,i', '', $dataType);
+        $default = str_contains(strtoupper($dataType), 'DEFAULT');
+        if ($default && preg_match(',DEFAULT (.+) ?,i', $dataType, $matches)) {
+            /** @var list{non-empty-string,non-empty-string} $matches */
+            $formattedDataType['default'] = $matches[1];
+            $dataType = (string) preg_replace(',' . $matches[0] . ',i', '', $dataType);
+        }
+        $dataType = trim($dataType);
+        if ($dataType == '') {
+            return null;
+        }
+        $formattedDataType['dataType'] = $dataType;
+        $formattedDataType['nullable'] = $nullable;
+
+        return $formattedDataType;
     }
 }

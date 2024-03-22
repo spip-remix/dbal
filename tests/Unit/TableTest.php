@@ -13,7 +13,7 @@ use SpipRemix\Component\Dbal\Test\Fixtures\StubSchema;
 #[CoversClass(Table::class)]
 class TableTest extends TestCase
 {
-    public function testInstanciation(): void
+    public function testInstantiation(): void
     {
         // Given
         $arraySchema = $this->getSchema();

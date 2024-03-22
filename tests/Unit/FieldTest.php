@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace SpipRemix\Component\Dbal\Test\Unit;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use SpipRemix\Component\Dbal\FieldInterface;
+use PHPUnit\Framework\Attributes\CoversClass;   
 use SpipRemix\Component\Dbal\Field;
 use SpipRemix\Component\Dbal\TableInterface;
-use SpipRemix\Component\Dbal\Test\Fixtures\StubField;
-use SpipRemix\Component\Dbal\Test\Fixtures\StubSchema;
 use SpipRemix\Component\Dbal\Test\Fixtures\StubTable;
 
 #[CoversClass(Field::class)]
 class FieldTest extends TestCase
 {
-    public function testInstanciation(): void
+    public function testInstantiation(): void
     {
         // Given
         $arraySchema = $this->getSchema();
@@ -38,13 +35,37 @@ class FieldTest extends TestCase
         $this->assertInstanceOf(TableInterface::class, $actual->getTable());
     }
 
+    public function testInstantiationByExplode(): void
+    {
+        // Given
+        $dataType = 'text DEFAULT \'\'';
+
+        // When
+        $actual = new Field('test', $dataType);
+
+        // Then
+        $this->assertEquals("''", $actual->getDefault());
+    }
+
     public function testCannotInstantiateWithoutName(): void
     {
         // Given
-        $this->expectExceptionMessage('Un champ doit avoir un nom et un dataType.');
+        $this->expectExceptionMessage('Un champ doit avoir et nom et un dataType valide.');
 
         // When
         new Field('', '');
+
+        // Then
+        // Throws an exception
+    }
+
+    public function testCannotInstantiateWithInvalidDataType(): void
+    {
+        // Given
+        $this->expectExceptionMessage('Un champ doit avoir et nom et un dataType valide.');
+
+        // When
+        new Field('test', 'DEFAULT \'\' NOT NULL');
 
         // Then
         // Throws an exception
