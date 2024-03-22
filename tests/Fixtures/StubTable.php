@@ -37,7 +37,7 @@ class StubTable implements TableInterface
 
     public function getFields(): array
     {
-        return [];
+        return ['stub' => new StubField];
     }
 
     public function getField(string $name): ?FieldInterface

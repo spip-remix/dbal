@@ -21,7 +21,7 @@ class StubSchema implements SchemaInterface
 
     public function getTables(): array
     {
-        return [];
+        return ['stub' => new StubTable];
     }
 
     public function getTable(string $name): ?TableInterface
