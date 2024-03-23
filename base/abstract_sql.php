@@ -1,13 +1,13 @@
 <?php
 
-/* *************************************************************************\
- *  SPIP, Système de publication pour l'internet                           *
- *                                                                         *
- *  Copyright © avec tendresse depuis 2001                                 *
- *  Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James  *
- *                                                                         *
- *  Ce programme est un logiciel libre distribué sous licence GNU/GPL.     *
-\***************************************************************************/
+/**
+ * SPIP, Système de publication pour l'internet
+ *
+ * Copyright © avec tendresse depuis 2001
+ * Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James
+ *
+ * Ce programme est un logiciel libre distribué sous licence GNU/GPL.
+ */
 
 /**
  * Definition de l'API SQL
@@ -19,15 +19,8 @@
  * Les symboles sql_* (constantes et nom de fonctions) sont reserves
  * a cette interface, sans quoi le gestionnaire de version dysfonctionnera.
  *
- * @package SPIP\Core\SQL\API
  * @version 1
  */
-
-if (!defined('_ECRIRE_INC_VERSION')) {
-	return;
-}
-
-/** Version de l'API SQL */
 define('SQL_ABSTRACT_VERSION', 1);
 include_spip('base/connect_sql');
 
@@ -42,41 +35,41 @@ include_spip('base/connect_sql');
  *               utile pour présenter une erreur au débuggueur via `erreur_squelette()`
  * @return array|string
  *     contexte de l'erreur
- **/
-function sql_error_backtrace($compil_info = false) {
-	$trace = debug_backtrace();
-	$caller = array_shift($trace);
-	while (count($trace) && (empty($trace[0]['file']) || $trace[0]['file'] === $caller['file'] || $trace[0]['file'] === __FILE__)) {
-		array_shift($trace);
-	}
+ */
+function sql_error_backtrace($compil_info = false)
+{
+    $trace = debug_backtrace();
+    $caller = array_shift($trace);
+    while (count($trace) && (empty($trace[0]['file']) || $trace[0]['file'] === $caller['file'] || $trace[0]['file'] === __FILE__)) {
+        array_shift($trace);
+    }
 
-	if ($compil_info) {
-		return [
-			$trace[0]['file'],// sourcefile
-			'', //nom
-			(isset($trace[1]) ? $trace[1]['function'] . "(){\n" : '')
-			. $trace[0]['function'] . '();'
-			. (isset($trace[1]) ? "\n}" : ''), //id_boucle
-			$trace[0]['line'], // ligne
-			$GLOBALS['spip_lang'], // lang
-		];
-	}
+    if ($compil_info) {
+        return [
+            $trace[0]['file'], // sourcefile
+            '', //nom
+            (isset($trace[1]) ? $trace[1]['function'] . "(){\n" : '')
+                . $trace[0]['function'] . '();'
+                . (isset($trace[1]) ? "\n}" : ''), //id_boucle
+            $trace[0]['line'], // ligne
+            $GLOBALS['spip_lang'], // lang
+        ];
+    }
 
-	$message = count($trace) ? $trace[0]['file'] . ' L' . $trace[0]['line'] : '';
-	$f = [];
-	while (count($trace) && ($t = array_shift($trace))) {
-		if (in_array($t['function'], ['include_once', 'include_spip', 'find_in_path'])) {
-			break;
-		}
-		$f[] = $t['function'];
-	}
-	if ($f !== []) {
-		$message .= ' [' . implode('(),', $f) . '()]';
-	}
+    $message = count($trace) ? $trace[0]['file'] . ' L' . $trace[0]['line'] : '';
+    $f = [];
+    while (count($trace) && ($t = array_shift($trace))) {
+        if (in_array($t['function'], ['include_once', 'include_spip', 'find_in_path'])) {
+            break;
+        }
+        $f[] = $t['function'];
+    }
+    if ($f !== []) {
+        $message .= ' [' . implode('(),', $f) . '()]';
+    }
 
-	return $message;
+    return $message;
 }
-
 
 /**
  * Charge le serveur de base de donnees
@@ -97,18 +90,19 @@ function sql_error_backtrace($compil_info = false) {
  *    Nom de la fonction a appeler pour l'instruction demandee pour le type de serveur SQL correspondant au fichier de connexion.
  *    Si l'instruction demandee n'existe pas, retourne la liste de toutes les instructions du serveur SQL avec $continue a true.
  *
- **/
-function sql_serveur($ins_sql = '', $serveur = '', $continue = false) {
-	static $sql_serveur = [];
-	if (!isset($sql_serveur[$serveur][$ins_sql])) {
-		$f = spip_connect_sql(\SQL_ABSTRACT_VERSION, $ins_sql, $serveur, $continue);
-		if (!is_string($f) || !$f) {
-			return $f;
-		}
-		$sql_serveur[$serveur][$ins_sql] = $f;
-	}
+ */
+function sql_serveur($ins_sql = '', $serveur = '', $continue = false)
+{
+    static $sql_serveur = [];
+    if (!isset($sql_serveur[$serveur][$ins_sql])) {
+        $f = spip_connect_sql(\SQL_ABSTRACT_VERSION, $ins_sql, $serveur, $continue);
+        if (!is_string($f) || !$f) {
+            return $f;
+        }
+        $sql_serveur[$serveur][$ins_sql] = $f;
+    }
 
-	return $sql_serveur[$serveur][$ins_sql];
+    return $sql_serveur[$serveur][$ins_sql];
 }
 
 /**
@@ -128,26 +122,26 @@ function sql_serveur($ins_sql = '', $serveur = '', $continue = false) {
  *     Inutilise
  * @return string|bool
  *     Retourne le nom du charset si effectivement trouvé, sinon false.
- **/
-function sql_get_charset($charset, $serveur = '', $option = true) {
-	// le nom http du charset differe parfois du nom SQL utf-8 ==> utf8 etc.
-	$desc = sql_serveur('', $serveur, true);
-	$desc = $desc[\SQL_ABSTRACT_VERSION];
-	$c = $desc['charsets'][$charset];
-	if (
-		$c
-		&& function_exists($f = @$desc['get_charset'])
-		&& $f($c, $serveur, $option)
-	) {
-		return $c;
-	}
-	spip_logger()->warning(
-		"SPIP ne connait pas les Charsets disponibles sur le serveur $serveur. Le serveur choisira seul."
-	);
+ */
+function sql_get_charset($charset, $serveur = '', $option = true)
+{
+    // le nom http du charset differe parfois du nom SQL utf-8 ==> utf8 etc.
+    $desc = sql_serveur('', $serveur, true);
+    $desc = $desc[\SQL_ABSTRACT_VERSION];
+    $c = $desc['charsets'][$charset];
+    if (
+        $c
+        && function_exists($f = @$desc['get_charset'])
+        && $f($c, $serveur, $option)
+    ) {
+        return $c;
+    }
+    spip_logger()->warning(
+        "SPIP ne connait pas les Charsets disponibles sur le serveur $serveur. Le serveur choisira seul."
+    );
 
-	return false;
+    return false;
 }
-
 
 /**
  * Regler le codage de connexion
@@ -169,16 +163,16 @@ function sql_get_charset($charset, $serveur = '', $option = true) {
  *
  * @return bool
  *    Retourne true si elle reussie.
- **/
-function sql_set_charset($charset, $serveur = '', $option = true) {
-	$f = sql_serveur('set_charset', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+ */
+function sql_set_charset($charset, $serveur = '', $option = true)
+{
+    $f = sql_serveur('set_charset', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	return $f($charset, $serveur, $option !== false);
+    return $f($charset, $serveur, $option !== false);
 }
-
 
 /**
  * Effectue une requête de selection
@@ -225,63 +219,62 @@ function sql_set_charset($charset, $serveur = '', $option = true) {
  * Les portages doivent retourner la requete elle-meme en cas d'erreur,
  * afin de disposer du texte brut.
  *
- **/
+ */
 function sql_select(
-	$select = [],
-	$from = [],
-	$where = [],
-	$groupby = [],
-	$orderby = [],
-	$limit = '',
-	$having = [],
-	$serveur = '',
-	$option = true
+    $select = [],
+    $from = [],
+    $where = [],
+    $groupby = [],
+    $orderby = [],
+    $limit = '',
+    $having = [],
+    $serveur = '',
+    $option = true
 ) {
-	$f = sql_serveur('select', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+    $f = sql_serveur('select', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	$debug = (defined('_VAR_MODE') && _VAR_MODE == 'debug');
-	if ($option !== false && !$debug) {
-		$res = $f(
-			$select,
-			$from,
-			$where,
-			$groupby,
-			$orderby,
-			$limit,
-			$having,
-			$serveur,
-			is_array($option) ? true : $option
-		);
-	} else {
-		$query = $f($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, false);
-		if (!$option) {
-			return $query;
-		}
-		// le debug, c'est pour ce qui a ete produit par le compilateur
-		if (isset($GLOBALS['debug']['aucasou'])) {
-			[$table, $id, ] = $GLOBALS['debug']['aucasou'];
-			$nom = $GLOBALS['debug_objets']['courant'] . $id;
-			$GLOBALS['debug_objets']['requete'][$nom] = $query;
-		}
-		$res = $f($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, true);
-	}
+    $debug = (defined('_VAR_MODE') && _VAR_MODE == 'debug');
+    if ($option !== false && !$debug) {
+        $res = $f(
+            $select,
+            $from,
+            $where,
+            $groupby,
+            $orderby,
+            $limit,
+            $having,
+            $serveur,
+            is_array($option) ? true : $option
+        );
+    } else {
+        $query = $f($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, false);
+        if (!$option) {
+            return $query;
+        }
+        // le debug, c'est pour ce qui a ete produit par le compilateur
+        if (isset($GLOBALS['debug']['aucasou'])) {
+            [$table, $id,] = $GLOBALS['debug']['aucasou'];
+            $nom = $GLOBALS['debug_objets']['courant'] . $id;
+            $GLOBALS['debug_objets']['requete'][$nom] = $query;
+        }
+        $res = $f($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, true);
+    }
 
-	// en cas d'erreur
-	if (!is_string($res)) {
-		return $res;
-	}
-	// denoncer l'erreur SQL dans sa version brute
-	spip_sql_erreur($serveur);
-	// idem dans sa version squelette (prefixe des tables non substitue)
-	$contexte_compil = sql_error_backtrace(true);
-	erreur_squelette([sql_errno($serveur), sql_error($serveur), $res], $contexte_compil);
+    // en cas d'erreur
+    if (!is_string($res)) {
+        return $res;
+    }
+    // denoncer l'erreur SQL dans sa version brute
+    spip_sql_erreur($serveur);
+    // idem dans sa version squelette (prefixe des tables non substitue)
+    $contexte_compil = sql_error_backtrace(true);
+    erreur_squelette([sql_errno($serveur), sql_error($serveur), $res], $contexte_compil);
 
-	return false;
+    return false;
 }
-
 
 /**
  * Recupere la syntaxe de la requete select sans l'executer
@@ -314,20 +307,19 @@ function sql_select(
  *    Chaine contenant la requete
  *    ou false en cas d'erreur
  *
- **/
+ */
 function sql_get_select(
-	$select = [],
-	$from = [],
-	$where = [],
-	$groupby = [],
-	$orderby = [],
-	$limit = '',
-	$having = [],
-	$serveur = ''
+    $select = [],
+    $from = [],
+    $where = [],
+    $groupby = [],
+    $orderby = [],
+    $limit = '',
+    $having = [],
+    $serveur = ''
 ) {
-	return sql_select($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, false);
+    return sql_select($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, false);
 }
-
 
 /**
  * Retourne le nombre de lignes d'une sélection
@@ -367,25 +359,25 @@ function sql_get_select(
  *     - Nombre de lignes de resultat
  *     - ou false en cas d'erreur
  *
- **/
+ */
 function sql_countsel(
-	$from = [],
-	$where = [],
-	$groupby = [],
-	$having = [],
-	$serveur = '',
-	$option = true
+    $from = [],
+    $where = [],
+    $groupby = [],
+    $having = [],
+    $serveur = '',
+    $option = true
 ) {
-	$f = sql_serveur('countsel', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($from, $where, $groupby, $having, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+    $f = sql_serveur('countsel', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($from, $where, $groupby, $having, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -415,18 +407,19 @@ function sql_countsel(
  *     - false en cas de serveur indiponible ou d'erreur
  *
  *     Ce retour n'est pas pertinent pour savoir si l'opération est correctement réalisée.
- **/
-function sql_alter($q, $serveur = '', $option = true) {
-	$f = sql_serveur('alter', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($q, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_alter($q, $serveur = '', $option = true)
+{
+    $f = sql_serveur('alter', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($q, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -448,15 +441,15 @@ function sql_alter($q, $serveur = '', $option = true) {
  *    Tableau de cles (colonnes SQL ou alias) / valeurs (valeurs dans la colonne de la table ou calculee)
  *    presentant une ligne de resultat d'une selection
  */
-function sql_fetch(mixed $res, $serveur = '', $option = true) {
-	$f = sql_serveur('fetch', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+function sql_fetch(mixed $res, $serveur = '', $option = true)
+{
+    $f = sql_serveur('fetch', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	return $f($res, null, $serveur, $option !== false);
+    return $f($res, null, $serveur, $option !== false);
 }
-
 
 /**
  * Retourne tous les enregistrements d'une selection
@@ -480,21 +473,22 @@ function sql_fetch(mixed $res, $serveur = '', $option = true) {
  *    de cles (colonnes SQL ou alias) / valeurs (valeurs dans la colonne de la table ou calculee)
  *    presentant une ligne de resultat d'une selection
  */
-function sql_fetch_all(mixed $res, $serveur = '', $option = true) {
-	$rows = [];
-	if (!$res) {
-		return $rows;
-	}
-	$f = sql_serveur('fetch', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return [];
-	}
-	while ($r = $f($res, null, $serveur, $option !== false)) {
-		$rows[] = $r;
-	}
-	sql_free($res, $serveur);
+function sql_fetch_all(mixed $res, $serveur = '', $option = true)
+{
+    $rows = [];
+    if (!$res) {
+        return $rows;
+    }
+    $f = sql_serveur('fetch', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return [];
+    }
+    while ($r = $f($res, null, $serveur, $option !== false)) {
+        $rows[] = $r;
+    }
+    sql_free($res, $serveur);
 
-	return $rows;
+    return $rows;
 }
 
 /**
@@ -520,20 +514,20 @@ function sql_fetch_all(mixed $res, $serveur = '', $option = true) {
  *
  * @return bool
  *    Operation effectuée (true), sinon false.
- **/
-function sql_seek(mixed $res, $row_number, $serveur = '', $option = true) {
-	$f = sql_serveur('seek', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($res, $row_number, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_seek(mixed $res, $row_number, $serveur = '', $option = true)
+{
+    $f = sql_serveur('seek', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($res, $row_number, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
-
 
 /**
  * Liste des bases de donnees accessibles
@@ -554,20 +548,20 @@ function sql_seek(mixed $res, $row_number, $serveur = '', $option = true) {
  * @return array|bool
  *    Tableau contenant chaque nom de base de donnees.
  *    False en cas d'erreur.
- **/
-function sql_listdbs($serveur = '', $option = true) {
-	$f = sql_serveur('listdbs', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($serveur);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_listdbs($serveur = '', $option = true)
+{
+    $f = sql_serveur('listdbs', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($serveur);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
-
 
 /**
  * Demande d'utiliser d'une base de donnees
@@ -586,18 +580,19 @@ function sql_listdbs($serveur = '', $option = true) {
  * @return bool|string
  *     - True ou nom de la base en cas de success.
  *     - False en cas d'erreur.
- **/
-function sql_selectdb($nom, $serveur = '', $option = true) {
-	$f = sql_serveur('selectdb', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($nom, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_selectdb($nom, $serveur = '', $option = true)
+{
+    $f = sql_serveur('selectdb', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($nom, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -620,18 +615,19 @@ function sql_selectdb($nom, $serveur = '', $option = true) {
  * @return bool|string
  *     - int Nombre de lignes,
  *     - false en cas d'erreur.
- **/
-function sql_count($res, $serveur = '', $option = true) {
-	$f = sql_serveur('count', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($res, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_count($res, $serveur = '', $option = true)
+{
+    $f = sql_serveur('count', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($res, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -652,15 +648,15 @@ function sql_count($res, $serveur = '', $option = true) {
  * @return bool
  *     True si réussi
  */
-function sql_free($res, $serveur = '', $option = true) {
-	$f = sql_serveur('free', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+function sql_free($res, $serveur = '', $option = true)
+{
+    $f = sql_serveur('free', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	return $f($res);
+    return $f($res);
 }
-
 
 /**
  * Insère une ligne dans une table
@@ -694,19 +690,20 @@ function sql_free($res, $serveur = '', $option = true) {
  *     - int|true identifiant de l'élément inséré (si possible), ou true, si réussite
  *     - texte de la requête si demandé,
  *     - False en cas d'erreur.
- **/
-function sql_insert($table, $noms, $valeurs, $desc = [], $serveur = '', $option = true) {
-	$f = sql_serveur('insert', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $noms, $valeurs, $desc, $serveur, $option !== false);
-	if ($r === false || $r === null) {
-		spip_sql_erreur($serveur);
-		$r = false;
-	}
+ */
+function sql_insert($table, $noms, $valeurs, $desc = [], $serveur = '', $option = true)
+{
+    $f = sql_serveur('insert', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $noms, $valeurs, $desc, $serveur, $option !== false);
+    if ($r === false || $r === null) {
+        spip_sql_erreur($serveur);
+        $r = false;
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -745,19 +742,20 @@ function sql_insert($table, $noms, $valeurs, $desc = [], $serveur = '', $option 
  *     - int|true identifiant de l'élément inséré (si possible), ou true, si réussite
  *     - texte de la requête si demandé,
  *     - False en cas d'erreur.
- **/
-function sql_insertq($table, $couples = [], $desc = [], $serveur = '', $option = true) {
-	$f = sql_serveur('insertq', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $couples, $desc, $serveur, $option !== false);
-	if ($r === false || $r === null) {
-		spip_sql_erreur($serveur);
-		$r = false;
-	}
+ */
+function sql_insertq($table, $couples = [], $desc = [], $serveur = '', $option = true)
+{
+    $f = sql_serveur('insertq', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $couples, $desc, $serveur, $option !== false);
+    if ($r === false || $r === null) {
+        spip_sql_erreur($serveur);
+        $r = false;
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -790,19 +788,20 @@ function sql_insertq($table, $couples = [], $desc = [], $serveur = '', $option =
  *     - true en cas de succès,
  *     - texte de la requête si demandé,
  *     - false en cas d'erreur.
- **/
-function sql_insertq_multi($table, $couples = [], $desc = [], $serveur = '', $option = true) {
-	$f = sql_serveur('insertq_multi', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $couples, $desc, $serveur, $option !== false);
-	if ($r === false || $r === null) {
-		spip_sql_erreur($serveur);
-		$r = false;
-	}
+ */
+function sql_insertq_multi($table, $couples = [], $desc = [], $serveur = '', $option = true)
+{
+    $f = sql_serveur('insertq_multi', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $couples, $desc, $serveur, $option !== false);
+    if ($r === false || $r === null) {
+        spip_sql_erreur($serveur);
+        $r = false;
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -841,19 +840,19 @@ function sql_insertq_multi($table, $couples = [], $desc = [], $serveur = '', $op
  *     - true si la requête a réussie, false sinon
  *     - array Tableau décrivant la requête et son temps d'exécution si var_profile est actif
  */
-function sql_update($table, $exp, $where = '', $desc = [], $serveur = '', $option = true) {
-	$f = sql_serveur('update', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $exp, $where, $desc, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+function sql_update($table, $exp, $where = '', $desc = [], $serveur = '', $option = true)
+{
+    $f = sql_serveur('update', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $exp, $where, $desc, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
-
 
 /**
  * Met à jour du contenu d’une table SQL
@@ -895,18 +894,19 @@ function sql_update($table, $exp, $where = '', $desc = [], $serveur = '', $optio
  *     - true si réussite
  *     - texte de la requête si demandé,
  *     - false en cas d'erreur.
- **/
-function sql_updateq($table, $exp, $where = '', $desc = [], $serveur = '', $option = true) {
-	$f = sql_serveur('updateq', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $exp, $where, $desc, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_updateq($table, $exp, $where = '', $desc = [], $serveur = '', $option = true)
+{
+    $f = sql_serveur('updateq', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $exp, $where, $desc, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -935,18 +935,19 @@ function sql_updateq($table, $exp, $where = '', $desc = [], $serveur = '', $opti
  *     - int : nombre de suppressions réalisées,
  *     - texte de la requête si demandé,
  *     - false en cas d'erreur.
- **/
-function sql_delete($table, $where = '', $serveur = '', $option = true) {
-	$f = sql_serveur('delete', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $where, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_delete($table, $where = '', $serveur = '', $option = true)
+{
+    $f = sql_serveur('delete', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $where, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -980,20 +981,20 @@ function sql_delete($table, $where = '', $serveur = '', $option = true) {
  *     - true si réussite
  *     - texte de la requête si demandé,
  *     - false en cas d'erreur.
- **/
-function sql_replace($table, $couples, $desc = [], $serveur = '', $option = true) {
-	$f = sql_serveur('replace', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $couples, $desc, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_replace($table, $couples, $desc = [], $serveur = '', $option = true)
+{
+    $f = sql_serveur('replace', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $couples, $desc, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
-
 
 /**
  * Insère où met à jour des entrées d’une table SQL
@@ -1027,18 +1028,19 @@ function sql_replace($table, $couples, $desc = [], $serveur = '', $option = true
  *     - true si réussite
  *     - texte de la requête si demandé,
  *     - false en cas d'erreur.
- **/
-function sql_replace_multi($table, $tab_couples, $desc = [], $serveur = '', $option = true) {
-	$f = sql_serveur('replace_multi', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $tab_couples, $desc, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_replace_multi($table, $tab_couples, $desc = [], $serveur = '', $option = true)
+{
+    $f = sql_serveur('replace_multi', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $tab_couples, $desc, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -1064,18 +1066,19 @@ function sql_replace_multi($table, $tab_couples, $desc = [], $serveur = '', $opt
  *     - true en cas de succès,
  *     - texte de la requête si demandé,
  *     - false en cas d'erreur.
- **/
-function sql_drop_table($table, $exist = false, $serveur = '', $option = true) {
-	$f = sql_serveur('drop_table', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $exist, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_drop_table($table, $exist = false, $serveur = '', $option = true)
+{
+    $f = sql_serveur('drop_table', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $exist, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -1098,17 +1101,18 @@ function sql_drop_table($table, $exist = false, $serveur = '', $option = true) {
  *     - string texte de la requête si demandé
  *     - true si la requête a réussie, false sinon
  */
-function sql_drop_view($table, $exist = false, $serveur = '', $option = true) {
-	$f = sql_serveur('drop_view', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $exist, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+function sql_drop_view($table, $exist = false, $serveur = '', $option = true)
+{
+    $f = sql_serveur('drop_view', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $exist, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -1130,20 +1134,21 @@ function sql_drop_view($table, $exist = false, $serveur = '', $option = true) {
  *     - true -> executer la requete.
  * @return object|bool|string
  *     Ressource à utiliser avec sql_fetch()
- **/
-function sql_showbase($spip = null, $serveur = '', $option = true) {
-	$f = sql_serveur('showbase', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+ */
+function sql_showbase($spip = null, $serveur = '', $option = true)
+{
+    $f = sql_serveur('showbase', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	// la globale n'est remplie qu'apres l'appel de sql_serveur.
-	if ($spip == null) {
-		$connexion = $GLOBALS['connexions'][$serveur ? strtolower($serveur) : 0];
-		$spip = $connexion['prefixe'] . '\_%';
-	}
+    // la globale n'est remplie qu'apres l'appel de sql_serveur.
+    if ($spip == null) {
+        $connexion = $GLOBALS['connexions'][$serveur ? strtolower($serveur) : 0];
+        $spip = $connexion['prefixe'] . '\_%';
+    }
 
-	return $f($spip, $serveur, $option !== false);
+    return $f($spip, $serveur, $option !== false);
 }
 
 /**
@@ -1164,17 +1169,18 @@ function sql_showbase($spip = null, $serveur = '', $option = true) {
  *     - true -> executer la requete.
  * @return array
  *     Liste des tables SQL
- **/
-function sql_alltable($spip = null, $serveur = '', $option = true) {
-	$q = sql_showbase($spip, $serveur, $option);
-	$r = [];
-	if ($q) {
-		while ($t = sql_fetch($q, $serveur)) {
-			$r[] = array_shift($t);
-		}
-	}
+ */
+function sql_alltable($spip = null, $serveur = '', $option = true)
+{
+    $q = sql_showbase($spip, $serveur, $option);
+    $r = [];
+    if ($q) {
+        while ($t = sql_fetch($q, $serveur)) {
+            $r[] = array_shift($t);
+        }
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -1205,35 +1211,35 @@ function sql_alltable($spip = null, $serveur = '', $option = true) {
  *       - 'field' => array(colonne => description)
  *       - 'key' => array(type => key)
  *       - 'join' => array() // jointures, si déclarées.
- **/
-function sql_showtable($table, $table_spip = false, $serveur = '', $option = true) {
-	$f = sql_serveur('showtable', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+ */
+function sql_showtable($table, $table_spip = false, $serveur = '', $option = true)
+{
+    $f = sql_serveur('showtable', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	// la globale n'est remplie qu'apres l'appel de sql_serveur.
-	if ($table_spip) {
-		$connexion = $GLOBALS['connexions'][$serveur ? strtolower($serveur) : 0];
-		$prefixe = $connexion['prefixe'];
-		$vraie_table = prefixer_table_spip($table, $prefixe);
-	} else {
-		$vraie_table = $table;
-	}
+    // la globale n'est remplie qu'apres l'appel de sql_serveur.
+    if ($table_spip) {
+        $connexion = $GLOBALS['connexions'][$serveur ? strtolower($serveur) : 0];
+        $prefixe = $connexion['prefixe'];
+        $vraie_table = prefixer_table_spip($table, $prefixe);
+    } else {
+        $vraie_table = $table;
+    }
 
-	$f = $f($vraie_table, $serveur, $option !== false);
-	if (!$f) {
-		return [];
-	}
-	if (isset($GLOBALS['tables_principales'][$table]['join'])) {
-		$f['join'] = $GLOBALS['tables_principales'][$table]['join'];
-	} elseif (isset($GLOBALS['tables_auxiliaires'][$table]['join'])) {
-		$f['join'] = $GLOBALS['tables_auxiliaires'][$table]['join'];
-	}
+    $f = $f($vraie_table, $serveur, $option !== false);
+    if (!$f) {
+        return [];
+    }
+    if (isset($GLOBALS['tables_principales'][$table]['join'])) {
+        $f['join'] = $GLOBALS['tables_principales'][$table]['join'];
+    } elseif (isset($GLOBALS['tables_auxiliaires'][$table]['join'])) {
+        $f['join'] = $GLOBALS['tables_auxiliaires'][$table]['join'];
+    }
 
-	return $f;
+    return $f;
 }
-
 
 /**
  * Teste si une table SQL existe ou non dans la base
@@ -1242,7 +1248,7 @@ function sql_showtable($table, $table_spip = false, $serveur = '', $option = tru
  *
  * @param string $table
  *     Nom de la table
-* @param bool $table_spip
+ * @param bool $table_spip
  *     true pour remplacer automatiquement « spip » par le vrai préfixe de table
  * @param string $serveur
  *     Nom du connecteur
@@ -1256,25 +1262,25 @@ function sql_showtable($table, $table_spip = false, $serveur = '', $option = tru
  *     - true si la table existe,
  *     - texte de la requête si demandé,
  *     - false en cas d'erreur.
- **/
-function sql_table_exists(string $table, bool $table_spip = true, $serveur = '', $option = true) {
-	$f = sql_serveur('table_exists', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+ */
+function sql_table_exists(string $table, bool $table_spip = true, $serveur = '', $option = true)
+{
+    $f = sql_serveur('table_exists', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	// la globale n'est remplie qu'apres l'appel de sql_serveur.
-	if ($table_spip) {
-		$connexion = $GLOBALS['connexions'][$serveur ? strtolower($serveur) : 0];
-		$prefixe = $connexion['prefixe'];
-		$vraie_table = prefixer_table_spip($table, $prefixe);
-	} else {
-		$vraie_table = $table;
-	}
+    // la globale n'est remplie qu'apres l'appel de sql_serveur.
+    if ($table_spip) {
+        $connexion = $GLOBALS['connexions'][$serveur ? strtolower($serveur) : 0];
+        $prefixe = $connexion['prefixe'];
+        $vraie_table = prefixer_table_spip($table, $prefixe);
+    } else {
+        $vraie_table = $table;
+    }
 
-	return $f($vraie_table, $serveur, $option !== false);
+    return $f($vraie_table, $serveur, $option !== false);
 }
-
 
 /**
  * Crée une table dans la base de données
@@ -1316,26 +1322,26 @@ function sql_table_exists(string $table, bool $table_spip = true, $serveur = '',
  *     - true : exécuter la requete.
  * @return bool
  *     true si succès, false en cas d'echec
- **/
+ */
 function sql_create(
-	$nom,
-	$champs,
-	$cles = [],
-	$autoinc = false,
-	$temporary = false,
-	$serveur = '',
-	$option = true
+    $nom,
+    $champs,
+    $cles = [],
+    $autoinc = false,
+    $temporary = false,
+    $serveur = '',
+    $option = true
 ) {
-	$f = sql_serveur('create', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($nom, $champs, $cles, $autoinc, $temporary, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+    $f = sql_serveur('create', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($nom, $champs, $cles, $autoinc, $temporary, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -1351,20 +1357,20 @@ function sql_create(
  *     - true : exécuter la requête
  *     - 'continue' : ne pas échouer en cas de serveur sql indisponible
  * @return bool true si la base est créee.
- **/
-function sql_create_base($nom, $serveur = '', $option = true) {
-	$f = sql_serveur('create_base', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($nom, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_create_base($nom, $serveur = '', $option = true)
+{
+    $f = sql_serveur('create_base', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($nom, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
-
 
 /**
  * Crée une vue SQL
@@ -1390,18 +1396,19 @@ function sql_create_base($nom, $serveur = '', $option = true) {
  *     - true si succès,
  *     - texte de la requête si demandé
  *     - false en cas d'échec.
- **/
-function sql_create_view($nom, $select_query, $serveur = '', $option = true) {
-	$f = sql_serveur('create_view', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($nom, $select_query, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_create_view($nom, $select_query, $serveur = '', $option = true)
+{
+    $f = sql_serveur('create_view', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($nom, $select_query, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -1429,15 +1436,15 @@ function sql_create_view($nom, $select_query, $serveur = '', $option = true) {
  * @return string
  *     texte de sélection pour la requête
  */
-function sql_multi($sel, $lang, $serveur = '', $option = true) {
-	$f = sql_serveur('multi', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+function sql_multi($sel, $lang, $serveur = '', $option = true)
+{
+    $f = sql_serveur('multi', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	return $f($sel, $lang);
+    return $f($sel, $lang);
 }
-
 
 /**
  * Retourne la dernière erreur connue
@@ -1449,13 +1456,14 @@ function sql_multi($sel, $lang, $serveur = '', $option = true) {
  *      Description de l'erreur
  *      False si le serveur est indisponible
  */
-function sql_error($serveur = '') {
-	$f = sql_serveur('error', $serveur, true);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+function sql_error($serveur = '')
+{
+    $f = sql_serveur('error', $serveur, true);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	return $f('query inconnue', $serveur);
+    return $f('query inconnue', $serveur);
 }
 
 /**
@@ -1468,13 +1476,14 @@ function sql_error($serveur = '') {
  *      Numéro de l'erreur
  *      False si le serveur est indisponible
  */
-function sql_errno($serveur = '') {
-	$f = sql_serveur('errno', $serveur, true);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+function sql_errno($serveur = '')
+{
+    $f = sql_serveur('errno', $serveur, true);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	return $f($serveur);
+    return $f($serveur);
 }
 
 /**
@@ -1491,17 +1500,18 @@ function sql_errno($serveur = '') {
  *     - 'continue' : ne pas échouer en cas de serveur sql indisponible
  * @return array|false   Tableau de l'explication
  */
-function sql_explain($q, $serveur = '', $option = true) {
-	$f = sql_serveur('explain', $serveur, true);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($q, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+function sql_explain($q, $serveur = '', $option = true)
+{
+    $f = sql_serveur('explain', $serveur, true);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($q, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -1518,17 +1528,18 @@ function sql_explain($q, $serveur = '', $option = true) {
  *     - 'continue' : ne pas échouer en cas de serveur sql indisponible
  * @return bool            Toujours true
  */
-function sql_optimize($table, $serveur = '', $option = true) {
-	$f = sql_serveur('optimize', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $serveur, $option);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+function sql_optimize($table, $serveur = '', $option = true)
+{
+    $f = sql_serveur('optimize', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $serveur, $option);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -1547,19 +1558,19 @@ function sql_optimize($table, $serveur = '', $option = true) {
  *     - string texte de la requête si demandée,
  *     - true si la requête a réussie, false sinon
  */
-function sql_repair($table, $serveur = '', $option = true) {
-	$f = sql_serveur('repair', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($table, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+function sql_repair($table, $serveur = '', $option = true)
+{
+    $f = sql_serveur('repair', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($table, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
-
 
 /**
  * Exécute une requête SQL
@@ -1581,17 +1592,18 @@ function sql_repair($table, $serveur = '', $option = true) {
  *     - ressource|bool : Si requête exécutée
  *     - array : Tableau décrivant requête et temps d'exécution si var_profile actif pour tracer.
  */
-function sql_query($ins, $serveur = '', $option = true) {
-	$f = sql_serveur('query', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($ins, $serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+function sql_query($ins, $serveur = '', $option = true)
+{
+    $f = sql_serveur('query', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($ins, $serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -1637,31 +1649,30 @@ function sql_query($ins, $serveur = '', $option = true) {
  *     Tableau de la premiere ligne de resultat de la selection tel que
  *     `array('id_rubrique' => 1, 'id_secteur' => 2)`
  *
- **/
+ */
 function sql_fetsel(
-	$select = [],
-	$from = [],
-	$where = [],
-	$groupby = [],
-	$orderby = [],
-	$limit = '',
-	$having = [],
-	$serveur = '',
-	$option = true
+    $select = [],
+    $from = [],
+    $where = [],
+    $groupby = [],
+    $orderby = [],
+    $limit = '',
+    $having = [],
+    $serveur = '',
+    $option = true
 ) {
-	$q = sql_select($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, $option);
-	if ($option === false) {
-		return $q;
-	}
-	if (!$q) {
-		return [];
-	}
-	$r = sql_fetch($q, $serveur, $option);
-	sql_free($q, $serveur, $option);
+    $q = sql_select($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, $option);
+    if ($option === false) {
+        return $q;
+    }
+    if (!$q) {
+        return [];
+    }
+    $r = sql_fetch($q, $serveur, $option);
+    sql_free($q, $serveur, $option);
 
-	return $r;
+    return $r;
 }
-
 
 /**
  * Retourne le tableau de toutes les lignes d'une selection
@@ -1714,26 +1725,25 @@ function sql_fetsel(
  *      ```
  *    }
  *
- **/
+ */
 function sql_allfetsel(
-	$select = [],
-	$from = [],
-	$where = [],
-	$groupby = [],
-	$orderby = [],
-	$limit = '',
-	$having = [],
-	$serveur = '',
-	$option = true
+    $select = [],
+    $from = [],
+    $where = [],
+    $groupby = [],
+    $orderby = [],
+    $limit = '',
+    $having = [],
+    $serveur = '',
+    $option = true
 ) {
-	$q = sql_select($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, $option);
-	if ($option === false) {
-		return $q;
-	}
+    $q = sql_select($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, $option);
+    if ($option === false) {
+        return $q;
+    }
 
-	return sql_fetch_all($q, $serveur, $option);
+    return sql_fetch_all($q, $serveur, $option);
 }
-
 
 /**
  * Retourne un unique champ d'une selection
@@ -1776,35 +1786,35 @@ function sql_allfetsel(
  *     Contenu de l'unique valeur demandee du premier enregistrement retourne
  *     ou NULL si la requete ne retourne aucun enregistrement
  *
- **/
+ */
 function sql_getfetsel(
-	$select,
-	$from = [],
-	$where = [],
-	$groupby = [],
-	$orderby = [],
-	$limit = '',
-	$having = [],
-	$serveur = '',
-	$option = true
+    $select,
+    $from = [],
+    $where = [],
+    $groupby = [],
+    $orderby = [],
+    $limit = '',
+    $having = [],
+    $serveur = '',
+    $option = true
 ) {
-	if (preg_match('/\s+as\s+(\w+)$/i', $select, $c)) {
-		$id = $c[1];
-	} elseif (!preg_match('/\W/', $select)) {
-		$id = $select;
-	} else {
-		$id = 'n';
-		$select .= ' AS n';
-	}
-	$r = sql_fetsel($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, $option);
-	if ($option === false) {
-		return $r;
-	}
-	if (!$r) {
-		return null;
-	}
+    if (preg_match('/\s+as\s+(\w+)$/i', $select, $c)) {
+        $id = $c[1];
+    } elseif (!preg_match('/\W/', $select)) {
+        $id = $select;
+    } else {
+        $id = 'n';
+        $select .= ' AS n';
+    }
+    $r = sql_fetsel($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, $option);
+    if ($option === false) {
+        return $r;
+    }
+    if (!$r) {
+        return null;
+    }
 
-	return $r[$id];
+    return $r[$id];
 }
 
 /**
@@ -1820,11 +1830,12 @@ function sql_getfetsel(
  *
  * @return string
  *    Numero de version du serveur SQL
- **/
-function sql_version($serveur = '', $option = true) {
-	$row = sql_fetsel('version() AS n', '', '', '', '', '', '', $serveur);
+ */
+function sql_version($serveur = '', $option = true)
+{
+    $row = sql_fetsel('version() AS n', '', '', '', '', '', '', $serveur);
 
-	return ($row['n']);
+    return ($row['n']);
 }
 
 /**
@@ -1858,21 +1869,20 @@ function sql_version($serveur = '', $option = true) {
  *
  * @return bool
  *    Le serveur SQL prefere t'il des transactions pour les insertions multiples ?
- **/
-function sql_preferer_transaction($serveur = '', $option = true) {
-	$f = sql_serveur('preferer_transaction', $serveur, true);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_preferer_transaction($serveur = '', $option = true)
+{
+    $f = sql_serveur('preferer_transaction', $serveur, true);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
-}
-
-;
+    return $r;
+};
 
 /**
  * Démarre une transaction
@@ -1892,21 +1902,20 @@ function sql_preferer_transaction($serveur = '', $option = true) {
  * @return bool
  *      true si la transaction est demarree
  *      false en cas d'erreur
- **/
-function sql_demarrer_transaction($serveur = '', $option = true) {
-	$f = sql_serveur('demarrer_transaction', $serveur, true);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_demarrer_transaction($serveur = '', $option = true)
+{
+    $f = sql_serveur('demarrer_transaction', $serveur, true);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
-}
-
-;
+    return $r;
+};
 
 /**
  * Termine une transaction
@@ -1926,22 +1935,20 @@ function sql_demarrer_transaction($serveur = '', $option = true) {
  * @return bool
  *      true si la transaction est demarree
  *      false en cas d'erreur
- **/
-function sql_terminer_transaction($serveur = '', $option = true) {
-	$f = sql_serveur('terminer_transaction', $serveur, true);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
-	$r = $f($serveur, $option !== false);
-	if ($r === false) {
-		spip_sql_erreur($serveur);
-	}
+ */
+function sql_terminer_transaction($serveur = '', $option = true)
+{
+    $f = sql_serveur('terminer_transaction', $serveur, true);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
+    $r = $f($serveur, $option !== false);
+    if ($r === false) {
+        spip_sql_erreur($serveur);
+    }
 
-	return $r;
-}
-
-;
-
+    return $r;
+};
 
 /**
  * Prépare une chaine hexadécimale
@@ -1962,14 +1969,15 @@ function sql_terminer_transaction($serveur = '', $option = true) {
  *     - 'continue' pour ne pas échouer en cas de serveur SQL indisponible.
  * @return string
  *     Valeur hexadécimale attendue par le serveur SQL
- **/
-function sql_hex($val, $serveur = '', $option = true) {
-	$f = sql_serveur('hex', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+ */
+function sql_hex($val, $serveur = '', $option = true)
+{
+    $f = sql_serveur('hex', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	return $f($val);
+    return $f($val);
 }
 
 /**
@@ -1993,14 +2001,15 @@ function sql_hex($val, $serveur = '', $option = true) {
  *     Exemple : `int NOT NULL` qui sert alors aussi à calculer le type d'échappement
  * @return string
  *     La chaine echappee
- **/
-function sql_quote($val, $serveur = '', $type = '') {
-	$f = sql_serveur('quote', $serveur, true);
-	if (!is_string($f) || !$f) {
-		$f = '_q';
-	}
+ */
+function sql_quote($val, $serveur = '', $type = '')
+{
+    $f = sql_serveur('quote', $serveur, true);
+    if (!is_string($f) || !$f) {
+        $f = '_q';
+    }
 
-	return $f($val, $type);
+    return $f($val, $type);
 }
 
 /**
@@ -2023,14 +2032,15 @@ function sql_quote($val, $serveur = '', $type = '') {
  * @return string|bool
  *     - string : Expression SQL
  *     - false si le serveur SQL est indisponible
- **/
-function sql_date_proche($champ, $interval, $unite, $serveur = '', $option = true) {
-	$f = sql_serveur('date_proche', $serveur, true);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+ */
+function sql_date_proche($champ, $interval, $unite, $serveur = '', $option = true)
+{
+    $f = sql_serveur('date_proche', $serveur, true);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	return $f($champ, $interval, $unite);
+    return $f($champ, $interval, $unite);
 }
 
 /**
@@ -2064,28 +2074,29 @@ function sql_date_proche($champ, $interval, $unite, $serveur = '', $option = tru
  *   - true ou false -> retourne l'expression
  * @return string
  *     Expression de requête SQL
- **/
-function sql_in_quote($champ, $valeurs, $not = '', $serveur = '', $type = '', $option = true) {
-	$quote = sql_serveur('quote', $serveur, true);
-	if (!is_string($quote) || !$quote) {
-		return false;
-	}
+ */
+function sql_in_quote($champ, $valeurs, $not = '', $serveur = '', $type = '', $option = true)
+{
+    $quote = sql_serveur('quote', $serveur, true);
+    if (!is_string($quote) || !$quote) {
+        return false;
+    }
 
-	// sql_quote produit une chaine dans tous les cas
-	$valeurs = array_filter($valeurs, fn($v) => !is_array($v));
-	$valeurs = array_unique($valeurs);
-	$valeurs = $quote($valeurs, $type);
+    // sql_quote produit une chaine dans tous les cas
+    $valeurs = array_filter($valeurs, fn ($v) => !is_array($v));
+    $valeurs = array_unique($valeurs);
+    $valeurs = $quote($valeurs, $type);
 
-	if (!strlen(trim((string) $valeurs))) {
-		return ($not ? '0=0' : '0=1');
-	}
+    if (!strlen(trim((string) $valeurs))) {
+        return ($not ? '0=0' : '0=1');
+    }
 
-	$f = sql_serveur('in', $serveur, $option === 'continue' || $option === false);
-	if (!is_string($f) || !$f) {
-		return false;
-	}
+    $f = sql_serveur('in', $serveur, $option === 'continue' || $option === false);
+    if (!is_string($f) || !$f) {
+        return false;
+    }
 
-	return $f($champ, $valeurs, $not ? 'NOT' : '', $serveur, $option !== false);
+    return $f($champ, $valeurs, $not ? 'NOT' : '', $serveur, $option !== false);
 }
 
 /**
@@ -2101,23 +2112,22 @@ function sql_in_quote($champ, $valeurs, $not = '', $serveur = '', $type = '', $o
  * @param string $serveur
  * @param bool $option
  */
-function sql_in($champ, $valeurs, $not = '', $serveur = '', $option = true) {
-	$type = '';
-	if (!is_array($valeurs)) {
-		$valeurs = (string) $valeurs;
-		if (isset($valeurs[0]) && $valeurs[0] === ',') {
-			$valeurs = substr($valeurs, 1);
-		}
-		// on explode en tableau pour pouvoir securiser le contenu
-		$valeurs = explode(',', $valeurs);
-		// et on force un cast de type int donc
-		$type = 'int';
-	}
+function sql_in($champ, $valeurs, $not = '', $serveur = '', $option = true)
+{
+    $type = '';
+    if (!is_array($valeurs)) {
+        $valeurs = (string) $valeurs;
+        if (isset($valeurs[0]) && $valeurs[0] === ',') {
+            $valeurs = substr($valeurs, 1);
+        }
+        // on explode en tableau pour pouvoir securiser le contenu
+        $valeurs = explode(',', $valeurs);
+        // et on force un cast de type int donc
+        $type = 'int';
+    }
 
-	return sql_in_quote($champ, $valeurs, $not, $serveur, $type, $option);
+    return sql_in_quote($champ, $valeurs, $not, $serveur, $type, $option);
 }
-
-
 
 /**
  * Retourne une expression IN pour le gestionnaire de base de données
@@ -2153,26 +2163,26 @@ function sql_in($champ, $valeurs, $not = '', $serveur = '', $option = true) {
  *     Nom du connecteur
  * @return string
  *     Expression de requête SQL
- **/
+ */
 function sql_in_select(
-	$in,
-	$select,
-	$from = [],
-	$where = [],
-	$groupby = [],
-	$orderby = [],
-	$limit = '',
-	$having = [],
-	$serveur = ''
+    $in,
+    $select,
+    $from = [],
+    $where = [],
+    $groupby = [],
+    $orderby = [],
+    $limit = '',
+    $having = [],
+    $serveur = ''
 ) {
-	$liste = [];
-	$res = sql_select($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur);
-	while ($r = sql_fetch($res)) {
-		$liste[] = array_shift($r);
-	}
-	sql_free($res);
+    $liste = [];
+    $res = sql_select($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur);
+    while ($r = sql_fetch($res)) {
+        $liste[] = array_shift($r);
+    }
+    sql_free($res);
 
-	return sql_in($in, $liste);
+    return sql_in($in, $liste);
 }
 
 /**
@@ -2203,32 +2213,32 @@ function sql_in_select(
  * @return int
  *    Position apres le saut.
  */
-function sql_skip($res, $pos, $saut, $count, $serveur = '', $option = true) {
-	// pas de saut en arriere qu'on ne sait pas faire sans sql_seek
-	if (($saut = (int) $saut) <= 0) {
-		return $pos;
-	}
+function sql_skip($res, $pos, $saut, $count, $serveur = '', $option = true)
+{
+    // pas de saut en arriere qu'on ne sait pas faire sans sql_seek
+    if (($saut = (int) $saut) <= 0) {
+        return $pos;
+    }
 
-	$seek = $pos + $saut;
-	// si le saut fait depasser le maxi, on libere la resource
-	// et on sort
-	if ($seek >= $count) {
-		sql_free($res, $serveur, $option);
+    $seek = $pos + $saut;
+    // si le saut fait depasser le maxi, on libere la resource
+    // et on sort
+    if ($seek >= $count) {
+        sql_free($res, $serveur, $option);
 
-		return $count;
-	}
+        return $count;
+    }
 
-	if (sql_seek($res, $seek)) {
-		$pos = $seek;
-	} else {
-		while ($pos < $seek && sql_fetch($res, $serveur, $option)) {
-			$pos++;
-		}
-	}
+    if (sql_seek($res, $seek)) {
+        $pos = $seek;
+    } else {
+        while ($pos < $seek && sql_fetch($res, $serveur, $option)) {
+            $pos++;
+        }
+    }
 
-	return $pos;
+    return $pos;
 }
-
 
 /**
  * Teste qu'une description de champ SQL est de type entier
@@ -2245,8 +2255,9 @@ function sql_skip($res, $pos, $saut, $count, $serveur = '', $option = true) {
  * @return bool
  *     True si le champ est de type entier
  */
-function sql_test_int($type, $serveur = '', $option = true) {
-	return preg_match('/^(TINYINT|SMALLINT|MEDIUMINT|INT|INTEGER|BIGINT)/i', trim($type));
+function sql_test_int($type, $serveur = '', $option = true)
+{
+    return preg_match('/^(TINYINT|SMALLINT|MEDIUMINT|INT|INTEGER|BIGINT)/i', trim($type));
 }
 
 /**
@@ -2264,8 +2275,9 @@ function sql_test_int($type, $serveur = '', $option = true) {
  * @return bool
  *     True si le champ est de type entier
  */
-function sql_test_date($type, $serveur = '', $option = true) {
-	return preg_match('/^(DATE|DATETIME|TIMESTAMP|TIME)/i', trim($type));
+function sql_test_date($type, $serveur = '', $option = true)
+{
+    return preg_match('/^(DATE|DATETIME|TIMESTAMP|TIME)/i', trim($type));
 }
 
 /**
@@ -2286,22 +2298,22 @@ function sql_test_date($type, $serveur = '', $option = true) {
  * @return string
  *     La date formatee
  */
-function sql_format_date($annee = 0, $mois = 0, $jour = 0, $h = 0, $m = 0, $s = 0, $serveur = '') {
-	$annee = sprintf('%04s', $annee);
-	$mois = sprintf('%02s', $mois);
+function sql_format_date($annee = 0, $mois = 0, $jour = 0, $h = 0, $m = 0, $s = 0, $serveur = '')
+{
+    $annee = sprintf('%04s', $annee);
+    $mois = sprintf('%02s', $mois);
 
-	if ($annee == '0000') {
-		$mois = 0;
-	}
-	if ($mois == '00') {
-		$jour = 0;
-	}
+    if ($annee == '0000') {
+        $mois = 0;
+    }
+    if ($mois == '00') {
+        $jour = 0;
+    }
 
-	return sprintf('%04u', $annee) . '-' . sprintf('%02u', $mois) . '-'
-	. sprintf('%02u', $jour) . ' ' . sprintf('%02u', $h) . ':'
-	. sprintf('%02u', $m) . ':' . sprintf('%02u', $s);
+    return sprintf('%04u', $annee) . '-' . sprintf('%02u', $mois) . '-'
+        . sprintf('%02u', $jour) . ' ' . sprintf('%02u', $h) . ':'
+        . sprintf('%02u', $m) . ':' . sprintf('%02u', $s);
 }
-
 
 /**
  * Retourne la description de la table SQL
@@ -2319,33 +2331,33 @@ function sql_format_date($annee = 0, $mois = 0, $jour = 0, $h = 0, $m = 0, $s = 
  *    Nom du connecteur
  * @return array|bool
  *    Description de la table ou false si elle n'est pas trouvee ou declaree.
- **/
-function description_table($nom, $serveur = '') {
+ */
+function description_table($nom, $serveur = '')
+{
+    static $trouver_table;
 
-	static $trouver_table;
+    /* toujours utiliser trouver_table
+     qui renverra la description theorique
+     car sinon on va se comporter differement selon que la table est declaree
+     ou non
+     */
+    if (!$trouver_table) {
+        $trouver_table = charger_fonction('trouver_table', 'base');
+    }
+    if ($desc = $trouver_table($nom, $serveur)) {
+        return $desc;
+    }
 
-	/* toujours utiliser trouver_table
-	 qui renverra la description theorique
-	 car sinon on va se comporter differement selon que la table est declaree
-	 ou non
-	 */
-	if (!$trouver_table) {
-		$trouver_table = charger_fonction('trouver_table', 'base');
-	}
-	if ($desc = $trouver_table($nom, $serveur)) {
-		return $desc;
-	}
+    // sauf a l'installation :
+    include_spip('base/serial');
+    if (isset($GLOBALS['tables_principales'][$nom])) {
+        return $GLOBALS['tables_principales'][$nom];
+    }
 
-	// sauf a l'installation :
-	include_spip('base/serial');
-	if (isset($GLOBALS['tables_principales'][$nom])) {
-		return $GLOBALS['tables_principales'][$nom];
-	}
-
-	include_spip('base/objets');
+    include_spip('base/objets');
     lister_tables_objets_sql();
 
-	return $GLOBALS['tables_auxiliaires'][$nom] ?? false;
+    return $GLOBALS['tables_auxiliaires'][$nom] ?? false;
 }
 
 /**
@@ -2357,9 +2369,10 @@ function description_table($nom, $serveur = '') {
  * @param string $prefixe
  * @return string Table sql éventuellement renommée
  */
-function prefixer_table_spip($table, $prefixe) {
-	if ($prefixe) {
-		$table = preg_replace('/^spip_/', $prefixe . '_', $table);
-	}
-	return $table;
+function prefixer_table_spip($table, $prefixe)
+{
+    if ($prefixe) {
+        $table = preg_replace('/^spip_/', $prefixe . '_', $table);
+    }
+    return $table;
 }

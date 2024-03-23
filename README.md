@@ -27,3 +27,27 @@ Spip Database Abstraction Layer
 - [ ] : Backups & Restaurations
 - [ ] : Autres (Réparations, Optimisations)
 - [ ] : ORM
+
+## Nettoyage de fichiers
+
+- [X] : Suppression de `ecrire/base/index.php`.
+- [X] : Suppression de `ecrire/base/serial.php` et `ecrire/base/auxiliaires.php`.
+- [X] : Changement de coding standards
+  - au profit de [PER-CS](https://www.php-fig.org/per/coding-style/)
+  - et de l'outil [php-cs-fixer](https://cs.symfony.com/)
+  - phpstan, level max
+- [ ] : Type Hinting et Return Type Hinting
+- [ ] : Isolation du code d'affichage à l'écran (appels à minipres, ...)
+- [X] : Suppression du code :
+
+```php
+/**
+ * @package ...
+ */
+if (!defined('_ECRIRE_INC_VERSION')) {
+    return;
+}
+```
+
+- [X] : Allègement du commentaire d'en-tête
+- [X] : Suppression du code commenté

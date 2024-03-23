@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * SPIP, Système de publication pour l'internet
+ *
+ * Copyright © avec tendresse depuis 2001
+ * Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James
+ *
+ * Ce programme est un logiciel libre distribué sous licence GNU/GPL.
+ */
+
 use Spip\Texte\Collecteur\Multis;
 
 /***************************************************************************\
@@ -9,7 +18,7 @@ use Spip\Texte\Collecteur\Multis;
  *  Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribué sous licence GNU/GPL.     *
-\***************************************************************************/
+\**************************************************************************/
 
 /**
  * Ce fichier déclare des fonctions étendant les fonctions natives de SQLite
@@ -18,13 +27,7 @@ use Spip\Texte\Collecteur\Multis;
  * à des fonctions équivalentes php, que sqlite exécutera si besoin.
  *
  * entre autre auteurs : mlebas
- *
- * @package SPIP\Core\SQL\SQLite\Fonctions
  */
-
-if (!defined('_ECRIRE_INC_VERSION')) {
-	return;
-}
 
 /**
  * Déclarer à SQLite des fonctions spécifiques utilisables dans les requêtes SQL
@@ -42,94 +45,91 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @param PDO|resource $sqlite Représente la connexion Sqlite
  * @return false|void
  */
-function _sqlite_init_functions(&$sqlite) {
+function _sqlite_init_functions(&$sqlite)
+{
+    if (!$sqlite) {
+        return false;
+    }
 
-	if (!$sqlite) {
-		return false;
-	}
 
+    $fonctions = [
+        // A
+        'ACOS'  => ['acos', 1],
+        'ASIN'  => ['asin', 1],
+        'ATAN'  => ['atan', 1], // mysql accepte 2 params comme atan2… hum ?
+        'ATAN2' => ['atan2', 2],
 
-	$fonctions = [
-		// A
-		'ACOS'  => ['acos', 1],
-		'ASIN'  => ['asin', 1],
-		'ATAN'  => ['atan', 1], // mysql accepte 2 params comme atan2… hum ?
-		'ATAN2' => ['atan2', 2],
+        // C
+        'CEIL'   => ['_sqlite_func_ceil', 1],
+        'CONCAT' => ['_sqlite_func_concat', -1],
+        'COS'    => ['cos', 1],
 
-		// C
-		'CEIL'   => ['_sqlite_func_ceil', 1],
-		'CONCAT' => ['_sqlite_func_concat', -1],
-		'COS'    => ['cos', 1],
+        // D
+        'DATE_FORMAT' => ['_sqlite_func_date_format', 2], // équivalent a strftime avec args inversés
+        'DAYOFMONTH'  => ['_sqlite_func_dayofmonth', 1],
+        'DEGREES'     => ['rad2deg', 1],
 
-		// D
-		'DATE_FORMAT' => ['_sqlite_func_date_format', 2], // équivalent a strftime avec args inversés
-		'DAYOFMONTH'  => ['_sqlite_func_dayofmonth', 1],
-		'DEGREES'     => ['rad2deg', 1],
+        // E
+        'EXTRAIRE_MULTI' => ['_sqlite_func_extraire_multi', 2], // specifique a SPIP/sql_multi()
+        'EXP'            => ['exp', 1],
 
-		// E
-		'EXTRAIRE_MULTI' => ['_sqlite_func_extraire_multi', 2], // specifique a SPIP/sql_multi()
-		'EXP'            => ['exp', 1],
+        // F
+        'FIND_IN_SET' => ['_sqlite_func_find_in_set', 2],
+        'FLOOR'       => ['_sqlite_func_floor', 1],
 
-		// F
-		'FIND_IN_SET' => ['_sqlite_func_find_in_set', 2],
-		'FLOOR'       => ['_sqlite_func_floor', 1],
+        // G
+        'GREATEST' => ['_sqlite_func_greatest', -1],
 
-		// G
-		'GREATEST' => ['_sqlite_func_greatest', -1],
+        // I
+        'IF'     => ['_sqlite_func_if', 3],
+        'INSERT' => ['_sqlite_func_insert', 4],
+        'INSTR'  => ['_sqlite_func_instr', 2],
 
-		// I
-		'IF'     => ['_sqlite_func_if', 3],
-		'INSERT' => ['_sqlite_func_insert', 4],
-		'INSTR'  => ['_sqlite_func_instr', 2],
+        // L
+        'LEAST'  => ['_sqlite_func_least', -1],
+        '_LEFT'  => ['_sqlite_func_left', 2],
 
-		// L
-		'LEAST'  => ['_sqlite_func_least', -1],
-		'_LEFT'  => ['_sqlite_func_left', 2],
+        // N
+        'NOW' => ['_sqlite_func_now', 0],
 
-		// N
-		'NOW' => ['_sqlite_func_now', 0],
+        // M
+        'MD5'   => ['md5', 1],
+        'MONTH' => ['_sqlite_func_month', 1],
 
-		// M
-		'MD5'   => ['md5', 1],
-		'MONTH' => ['_sqlite_func_month', 1],
+        // P
+        'PREG_REPLACE' => ['_sqlite_func_preg_replace', 3],
 
-		// P
-		'PREG_REPLACE' => ['_sqlite_func_preg_replace', 3],
+        // R
+        'RADIANS' => ['deg2rad', 1],
+        'RAND'    => ['_sqlite_func_rand', 0], // sinon random() v2.4
+        'REGEXP'  => ['_sqlite_func_regexp_match', 2], // critere REGEXP supporte a partir de v3.3.2
+        'RIGHT'   => ['_sqlite_func_right', 2],
 
-		// R
-		'RADIANS' => ['deg2rad', 1],
-		'RAND'    => ['_sqlite_func_rand', 0], // sinon random() v2.4
-		'REGEXP'  => ['_sqlite_func_regexp_match', 2], // critere REGEXP supporte a partir de v3.3.2
-		'RIGHT'   => ['_sqlite_func_right', 2],
+        // S
+        'SETTYPE'   => ['settype', 2], // CAST present en v3.2.3
+        'SIN'       => ['sin', 1],
+        'SQRT'      => ['sqrt', 1],
+        'SUBSTRING' => ['_sqlite_func_substring' /*, 3*/], // peut etre appelee avec 2 ou 3 arguments, index base 1 et non 0
 
-		// S
-		'SETTYPE'   => ['settype', 2], // CAST present en v3.2.3
-		'SIN'       => ['sin', 1],
-		'SQRT'      => ['sqrt', 1],
-		'SUBSTRING' => ['_sqlite_func_substring' /*, 3*/], // peut etre appelee avec 2 ou 3 arguments, index base 1 et non 0
+        // T
+        'TAN'           => ['tan', 1],
+        'TIMESTAMPDIFF' => ['_sqlite_timestampdiff'    /*, 3*/],
+        'TO_DAYS'       => ['_sqlite_func_to_days', 1],
 
-		// T
-		'TAN'           => ['tan', 1],
-		'TIMESTAMPDIFF' => ['_sqlite_timestampdiff'    /*, 3*/],
-		'TO_DAYS'       => ['_sqlite_func_to_days', 1],
+        // U
+        'UNIX_TIMESTAMP' => ['_sqlite_func_unix_timestamp', 1],
 
-		// U
-		'UNIX_TIMESTAMP' => ['_sqlite_func_unix_timestamp', 1],
+        // V
+        'VIDE' => ['_sqlite_func_vide', 0], // du vide pour SELECT 0 as x ... ORDER BY x -> ORDER BY vide()
 
-		// V
-		'VIDE' => ['_sqlite_func_vide', 0], // du vide pour SELECT 0 as x ... ORDER BY x -> ORDER BY vide()
+        // Y
+        'YEAR' => ['_sqlite_func_year', 1]
+    ];
 
-		// Y
-		'YEAR' => ['_sqlite_func_year', 1]
-	];
-
-	foreach ($fonctions as $f => $r) {
-		_sqlite_add_function($sqlite, $f, $r);
-	}
-
-	#spip_logger('sqlite')->debug('functions sqlite chargees ');
+    foreach ($fonctions as $f => $r) {
+        _sqlite_add_function($sqlite, $f, $r);
+    }
 }
-
 
 /**
  * Déclare une fonction à SQLite
@@ -146,11 +146,12 @@ function _sqlite_init_functions(&$sqlite) {
  *     - le nom de la fonction à appeler,
  *     - le nombre de paramètres attendus de la fonction (-1 = infini, par défaut)
  *
-**/
-function _sqlite_add_function(&$sqlite, &$f, &$r) {
-	isset($r[1])
-		? $sqlite->sqliteCreateFunction($f, $r[0], $r[1])
-		: $sqlite->sqliteCreateFunction($f, $r[0]);
+ */
+function _sqlite_add_function(&$sqlite, &$f, &$r)
+{
+    isset($r[1])
+        ? $sqlite->sqliteCreateFunction($f, $r[0], $r[1])
+        : $sqlite->sqliteCreateFunction($f, $r[0]);
 }
 
 /**
@@ -159,8 +160,9 @@ function _sqlite_add_function(&$sqlite, &$f, &$r) {
  * @param float $a
  * @return int
  */
-function _sqlite_func_ceil($a) {
-	return ceil($a);
+function _sqlite_func_ceil($a)
+{
+    return ceil($a);
 }
 
 /**
@@ -169,10 +171,10 @@ function _sqlite_func_ceil($a) {
  * @param string[] ...$args
  * @return string
  */
-function _sqlite_func_concat(...$args) {
-	return implode('', $args);
+function _sqlite_func_concat(...$args)
+{
+    return implode('', $args);
 }
-
 
 /**
  * Mapping de `DAYOFMONTH` pour SQLite
@@ -182,10 +184,10 @@ function _sqlite_func_concat(...$args) {
  * @param string $d
  * @return string
  */
-function _sqlite_func_dayofmonth($d) {
-	return _sqlite_func_date('d', $d);
+function _sqlite_func_dayofmonth($d)
+{
+    return _sqlite_func_date('d', $d);
 }
-
 
 /**
  * Mapping de `FIND_IN_SET` pour SQLite
@@ -194,16 +196,17 @@ function _sqlite_func_dayofmonth($d) {
  * @param string $set
  * @return int
  */
-function _sqlite_func_find_in_set($num, $set) {
-	$rank = 0;
-	foreach (explode(',', $set) as $v) {
-		if ($v == $num) {
-			return (++$rank);
-		}
-		$rank++;
-	}
+function _sqlite_func_find_in_set($num, $set)
+{
+    $rank = 0;
+    foreach (explode(',', $set) as $v) {
+        if ($v == $num) {
+            return (++$rank);
+        }
+        $rank++;
+    }
 
-	return 0;
+    return 0;
 }
 
 /**
@@ -212,10 +215,10 @@ function _sqlite_func_find_in_set($num, $set) {
  * @param float $a
  * @return int
  */
-function _sqlite_func_floor($a) {
-	return floor($a);
+function _sqlite_func_floor($a)
+{
+    return floor($a);
 }
-
 
 /**
  * Mapping de `IF` pour SQLite
@@ -225,10 +228,10 @@ function _sqlite_func_floor($a) {
  * @param string|int|float $non
  * @return mixed
  */
-function _sqlite_func_if($bool, $oui, $non) {
-	return ($bool) ? $oui : $non;
+function _sqlite_func_if($bool, $oui, $non)
+{
+    return ($bool) ? $oui : $non;
 }
-
 
 /**
  * Mapping de `INSERT` pour SQLite
@@ -242,13 +245,13 @@ function _sqlite_func_if($bool, $oui, $non) {
  * @param string $chaine
  * @return string
  */
-function _sqlite_func_insert($s, $index, $longueur, $chaine) {
-	return
-		substr($s, 0, $index)
-		. $chaine
-		. substr(substr($s, $index), $longueur);
+function _sqlite_func_insert($s, $index, $longueur, $chaine)
+{
+    return
+        substr($s, 0, $index)
+        . $chaine
+        . substr(substr($s, $index), $longueur);
 }
-
 
 /**
  * Mapping de `INSTR` pour SQLite
@@ -257,10 +260,10 @@ function _sqlite_func_insert($s, $index, $longueur, $chaine) {
  * @param string $search
  * @return int
  */
-function _sqlite_func_instr($s, $search) {
-	return strpos($s, $search);
+function _sqlite_func_instr($s, $search)
+{
+    return strpos($s, $search);
 }
-
 
 /**
  * Mapping de `LEAST` pour SQLite
@@ -268,10 +271,10 @@ function _sqlite_func_instr($s, $search) {
  * @param int[] ...$args
  * @return int
  */
-function _sqlite_func_least(...$args) {
-	return min($args);
+function _sqlite_func_least(...$args)
+{
+    return min($args);
 }
-
 
 /**
  * Mapping de `GREATEST` pour SQLite
@@ -279,10 +282,10 @@ function _sqlite_func_least(...$args) {
  * @param int[] ...$args
  * @return int
  */
-function _sqlite_func_greatest(...$args) {
-	return max($args);
+function _sqlite_func_greatest(...$args)
+{
+    return max($args);
 }
-
 
 /**
  * Mapping de `LEFT` pour SQLite
@@ -291,8 +294,9 @@ function _sqlite_func_greatest(...$args) {
  * @param int $lenght
  * @return string
  */
-function _sqlite_func_left($s, $lenght) {
-	return substr($s, $lenght);
+function _sqlite_func_left($s, $lenght)
+{
+    return substr($s, $lenght);
 }
 
 /**
@@ -301,16 +305,15 @@ function _sqlite_func_left($s, $lenght) {
  * @param boolean $force_refresh
  * @return string
  */
-function _sqlite_func_now($force_refresh = false) {
-	static $now = null;
-	if (is_null($now) || $force_refresh) {
-		$now = date('Y-m-d H:i:s');
-	}
+function _sqlite_func_now($force_refresh = false)
+{
+    static $now = null;
+    if (is_null($now) || $force_refresh) {
+        $now = date('Y-m-d H:i:s');
+    }
 
-	#spip_logger('sqlite')->debug("Passage avec NOW : $now | ".time());
-	return $now;
+    return $now;
 }
-
 
 /**
  * Mapping de `MONTH` pour SQLite
@@ -320,10 +323,10 @@ function _sqlite_func_now($force_refresh = false) {
  * @param string $d
  * @return string
  */
-function _sqlite_func_month($d) {
-	return _sqlite_func_date('m', $d);
+function _sqlite_func_month($d)
+{
+    return _sqlite_func_date('m', $d);
 }
-
 
 /**
  * Mapping de `PREG_REPLACE` pour SQLite
@@ -333,9 +336,9 @@ function _sqlite_func_month($d) {
  * @param string $remplace
  * @return string
  */
-function _sqlite_func_preg_replace($quoi, $cherche, $remplace) {
-	#spip_logger('sqlite')->debug("preg_replace : $quoi, $cherche, $remplace, $return");
-	return preg_replace('%' . $cherche . '%', $remplace, $quoi);
+function _sqlite_func_preg_replace($quoi, $cherche, $remplace)
+{
+    return preg_replace('%' . $cherche . '%', $remplace, $quoi);
 }
 
 /**
@@ -346,25 +349,25 @@ function _sqlite_func_preg_replace($quoi, $cherche, $remplace) {
  * @param string $quoi le texte contenant ou non un multi
  * @param string $lang la langue a extraire
  * @return string, l'extrait trouve.
- **/
-function _sqlite_func_extraire_multi($quoi, $lang) {
-	if (str_contains($quoi, '<')) {
-		$collecteurMultis = new Multis();
-		$quoi = $collecteurMultis->traiter($quoi, ['lang' => $lang, 'appliquer_typo' => false]);
-	}
-	return $quoi;
+ */
+function _sqlite_func_extraire_multi($quoi, $lang)
+{
+    if (str_contains($quoi, '<')) {
+        $collecteurMultis = new Multis();
+        $quoi = $collecteurMultis->traiter($quoi, ['lang' => $lang, 'appliquer_typo' => false]);
+    }
+    return $quoi;
 }
-
 
 /**
  * Mapping de `RAND` pour SQLite
  *
  * @return float
  */
-function _sqlite_func_rand() {
-	return random_int(0, mt_getrandmax());
+function _sqlite_func_rand()
+{
+    return random_int(0, mt_getrandmax());
 }
-
 
 /**
  * Mapping de `RIGHT` pour SQLite
@@ -373,10 +376,10 @@ function _sqlite_func_rand() {
  * @param int $length
  * @return string
  */
-function _sqlite_func_right($s, $length) {
-	return substr($s, 0 - $length);
+function _sqlite_func_right($s, $length)
+{
+    return substr($s, 0 - $length);
 }
-
 
 /**
  * Mapping de `REGEXP` pour SQLite
@@ -385,19 +388,18 @@ function _sqlite_func_right($s, $length) {
  * @param string $quoi
  * @return bool
  */
-function _sqlite_func_regexp_match($cherche, $quoi) {
-	// optimiser un cas tres courant avec les requetes en base
-	if (!$quoi && !strlen($quoi)) {
-		return false;
-	}
-	// il faut enlever un niveau d'echappement pour être homogène à mysql
-	$cherche = str_replace('\\\\', '\\', $cherche);
-	$u = $GLOBALS['meta']['pcre_u'] ?? 'u';
+function _sqlite_func_regexp_match($cherche, $quoi)
+{
+    // optimiser un cas tres courant avec les requetes en base
+    if (!$quoi && !strlen($quoi)) {
+        return false;
+    }
+    // il faut enlever un niveau d'echappement pour être homogène à mysql
+    $cherche = str_replace('\\\\', '\\', $cherche);
+    $u = $GLOBALS['meta']['pcre_u'] ?? 'u';
 
-	#spip_logger('sqlite')->debug("regexp_replace : $quoi, $cherche, $remplace, $return");
-	return preg_match('%' . $cherche . '%imsS' . $u, $quoi);
+    return preg_match('%' . $cherche . '%imsS' . $u, $quoi);
 }
-
 
 /**
  * Mapping de `DATE_FORMAT` pour SQLite
@@ -409,9 +411,10 @@ function _sqlite_func_regexp_match($cherche, $quoi) {
  * @param string $conv
  * @return string
  */
-function _sqlite_func_date_format($date, $conv) {
-	$conv = _sqlite_func_strftime_format_converter($conv);
-	return strftime($conv, is_int($date) ? $date : strtotime($date));
+function _sqlite_func_date_format($date, $conv)
+{
+    $conv = _sqlite_func_strftime_format_converter($conv);
+    return strftime($conv, is_int($date) ? $date : strtotime($date));
 }
 
 /**
@@ -426,29 +429,30 @@ function _sqlite_func_date_format($date, $conv) {
  * @param string $conv
  * @return void
  */
-function _sqlite_func_strftime_format_converter(string $conv): string {
-	// ok : %a %b %d %e %H %I %l %j %k %m %p %r %S %T %w %y %Y
-	// on ne sait pas en gérer certains...
-	static $mysql_to_strftime_not_ok = ['%c', '%D', '%f', '%U', '%V', '%W', '%X'];
-	static $mysql_to_strftime = [
-		'%h' => '%I',
-		'%i' => '%M',
-		'%M' => '%B',
-		'%s' => '%S',
-		'%u' => '%U',
-		'%v' => '%V',
-		'%x' => '%G',
-	];
-	static $to_strftime = [];
-	if (!isset($to_strftime[$conv])) {
-		$count = 0;
-		str_replace($mysql_to_strftime_not_ok, '', $conv, $count);
-		if ($count > 0) {
-			spip_logger('sqlite')->error("DATE_FORMAT : At least one parameter can't be parsed by strftime with format '$conv'");
-		}
-		$to_strftime[$conv] = str_replace(array_keys($mysql_to_strftime), $mysql_to_strftime, $conv);
-	}
-	return $to_strftime[$conv];
+function _sqlite_func_strftime_format_converter(string $conv): string
+{
+    // ok : %a %b %d %e %H %I %l %j %k %m %p %r %S %T %w %y %Y
+    // on ne sait pas en gérer certains...
+    static $mysql_to_strftime_not_ok = ['%c', '%D', '%f', '%U', '%V', '%W', '%X'];
+    static $mysql_to_strftime = [
+        '%h' => '%I',
+        '%i' => '%M',
+        '%M' => '%B',
+        '%s' => '%S',
+        '%u' => '%U',
+        '%v' => '%V',
+        '%x' => '%G',
+    ];
+    static $to_strftime = [];
+    if (!isset($to_strftime[$conv])) {
+        $count = 0;
+        str_replace($mysql_to_strftime_not_ok, '', $conv, $count);
+        if ($count > 0) {
+            spip_logger('sqlite')->error("DATE_FORMAT : At least one parameter can't be parsed by strftime with format '$conv'");
+        }
+        $to_strftime[$conv] = str_replace(array_keys($mysql_to_strftime), $mysql_to_strftime, $conv);
+    }
+    return $to_strftime[$conv];
 }
 
 /**
@@ -461,12 +465,12 @@ function _sqlite_func_strftime_format_converter(string $conv): string {
  * @param string $d
  * @return int
  */
-function _sqlite_func_to_days($d) {
-	static $offset = 719528; // nb de jour entre 0000-00-00 et timestamp 0=1970-01-01
-	$result = $offset + (int)ceil(_sqlite_func_unix_timestamp($d) / (24 * 3600));
+function _sqlite_func_to_days($d)
+{
+    static $offset = 719528; // nb de jour entre 0000-00-00 et timestamp 0=1970-01-01
+    $result = $offset + (int) ceil(_sqlite_func_unix_timestamp($d) / (24 * 3600));
 
-	#spip_logger('sqlite')->debug("Passage avec TO_DAYS : $d, $result");
-	return $result;
+    return $result;
 }
 
 /**
@@ -477,14 +481,15 @@ function _sqlite_func_to_days($d) {
  * @param int $len
  * @return string
  */
-function _sqlite_func_substring($string, $start, $len = null) {
-	// SQL compte a partir de 1, php a partir de 0
-	$start = ($start > 0) ? $start - 1 : $start;
-	if (is_null($len)) {
-		return substr($string, $start);
-	} else {
-		return substr($string, $start, $len);
-	}
+function _sqlite_func_substring($string, $start, $len = null)
+{
+    // SQL compte a partir de 1, php a partir de 0
+    $start = ($start > 0) ? $start - 1 : $start;
+    if (is_null($len)) {
+        return substr($string, $start);
+    } else {
+        return substr($string, $start, $len);
+    }
 }
 
 /**
@@ -499,23 +504,24 @@ function _sqlite_func_substring($string, $start, $len = null) {
  * @param string $date2
  * @return int
  */
-function _sqlite_timestampdiff($unit, $date1, $date2) {
-	$d1 = date_create($date1);
-	$d2 = date_create($date2);
-	$diff = date_diff($d1, $d2);
-	$inv = $diff->invert ? -1 : 1;
-	return match ($unit) {
-		'YEAR' => $inv * $diff->y,
-		'QUARTER' => $inv * (4 * $diff->y + (int) floor($diff->m / 3)),
-		'MONTH' => $inv * (12 * $diff->y + $diff->m),
-		'WEEK' => $inv * (int) floor($diff->days / 7),
-		'DAY' => $inv * $diff->days,
-		'HOUR' => $inv * (24 * $diff->days + $diff->h),
-		'MINUTE' => $inv * ((24 * $diff->days + $diff->h) * 60 + $diff->i),
-		'SECOND' => $inv * (((24 * $diff->days + $diff->h) * 60 + $diff->i) * 60 + $diff->s),
-		'MICROSECOND' => $inv * (((24 * $diff->days + $diff->h) * 60 + $diff->i) * 60 + $diff->s) * 1_000_000,
-		default => 0,
-	};
+function _sqlite_timestampdiff($unit, $date1, $date2)
+{
+    $d1 = date_create($date1);
+    $d2 = date_create($date2);
+    $diff = date_diff($d1, $d2);
+    $inv = $diff->invert ? -1 : 1;
+    return match ($unit) {
+        'YEAR' => $inv * $diff->y,
+        'QUARTER' => $inv * (4 * $diff->y + (int) floor($diff->m / 3)),
+        'MONTH' => $inv * (12 * $diff->y + $diff->m),
+        'WEEK' => $inv * (int) floor($diff->days / 7),
+        'DAY' => $inv * $diff->days,
+        'HOUR' => $inv * (24 * $diff->days + $diff->h),
+        'MINUTE' => $inv * ((24 * $diff->days + $diff->h) * 60 + $diff->i),
+        'SECOND' => $inv * (((24 * $diff->days + $diff->h) * 60 + $diff->i) * 60 + $diff->s),
+        'MICROSECOND' => $inv * (((24 * $diff->days + $diff->h) * 60 + $diff->i) * 60 + $diff->s) * 1_000_000,
+        default => 0,
+    };
 }
 
 /**
@@ -524,27 +530,26 @@ function _sqlite_timestampdiff($unit, $date1, $date2) {
  * @param string $d
  * @return int
  */
-function _sqlite_func_unix_timestamp($d) {
-	static $mem = [];
-	static $n = 0;
-	if (isset($mem[$d])) {
-		return $mem[$d];
-	}
-	if ($n++ > 100) {
-		$mem = [];
-		$n = 0;
-	}
+function _sqlite_func_unix_timestamp($d)
+{
+    static $mem = [];
+    static $n = 0;
+    if (isset($mem[$d])) {
+        return $mem[$d];
+    }
+    if ($n++ > 100) {
+        $mem = [];
+        $n = 0;
+    }
 
-	//2005-12-02 20:53:53
-	#spip_logger('sqlite')->debug("Passage avec UNIX_TIMESTAMP : $d");
-	if (!$d) {
-		return $mem[$d] = time();
-	}
+    //2005-12-02 20:53:53
+    if (!$d) {
+        return $mem[$d] = time();
+    }
 
-	// une pile plus grosse n'accelere pas le calcul
-	return $mem[$d] = strtotime($d);
+    // une pile plus grosse n'accelere pas le calcul
+    return $mem[$d] = strtotime($d);
 }
-
 
 /**
  * Mapping de `YEAR` pour SQLite
@@ -554,8 +559,9 @@ function _sqlite_func_unix_timestamp($d) {
  * @param string $d
  * @return string
  */
-function _sqlite_func_year($d) {
-	return _sqlite_func_date('Y', $d);
+function _sqlite_func_year($d)
+{
+    return _sqlite_func_date('Y', $d);
 }
 
 /**
@@ -567,21 +573,22 @@ function _sqlite_func_year($d) {
  *   timestamp
  * @return string
  */
-function _sqlite_func_date($quoi, $d) {
-	static $mem = [];
-	static $n = 0;
-	if (isset($mem[$d])) {
-		return $mem[$d][$quoi];
-	}
-	if ($n++ > 100) {
-		$mem = [];
-		$n = 0;
-	}
+function _sqlite_func_date($quoi, $d)
+{
+    static $mem = [];
+    static $n = 0;
+    if (isset($mem[$d])) {
+        return $mem[$d][$quoi];
+    }
+    if ($n++ > 100) {
+        $mem = [];
+        $n = 0;
+    }
 
-	$dec = date('Y-m-d', _sqlite_func_unix_timestamp($d));
-	$mem[$d] = ['Y' => substr($dec, 0, 4), 'm' => substr($dec, 5, 2), 'd' => substr($dec, 8, 2)];
+    $dec = date('Y-m-d', _sqlite_func_unix_timestamp($d));
+    $mem[$d] = ['Y' => substr($dec, 0, 4), 'm' => substr($dec, 5, 2), 'd' => substr($dec, 8, 2)];
 
-	return $mem[$d][$quoi];
+    return $mem[$d][$quoi];
 }
 
 /**
@@ -589,6 +596,7 @@ function _sqlite_func_date($quoi, $d) {
  *
  * @return void
  */
-function _sqlite_func_vide() {
-	return;
+function _sqlite_func_vide()
+{
+    return;
 }

@@ -1,32 +1,25 @@
 <?php
 
-/***************************************************************************\
- *  SPIP, Système de publication pour l'internet                           *
- *                                                                         *
- *  Copyright © avec tendresse depuis 2001                                 *
- *  Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James  *
- *                                                                         *
- *  Ce programme est un logiciel libre distribué sous licence GNU/GPL.     *
-\***************************************************************************/
+/**
+ * SPIP, Système de publication pour l'internet
+ *
+ * Copyright © avec tendresse depuis 2001
+ * Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James
+ *
+ * Ce programme est un logiciel libre distribué sous licence GNU/GPL.
+ */
 
 /**
  * Mise à jour de la base de données
- *
- * @package SPIP\Core\SQL\Upgrade
  */
-
-if (!defined('_ECRIRE_INC_VERSION')) {
-	return;
-}
-
 if (!defined('_UPGRADE_TIME_OUT')) {
-	/**
-	 * Durée en secondes pour relancer les scripts de mises à jour, x secondes
-	 * avant que la durée d'exécution du script provoque un timeout
-	 *
-	 * @var int
-	 **/
-	define('_UPGRADE_TIME_OUT', 20);
+    /**
+     * Durée en secondes pour relancer les scripts de mises à jour, x secondes
+     * avant que la durée d'exécution du script provoque un timeout
+     *
+     * @var int
+     */
+    define('_UPGRADE_TIME_OUT', 20);
 }
 
 /**
@@ -48,41 +41,42 @@ if (!defined('_UPGRADE_TIME_OUT')) {
  * @param string $reprise Inutilisé
  * @return void
  */
-function base_upgrade_dist($titre = '', $reprise = '') {
-	if (!$titre) {
-		return;
-	} // anti-testeur automatique
-	if ($GLOBALS['spip_version_base'] != $GLOBALS['meta']['version_installee']) {
-		if (!is_numeric(_request('reinstall'))) {
-			include_spip('base/create');
-			spip_logger('maj')->notice('recree les tables eventuellement disparues');
-			creer_base();
-		}
+function base_upgrade_dist($titre = '', $reprise = '')
+{
+    if (!$titre) {
+        return;
+    } // anti-testeur automatique
+    if ($GLOBALS['spip_version_base'] != $GLOBALS['meta']['version_installee']) {
+        if (!is_numeric(_request('reinstall'))) {
+            include_spip('base/create');
+            spip_logger('maj')->notice('recree les tables eventuellement disparues');
+            creer_base();
+        }
 
-		// quand on rentre par ici, c'est toujours une mise a jour de SPIP
-		// lancement de l'upgrade SPIP
-		$res = maj_base();
+        // quand on rentre par ici, c'est toujours une mise a jour de SPIP
+        // lancement de l'upgrade SPIP
+        $res = maj_base();
 
-		if ($res) {
-			// on arrete tout ici !
-			exit;
-		}
-	}
-	spip_logger('maj')->notice('Fin de mise a jour SQL. Debut m-a-j acces et config');
+        if ($res) {
+            // on arrete tout ici !
+            exit;
+        }
+    }
+    spip_logger('maj')->notice('Fin de mise a jour SQL. Debut m-a-j acces et config');
 
-	// supprimer quelques fichiers temporaires qui peuvent se retrouver invalides
-	@spip_unlink(_CACHE_RUBRIQUES);
-	@spip_unlink(_CACHE_PIPELINES);
-	@spip_unlink(_CACHE_PLUGINS_PATH);
-	@spip_unlink(_CACHE_PLUGINS_OPT);
-	@spip_unlink(_CACHE_PLUGINS_FCT);
-	@spip_unlink(_CACHE_CHEMIN);
-	@spip_unlink(_DIR_TMP . 'plugin_xml_cache.gz');
+    // supprimer quelques fichiers temporaires qui peuvent se retrouver invalides
+    @spip_unlink(_CACHE_RUBRIQUES);
+    @spip_unlink(_CACHE_PIPELINES);
+    @spip_unlink(_CACHE_PLUGINS_PATH);
+    @spip_unlink(_CACHE_PLUGINS_OPT);
+    @spip_unlink(_CACHE_PLUGINS_FCT);
+    @spip_unlink(_CACHE_CHEMIN);
+    @spip_unlink(_DIR_TMP . 'plugin_xml_cache.gz');
 
-	include_spip('inc/auth');
-	auth_synchroniser_distant();
-	$config = charger_fonction('config', 'inc');
-	$config();
+    include_spip('inc/auth');
+    auth_synchroniser_distant();
+    $config = charger_fonction('config', 'inc');
+    $config();
 }
 
 /**
@@ -111,48 +105,48 @@ function base_upgrade_dist($titre = '', $reprise = '') {
  * @param string $redirect
  * @return array|bool
  */
-function maj_base($version_cible = 0, $redirect = '', $debut_page = true) {
+function maj_base($version_cible = 0, $redirect = '', $debut_page = true)
+{
+    $version_installee = $GLOBALS['meta']['version_installee'] ?? null;
 
-	$version_installee = $GLOBALS['meta']['version_installee'] ?? null;
+    spip_logger('maj')->notice(
+        "Version anterieure: $version_installee. Courante: " . $GLOBALS['spip_version_base'],
+    );
+    if (!$version_installee || $GLOBALS['spip_version_base'] < $version_installee) {
+        sql_replace(
+            'spip_meta',
+            [
+                'nom' => 'version_installee',
+                'valeur' => $GLOBALS['spip_version_base'],
+                'impt' => 'non'
+            ]
+        );
+        return false;
+    }
+    if (!upgrade_test()) {
+        return true;
+    }
 
-	spip_logger('maj')->notice(
-		"Version anterieure: $version_installee. Courante: " . $GLOBALS['spip_version_base'],
-	);
-	if (!$version_installee || $GLOBALS['spip_version_base'] < $version_installee) {
-		sql_replace(
-			'spip_meta',
-			[
-				'nom' => 'version_installee',
-				'valeur' => $GLOBALS['spip_version_base'],
-				'impt' => 'non'
-			]
-		);
-		return false;
-	}
-	if (!upgrade_test()) {
-		return true;
-	}
+    $cible = ($version_cible ?: $GLOBALS['spip_version_base']);
 
-	$cible = ($version_cible ?: $GLOBALS['spip_version_base']);
+    if ($version_installee < 2021_01_01_00) {
+        include_spip('maj/legacy/v40');
+    }
 
-	if ($version_installee < 2021_01_01_00) {
-		include_spip('maj/legacy/v40');
-	}
+    include_spip('maj/2021');
 
-	include_spip('maj/2021');
+    ksort($GLOBALS['maj']);
+    $res = maj_while($version_installee, $cible, $GLOBALS['maj'], 'version_installee', 'meta', $redirect, $debut_page);
+    if ($res) {
+        if (!is_array($res)) {
+            spip_logger('maj')->error("Pb d'acces SQL a la mise a jour");
+        } else {
+            echo _T('avis_operation_echec') . ' ' . implode(' ', $res);
+            echo install_fin_html();
+        }
+    }
 
-	ksort($GLOBALS['maj']);
-	$res = maj_while($version_installee, $cible, $GLOBALS['maj'], 'version_installee', 'meta', $redirect, $debut_page);
-	if ($res) {
-		if (!is_array($res)) {
-			spip_logger('maj')->error("Pb d'acces SQL a la mise a jour");
-		} else {
-			echo _T('avis_operation_echec') . ' ' . implode(' ', $res);
-			echo install_fin_html();
-		}
-	}
-
-	return $res;
+    return $res;
 }
 
 /**
@@ -192,55 +186,55 @@ function maj_base($version_cible = 0, $redirect = '', $debut_page = true) {
  *     Nom de la table meta (sans le prefixe spip_) dans laquelle trouver la meta $nom_meta_base_version
  * @return void
  */
-function maj_plugin($nom_meta_base_version, $version_cible, $maj, $table_meta = 'meta') {
+function maj_plugin($nom_meta_base_version, $version_cible, $maj, $table_meta = 'meta')
+{
+    if ($table_meta !== 'meta') {
+        installer_table_meta($table_meta);
+    }
 
-	if ($table_meta !== 'meta') {
-		installer_table_meta($table_meta);
-	}
+    $current_version = null;
 
-	$current_version = null;
+    if (
+        (!isset($GLOBALS[$table_meta][$nom_meta_base_version]))
+        || (!spip_version_compare($current_version = $GLOBALS[$table_meta][$nom_meta_base_version], $version_cible, '='))
+    ) {
+        // $maj['create'] contient les directives propres a la premiere creation de base
+        // c'est une operation derogatoire qui fait aboutir directement dans la version_cible
+        if (isset($maj['create'])) {
+            if (!isset($GLOBALS[$table_meta][$nom_meta_base_version])) {
+                // installation : on ne fait que l'operation create
+                $maj = ['init' => $maj['create']];
+                // et on lui ajoute un appel a inc/config
+                // pour creer les metas par defaut
+                $config = charger_fonction('config', 'inc');
+                $maj[$version_cible] = [[$config]];
+            }
+            // dans tous les cas enlever cet index du tableau
+            unset($maj['create']);
+        }
+        // si init, deja dans le bon ordre
+        if (!isset($maj['init'])) {
+            include_spip('inc/plugin'); // pour spip_version_compare
+            uksort($maj, 'spip_version_compare');
+        }
 
-	if (
-		(!isset($GLOBALS[$table_meta][$nom_meta_base_version]))
-		|| (!spip_version_compare($current_version = $GLOBALS[$table_meta][$nom_meta_base_version], $version_cible, '='))
-	) {
-		// $maj['create'] contient les directives propres a la premiere creation de base
-		// c'est une operation derogatoire qui fait aboutir directement dans la version_cible
-		if (isset($maj['create'])) {
-			if (!isset($GLOBALS[$table_meta][$nom_meta_base_version])) {
-				// installation : on ne fait que l'operation create
-				$maj = ['init' => $maj['create']];
-				// et on lui ajoute un appel a inc/config
-				// pour creer les metas par defaut
-				$config = charger_fonction('config', 'inc');
-				$maj[$version_cible] = [[$config]];
-			}
-			// dans tous les cas enlever cet index du tableau
-			unset($maj['create']);
-		}
-		// si init, deja dans le bon ordre
-		if (!isset($maj['init'])) {
-			include_spip('inc/plugin'); // pour spip_version_compare
-			uksort($maj, 'spip_version_compare');
-		}
+        // la redirection se fait par defaut sur la page d'administration des plugins
+        // sauf lorsque nous sommes sur l'installation de SPIP
+        // ou define _REDIRECT_MAJ_PLUGIN
+        $redirect = (defined('_REDIRECT_MAJ_PLUGIN') ? _REDIRECT_MAJ_PLUGIN : generer_url_ecrire('admin_plugin'));
+        if (defined('_ECRIRE_INSTALL')) {
+            $redirect = parametre_url(generer_url_ecrire('install'), 'etape', _request('etape'));
+        }
 
-		// la redirection se fait par defaut sur la page d'administration des plugins
-		// sauf lorsque nous sommes sur l'installation de SPIP
-		// ou define _REDIRECT_MAJ_PLUGIN
-		$redirect = (defined('_REDIRECT_MAJ_PLUGIN') ? _REDIRECT_MAJ_PLUGIN : generer_url_ecrire('admin_plugin'));
-		if (defined('_ECRIRE_INSTALL')) {
-			$redirect = parametre_url(generer_url_ecrire('install'), 'etape', _request('etape'));
-		}
-
-		$res = maj_while($current_version, $version_cible, $maj, $nom_meta_base_version, $table_meta, $redirect);
-		if ($res) {
-			if (!is_array($res)) {
-				spip_logger('maj')->error("Pb d'acces SQL a la mise a jour");
-			} else {
-				echo '<p>' . _T('avis_operation_echec') . ' ' . implode(' ', $res) . '</p>';
-			}
-		}
-	}
+        $res = maj_while($current_version, $version_cible, $maj, $nom_meta_base_version, $table_meta, $redirect);
+        if ($res) {
+            if (!is_array($res)) {
+                spip_logger('maj')->error("Pb d'acces SQL a la mise a jour");
+            } else {
+                echo '<p>' . _T('avis_operation_echec') . ' ' . implode(' ', $res) . '</p>';
+            }
+        }
+    }
 }
 
 /**
@@ -256,18 +250,19 @@ function maj_plugin($nom_meta_base_version, $version_cible, $maj, $table_meta = 
  * @param string $redirect
  * @return void
  */
-function relance_maj($meta, $table, $redirect = '') {
-	include_spip('inc/headers');
-	if (!$redirect) {
-		// recuperer la valeur installee en cours
-		// on la tronque numeriquement, elle ne sert pas reellement
-		// sauf pour verifier que ce n'est pas oui ou non
-		// sinon is_numeric va echouer sur un numero de version 1.2.3
-		$installee = (int) $GLOBALS[$table][$meta];
-		$redirect = generer_url_ecrire('upgrade', "reinstall=$installee&meta=$meta&table=$table", true);
-	}
-	echo redirige_formulaire($redirect);
-	exit();
+function relance_maj($meta, $table, $redirect = '')
+{
+    include_spip('inc/headers');
+    if (!$redirect) {
+        // recuperer la valeur installee en cours
+        // on la tronque numeriquement, elle ne sert pas reellement
+        // sauf pour verifier que ce n'est pas oui ou non
+        // sinon is_numeric va echouer sur un numero de version 1.2.3
+        $installee = (int) $GLOBALS[$table][$meta];
+        $redirect = generer_url_ecrire('upgrade', "reinstall=$installee&meta=$meta&table=$table", true);
+    }
+    echo redirige_formulaire($redirect);
+    exit();
 }
 
 /**
@@ -279,32 +274,32 @@ function relance_maj($meta, $table, $redirect = '') {
  * @param string $table
  * @return void
  */
-function maj_debut_page($installee, $meta, $table) {
-	static $done = false;
-	if ($done) {
-		return;
-	}
-	include_spip('inc/minipres');
-	include_spip('inc/filtres');
-	if (function_exists('ini_set')) {
-		@ini_set('zlib.output_compression', '0'); // pour permettre l'affichage au fur et a mesure
-	}
-	$timeout = _UPGRADE_TIME_OUT * 2;
-	$titre = _T('titre_page_upgrade');
-	$balise_img = charger_filtre('balise_img');
-	$titre .= $balise_img(chemin_image('loader.svg'), '', 'loader');
-	echo(install_debut_html($titre));
-	// script de rechargement auto sur timeout
-	$redirect = generer_url_ecrire('upgrade', "reinstall=$installee&meta=$meta&table=$table", true);
-	echo http_script("window.setTimeout('location.href=\"" . $redirect . "\";'," . ($timeout * 1000) . ')');
-	echo "<div style='text-align: left'>\n";
-	if (ob_get_level()) {
-		ob_flush();
-	}
-	flush();
-	$done = true;
+function maj_debut_page($installee, $meta, $table)
+{
+    static $done = false;
+    if ($done) {
+        return;
+    }
+    include_spip('inc/minipres');
+    include_spip('inc/filtres');
+    if (function_exists('ini_set')) {
+        @ini_set('zlib.output_compression', '0'); // pour permettre l'affichage au fur et a mesure
+    }
+    $timeout = _UPGRADE_TIME_OUT * 2;
+    $titre = _T('titre_page_upgrade');
+    $balise_img = charger_filtre('balise_img');
+    $titre .= $balise_img(chemin_image('loader.svg'), '', 'loader');
+    echo (install_debut_html($titre));
+    // script de rechargement auto sur timeout
+    $redirect = generer_url_ecrire('upgrade', "reinstall=$installee&meta=$meta&table=$table", true);
+    echo http_script("window.setTimeout('location.href=\"" . $redirect . "\";'," . ($timeout * 1000) . ')');
+    echo "<div style='text-align: left'>\n";
+    if (ob_get_level()) {
+        ob_flush();
+    }
+    flush();
+    $done = true;
 }
-
 
 /**
  * Gestion des mises à jour de SPIP et des plugins
@@ -345,64 +340,65 @@ function maj_debut_page($installee, $meta, $table) {
  *    - tableau (étape, sous-étape) en cas d'échec,
  *    - tableau vide sinon.
  */
-function maj_while($installee, $cible, $maj, $meta = '', $table = 'meta', $redirect = '', $debut_page = false) {
-	# inclusions pour que les procedures d'upgrade disposent des fonctions de base
-	include_spip('base/create');
-	include_spip('base/abstract_sql');
-	$trouver_table = charger_fonction('trouver_table', 'base');
-	include_spip('inc/plugin'); // pour spip_version_compare
-	$n = 0;
-	$time = time();
+function maj_while($installee, $cible, $maj, $meta = '', $table = 'meta', $redirect = '', $debut_page = false)
+{
+    # inclusions pour que les procedures d'upgrade disposent des fonctions de base
+    include_spip('base/create');
+    include_spip('base/abstract_sql');
+    $trouver_table = charger_fonction('trouver_table', 'base');
+    include_spip('inc/plugin'); // pour spip_version_compare
+    $n = 0;
+    $time = time();
 
-	if (!defined('_TIME_OUT')) {
-		/**
-		 * Définir le timeout qui peut-être utilisé dans les fonctions
-		 * de mises à jour qui durent trop longtemps
-		 *
-		 * À utiliser tel que : `if (time() >= _TIME_OUT)`
-		 *
-		 * @var int
-		 */
-		define('_TIME_OUT', $time + _UPGRADE_TIME_OUT);
-	}
+    if (!defined('_TIME_OUT')) {
+        /**
+         * Définir le timeout qui peut-être utilisé dans les fonctions
+         * de mises à jour qui durent trop longtemps
+         *
+         * À utiliser tel que : `if (time() >= _TIME_OUT)`
+         *
+         * @var int
+         */
+        define('_TIME_OUT', $time + _UPGRADE_TIME_OUT);
+    }
 
-	foreach ($maj as $v => $operations) {
-		// si une maj pour cette version
-		if (
-			$v == 'init'
-			|| spip_version_compare($v, $installee, '>') && spip_version_compare($v, $cible, '<=')
-		) {
-			if ($debut_page) {
-				maj_debut_page($v, $meta, $table);
-			}
-			echo "MAJ $v";
-			$etape = serie_alter($v, $operations, $meta, $table, $redirect);
-			$trouver_table(''); // vider le cache des descriptions de table
-			# echec sur une etape en cours ?
-			# on sort
-			if ($etape) {
-				return [$v, $etape];
-			}
-			$n = time() - $time;
-			spip_logger('maj')->notice("$table $meta: $v en $n secondes");
-			if ($meta) {
-				ecrire_meta($meta, $installee = $v, 'oui', $table);
-			}
-			echo (_IS_CLI ? "\n" : '<br />');
-		}
-		if (time() >= _TIME_OUT) {
-			relance_maj($meta, $table, $redirect);
-		}
-	}
-	$trouver_table(''); // vider le cache des descriptions de table
-	// indispensable pour les chgt de versions qui n'ecrivent pas en base
-	// tant pis pour la redondance eventuelle avec ci-dessus
-	if ($meta) {
-		ecrire_meta($meta, $cible, 'oui', $table);
-	}
-	spip_logger('maj')->notice("MAJ terminee. $meta: $installee");
+    foreach ($maj as $v => $operations) {
+        // si une maj pour cette version
+        if (
+            $v == 'init'
+            || spip_version_compare($v, $installee, '>') && spip_version_compare($v, $cible, '<=')
+        ) {
+            if ($debut_page) {
+                maj_debut_page($v, $meta, $table);
+            }
+            echo "MAJ $v";
+            $etape = serie_alter($v, $operations, $meta, $table, $redirect);
+            $trouver_table(''); // vider le cache des descriptions de table
+            # echec sur une etape en cours ?
+            # on sort
+            if ($etape) {
+                return [$v, $etape];
+            }
+            $n = time() - $time;
+            spip_logger('maj')->notice("$table $meta: $v en $n secondes");
+            if ($meta) {
+                ecrire_meta($meta, $installee = $v, 'oui', $table);
+            }
+            echo (_IS_CLI ? "\n" : '<br />');
+        }
+        if (time() >= _TIME_OUT) {
+            relance_maj($meta, $table, $redirect);
+        }
+    }
+    $trouver_table(''); // vider le cache des descriptions de table
+    // indispensable pour les chgt de versions qui n'ecrivent pas en base
+    // tant pis pour la redondance eventuelle avec ci-dessus
+    if ($meta) {
+        ecrire_meta($meta, $cible, 'oui', $table);
+    }
+    spip_logger('maj')->notice("MAJ terminee. $meta: $installee");
 
-	return [];
+    return [];
 }
 
 /**
@@ -424,72 +420,74 @@ function maj_while($installee, $cible, $maj, $meta = '', $table = 'meta', $redir
  *   url de redirection en cas d'interruption
  * @return int
  */
-function serie_alter($serie, $q = [], $meta = '', $table = 'meta', $redirect = '') {
-	$meta2 = $meta . '_maj_' . $serie;
-	$etape = 0;
-	if (isset($GLOBALS[$table][$meta2])) {
-		$etape = (int) $GLOBALS[$table][$meta2];
-	}
-	foreach ($q as $i => $r) {
-		if ($i >= $etape) {
-			$msg = "maj $table $meta2 etape $i";
-			if (
-				is_array($r)
-				&& function_exists($f = array_shift($r))
-			) {
-				// note: $r (arguments de la fonction $f) peut avoir des données tabulaires
-				spip_logger('maj')->notice("$msg: $f " . @implode(',', $r));
-				// pour les fonctions atomiques sql_xx
-				// on enregistre le meta avant de lancer la fonction,
-				// de maniere a eviter de boucler sur timeout
-				// mais pour les fonctions complexes,
-				// il faut les rejouer jusqu'a achevement.
-				// C'est a elle d'assurer qu'elles progressent a chaque rappel
-				if (str_starts_with($f, 'sql_')) {
-					ecrire_meta($meta2, $i + 1, 'non', $table);
-				}
-				echo (_IS_CLI ? '.' : " <span title='$i'>.</span>");
-				$f(...$r);
-				// si temps imparti depasse, on relance sans ecrire en meta
-				// car on est peut etre sorti sur timeout si c'est une fonction longue
-				if (time() >= _TIME_OUT) {
-					relance_maj($meta, $table, $redirect);
-				}
-				ecrire_meta($meta2, $i + 1, 'non', $table);
-				spip_logger('maj')->notice("$meta2: ok");
-			} else {
-				if (!is_array($r)) {
-					spip_logger('maj')->error("maj $i format incorrect");
-				} else {
-					spip_logger('maj')->error("maj $i fonction $f non definie");
-				}
-				// en cas d'erreur serieuse, on s'arrete
-				// mais on permet de passer par dessus en rechargeant la page.
-				return $i + 1;
-			}
-		}
-	}
-	effacer_meta($meta2, $table);
+function serie_alter($serie, $q = [], $meta = '', $table = 'meta', $redirect = '')
+{
+    $meta2 = $meta . '_maj_' . $serie;
+    $etape = 0;
+    if (isset($GLOBALS[$table][$meta2])) {
+        $etape = (int) $GLOBALS[$table][$meta2];
+    }
+    foreach ($q as $i => $r) {
+        if ($i >= $etape) {
+            $msg = "maj $table $meta2 etape $i";
+            if (
+                is_array($r)
+                && function_exists($f = array_shift($r))
+            ) {
+                // note: $r (arguments de la fonction $f) peut avoir des données tabulaires
+                spip_logger('maj')->notice("$msg: $f " . @implode(',', $r));
+                // pour les fonctions atomiques sql_xx
+                // on enregistre le meta avant de lancer la fonction,
+                // de maniere a eviter de boucler sur timeout
+                // mais pour les fonctions complexes,
+                // il faut les rejouer jusqu'a achevement.
+                // C'est a elle d'assurer qu'elles progressent a chaque rappel
+                if (str_starts_with($f, 'sql_')) {
+                    ecrire_meta($meta2, $i + 1, 'non', $table);
+                }
+                echo (_IS_CLI ? '.' : " <span title='$i'>.</span>");
+                $f(...$r);
+                // si temps imparti depasse, on relance sans ecrire en meta
+                // car on est peut etre sorti sur timeout si c'est une fonction longue
+                if (time() >= _TIME_OUT) {
+                    relance_maj($meta, $table, $redirect);
+                }
+                ecrire_meta($meta2, $i + 1, 'non', $table);
+                spip_logger('maj')->notice("$meta2: ok");
+            } else {
+                if (!is_array($r)) {
+                    spip_logger('maj')->error("maj $i format incorrect");
+                } else {
+                    spip_logger('maj')->error("maj $i fonction $f non definie");
+                }
+                // en cas d'erreur serieuse, on s'arrete
+                // mais on permet de passer par dessus en rechargeant la page.
+                return $i + 1;
+            }
+        }
+    }
+    effacer_meta($meta2, $table);
 
-	return 0;
+    return 0;
 }
 
 /**
  * Vérifie qu'il est possible d'ajouter une colonne à une table SQL
  *
  * @return bool True si possible.
- **/
-function upgrade_test() {
-	sql_drop_table('spip_test', true);
-	sql_create('spip_test', ['a' => 'int']);
-	sql_alter('TABLE spip_test ADD b INT');
-	sql_insertq('spip_test', ['b' => 1], ['field' => ['b' => 'int']]);
-	$result = sql_select('b', 'spip_test');
-	// ne pas garder le resultat de la requete sinon sqlite3
-	// ne peut pas supprimer la table spip_test lors du sql_alter qui suit
-	// car cette table serait alors 'verouillee'
-	$result = (bool) $result;
-	sql_alter('TABLE spip_test DROP b');
+ */
+function upgrade_test()
+{
+    sql_drop_table('spip_test', true);
+    sql_create('spip_test', ['a' => 'int']);
+    sql_alter('TABLE spip_test ADD b INT');
+    sql_insertq('spip_test', ['b' => 1], ['field' => ['b' => 'int']]);
+    $result = sql_select('b', 'spip_test');
+    // ne pas garder le resultat de la requete sinon sqlite3
+    // ne peut pas supprimer la table spip_test lors du sql_alter qui suit
+    // car cette table serait alors 'verouillee'
+    $result = (bool) $result;
+    sql_alter('TABLE spip_test DROP b');
 
-	return $result;
+    return $result;
 }

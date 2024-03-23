@@ -1,24 +1,17 @@
 <?php
 
-/***************************************************************************\
- *  SPIP, Système de publication pour l'internet                           *
- *                                                                         *
- *  Copyright © avec tendresse depuis 2001                                 *
- *  Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James  *
- *                                                                         *
- *  Ce programme est un logiciel libre distribué sous licence GNU/GPL.     *
-\***************************************************************************/
+/**
+ * SPIP, Système de publication pour l'internet
+ *
+ * Copyright © avec tendresse depuis 2001
+ * Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James
+ *
+ * Ce programme est un logiciel libre distribué sous licence GNU/GPL.
+ */
 
 /**
  * Utilitaires indispensables autour des serveurs SQL
- *
- * @package SPIP\Core\SQL
- **/
-if (!defined('_ECRIRE_INC_VERSION')) {
-	return;
-}
-require_once _ROOT_RESTREINT . 'base/objets.php';
-
+ */
 
 /**
  * Connexion à un serveur de base de données
@@ -38,141 +31,142 @@ require_once _ROOT_RESTREINT . 'base/objets.php';
  * @return bool|array
  *     - false si la connexion a échouée,
  *     - tableau décrivant la connexion sinon
- **/
-function spip_connect($serveur = '', $version = '') {
+ */
+function spip_connect($serveur = '', $version = '')
+{
+    $serveur = is_string($serveur) ? strtolower($serveur) : '';
+    $index = $serveur ?: 0;
+    if (!$version) {
+        $version = $GLOBALS['spip_sql_version'];
+    }
+    if (isset($GLOBALS['connexions'][$index][$version])) {
+        return $GLOBALS['connexions'][$index];
+    }
 
-	$serveur = is_string($serveur) ? strtolower($serveur) : '';
-	$index = $serveur ?: 0;
-	if (!$version) {
-		$version = $GLOBALS['spip_sql_version'];
-	}
-	if (isset($GLOBALS['connexions'][$index][$version])) {
-		return $GLOBALS['connexions'][$index];
-	}
+    include_spip('base/abstract_sql');
+    $install = (_request('exec') == 'install');
 
-	include_spip('base/abstract_sql');
-	$install = (_request('exec') == 'install');
+    // Premiere connexion ?
+    if (!($old = isset($GLOBALS['connexions'][$index]))) {
+        $f = '';
+        if ($serveur) {
+            // serveur externe et nom de serveur bien ecrit ?
+            if (
+                defined('_DIR_CONNECT')
+                && preg_match('/^[\w\.]*$/', $serveur)
+            ) {
+                $f = _DIR_CONNECT . $serveur . '.php';
+                if (!is_readable($f) && !$install) {
+                    // chercher une declaration de serveur dans le path
+                    // qui peut servir à des plugins à declarer des connexions à une base sqlite
+                    // Ex: sert aux boucles POUR et au plugin-dist dump pour se connecter sur le sqlite du dump
+                    $f = find_in_path("$serveur.php", 'connect/');
+                }
+            }
+        } else {
+            if (defined('_FILE_CONNECT') && _FILE_CONNECT) {
+                // init du serveur principal
+                $f = _FILE_CONNECT;
+            } elseif ($install && defined('_FILE_CONNECT_TMP')) {
+                // installation en cours
+                $f = _FILE_CONNECT_TMP;
+            }
+        }
 
-	// Premiere connexion ?
-	if (!($old = isset($GLOBALS['connexions'][$index]))) {
-		$f = '';
-		if ($serveur) {
-			// serveur externe et nom de serveur bien ecrit ?
-			if (
-				defined('_DIR_CONNECT')
-				&& preg_match('/^[\w\.]*$/', $serveur)
-			) {
-				$f = _DIR_CONNECT . $serveur . '.php';
-				if (!is_readable($f) && !$install) {
-					// chercher une declaration de serveur dans le path
-					// qui peut servir à des plugins à declarer des connexions à une base sqlite
-					// Ex: sert aux boucles POUR et au plugin-dist dump pour se connecter sur le sqlite du dump
-					$f = find_in_path("$serveur.php", 'connect/');
-				}
-			}
-		} else {
-			if (defined('_FILE_CONNECT') && _FILE_CONNECT) {
-				// init du serveur principal
-				$f = _FILE_CONNECT;
-			} elseif ($install && defined('_FILE_CONNECT_TMP')) {
-				// installation en cours
-				$f = _FILE_CONNECT_TMP;
-			}
-		}
+        unset($GLOBALS['db_ok']);
+        unset($GLOBALS['spip_connect_version']);
+        if ($f && is_readable($f)) {
+            include($f);
+            if (!isset($GLOBALS['db_ok'])) {
+                spip_logger()->emergency("spip_connect: fichier de connexion '$f' OK mais echec connexion au serveur");
+            }
+        } else {
+            spip_logger()->emergency("spip_connect: fichier de connexion '$f' non trouve, pas de connexion serveur");
+        }
+        if (!isset($GLOBALS['db_ok'])) {
+            // fera mieux la prochaine fois
+            if ($install) {
+                return false;
+            }
+            // ne plus reessayer si ce n'est pas l'install
+            return $GLOBALS['connexions'][$index] = false;
+        }
+        $GLOBALS['connexions'][$index] = $GLOBALS['db_ok'];
+    }
+    // si la connexion a deja ete tentee mais a echoue, le dire!
+    if (!$GLOBALS['connexions'][$index]) {
+        return false;
+    }
 
-		unset($GLOBALS['db_ok']);
-		unset($GLOBALS['spip_connect_version']);
-		if ($f && is_readable($f)) {
-			include($f);
-			if (!isset($GLOBALS['db_ok'])) {
-				spip_logger()->emergency("spip_connect: fichier de connexion '$f' OK mais echec connexion au serveur");
-			}
-		} else {
-			spip_logger()->emergency("spip_connect: fichier de connexion '$f' non trouve, pas de connexion serveur");
-		}
-		if (!isset($GLOBALS['db_ok'])) {
-			// fera mieux la prochaine fois
-			if ($install) {
-				return false;
-			}
-			// ne plus reessayer si ce n'est pas l'install
-			return $GLOBALS['connexions'][$index] = false;
-		}
-		$GLOBALS['connexions'][$index] = $GLOBALS['db_ok'];
-	}
-	// si la connexion a deja ete tentee mais a echoue, le dire!
-	if (!$GLOBALS['connexions'][$index]) {
-		return false;
-	}
+    // la connexion a reussi ou etait deja faite.
+    // chargement de la version du jeu de fonctions
+    // si pas dans le fichier par defaut
+    $type = $GLOBALS['db_ok']['type'];
+    $jeu = 'spip_' . $type . '_functions_' . $version;
+    if (!isset($GLOBALS[$jeu]) && !find_in_path($type . '_' . $version . '.php', 'req/', true)) {
+        spip_logger()->emergency("spip_connect: serveur $index version '$version' non defini pour '$type'");
+        // ne plus reessayer
+        return $GLOBALS['connexions'][$index][$version] = [];
+    }
+    $GLOBALS['connexions'][$index][$version] = $GLOBALS[$jeu];
+    if ($old) {
+        return $GLOBALS['connexions'][$index];
+    }
 
-	// la connexion a reussi ou etait deja faite.
-	// chargement de la version du jeu de fonctions
-	// si pas dans le fichier par defaut
-	$type = $GLOBALS['db_ok']['type'];
-	$jeu = 'spip_' . $type . '_functions_' . $version;
-	if (!isset($GLOBALS[$jeu]) && !find_in_path($type . '_' . $version . '.php', 'req/', true)) {
-		spip_logger()->emergency("spip_connect: serveur $index version '$version' non defini pour '$type'");
-		// ne plus reessayer
-		return $GLOBALS['connexions'][$index][$version] = [];
-	}
-	$GLOBALS['connexions'][$index][$version] = $GLOBALS[$jeu];
-	if ($old) {
-		return $GLOBALS['connexions'][$index];
-	}
+    $GLOBALS['connexions'][$index]['spip_connect_version'] = $GLOBALS['spip_connect_version'] ?? 0;
 
-	$GLOBALS['connexions'][$index]['spip_connect_version'] = $GLOBALS['spip_connect_version'] ?? 0;
+    // initialisation de l'alphabet utilise dans les connexions SQL
+    // si l'installation l'a determine.
+    // Celui du serveur principal l'impose aux serveurs secondaires
+    // s'ils le connaissent
 
-	// initialisation de l'alphabet utilise dans les connexions SQL
-	// si l'installation l'a determine.
-	// Celui du serveur principal l'impose aux serveurs secondaires
-	// s'ils le connaissent
+    if (!$serveur) {
+        $charset = spip_connect_main($GLOBALS[$jeu], $GLOBALS['db_ok']['charset']);
+        if (!$charset) {
+            unset($GLOBALS['connexions'][$index]);
+            spip_logger()->warning('spip_connect: absence de charset');
 
-	if (!$serveur) {
-		$charset = spip_connect_main($GLOBALS[$jeu], $GLOBALS['db_ok']['charset']);
-		if (!$charset) {
-			unset($GLOBALS['connexions'][$index]);
-			spip_logger()->warning('spip_connect: absence de charset');
+            return false;
+        }
+    } else {
+        if ($GLOBALS['db_ok']['charset']) {
+            $charset = $GLOBALS['db_ok']['charset'];
+        }
+        // spip_meta n'existe pas toujours dans la base
+        // C'est le cas d'un dump sqlite par exemple
+        elseif (
+            $GLOBALS['connexions'][$index]['spip_connect_version']
+            && sql_showtable('spip_meta', true, $serveur)
+            && ($r = sql_getfetsel('valeur', 'spip_meta', "nom='charset_sql_connexion'", '', '', '', '', $serveur))
+        ) {
+            $charset = $r;
+        } else {
+            $charset = -1;
+        }
+    }
+    if ($charset != -1) {
+        $f = $GLOBALS[$jeu]['set_charset'];
+        if (function_exists($f)) {
+            $f($charset, $serveur);
+        }
+    }
 
-			return false;
-		}
-	} else {
-		if ($GLOBALS['db_ok']['charset']) {
-			$charset = $GLOBALS['db_ok']['charset'];
-		}
-		// spip_meta n'existe pas toujours dans la base
-		// C'est le cas d'un dump sqlite par exemple
-		elseif (
-			$GLOBALS['connexions'][$index]['spip_connect_version']
-			&& sql_showtable('spip_meta', true, $serveur)
-			&& ($r = sql_getfetsel('valeur', 'spip_meta', "nom='charset_sql_connexion'", '', '', '', '', $serveur))
-		) {
-			$charset = $r;
-		} else {
-			$charset = -1;
-		}
-	}
-	if ($charset != -1) {
-		$f = $GLOBALS[$jeu]['set_charset'];
-		if (function_exists($f)) {
-			$f($charset, $serveur);
-		}
-	}
-
-	return $GLOBALS['connexions'][$index];
+    return $GLOBALS['connexions'][$index];
 }
 
 /**
  * Log la dernière erreur SQL présente sur la connexion indiquée
  *
  * @param string $serveur Nom du connecteur de bdd utilisé
- **/
-function spip_sql_erreur($serveur = '') {
-	$connexion = spip_connect($serveur);
-	$e = sql_errno($serveur);
-	$t = ($connexion['type'] ?? 'sql');
-	$m = "Erreur $e de $t: " . sql_error($serveur) . "\nin " . sql_error_backtrace() . "\n" . trim((string) $connexion['last']);
-	$f = $t . $serveur;
-	spip_logger($f)->error($m);
+ */
+function spip_sql_erreur($serveur = '')
+{
+    $connexion = spip_connect($serveur);
+    $e = sql_errno($serveur);
+    $t = ($connexion['type'] ?? 'sql');
+    $m = "Erreur $e de $t: " . sql_error($serveur) . "\nin " . sql_error_backtrace() . "\n" . trim((string) $connexion['last']);
+    $f = $t . $serveur;
+    spip_logger($f)->error($m);
 }
 
 /**
@@ -192,25 +186,26 @@ function spip_sql_erreur($serveur = '') {
  *     - string : nom de la fonction à utiliser,
  *     - false : si la connexion a échouée
  *     - array : description de la connexion, si l'instruction sql est indisponible pour cette connexion
- **/
-function spip_connect_sql($version, $ins = '', $serveur = '', $continue = false) {
-	$desc = spip_connect($serveur, $version);
-	if (
-		$desc
-		&& ($f = ($desc[$version][$ins] ?? ''))
-		&& function_exists($f)
-	) {
-		return $f;
-	}
-	if ($continue) {
-		return $desc;
-	}
-	if ($ins) {
-		spip_logger()->error("Le serveur '$serveur' version $version n'a pas '$ins'");
-	}
-	include_spip('inc/minipres');
-	echo minipres(_T('info_travaux_titre'), _T('titre_probleme_technique'), ['status' => 503]);
-	exit;
+ */
+function spip_connect_sql($version, $ins = '', $serveur = '', $continue = false)
+{
+    $desc = spip_connect($serveur, $version);
+    if (
+        $desc
+        && ($f = ($desc[$version][$ins] ?? ''))
+        && function_exists($f)
+    ) {
+        return $f;
+    }
+    if ($continue) {
+        return $desc;
+    }
+    if ($ins) {
+        spip_logger()->error("Le serveur '$serveur' version $version n'a pas '$ins'");
+    }
+    include_spip('inc/minipres');
+    echo minipres(_T('info_travaux_titre'), _T('titre_probleme_technique'), ['status' => 503]);
+    exit;
 }
 
 /**
@@ -236,72 +231,72 @@ function spip_connect_sql($version, $ins = '', $serveur = '', $continue = false)
  * @return array|null Description de la connexion
  */
 function spip_connect_db(
-	$host,
-	$port,
-	$login,
-	#[\SensitiveParameter] $pass,
-	$db = '',
-	$type = 'mysql',
-	$prefixe = '',
-	$auth = '',
-	$charset = ''
+    $host,
+    $port,
+    $login,
+    #[\SensitiveParameter]
+    $pass,
+    $db = '',
+    $type = 'mysql',
+    $prefixe = '',
+    $auth = '',
+    $charset = ''
 ) {
-	// temps avant nouvelle tentative de connexion
-	// suite a une connection echouee
-	if (!defined('_CONNECT_RETRY_DELAY')) {
-		define('_CONNECT_RETRY_DELAY', 30);
-	}
+    // temps avant nouvelle tentative de connexion
+    // suite a une connection echouee
+    if (!defined('_CONNECT_RETRY_DELAY')) {
+        define('_CONNECT_RETRY_DELAY', 30);
+    }
 
-	$f = '';
-	// un fichier de identifiant par combinaison (type,host,port,db)
-	// pour ne pas declarer tout indisponible d'un coup
-	// si en cours d'installation ou si db=@test@ on ne pose rien
-	// car c'est un test de connexion
-	if (!defined('_ECRIRE_INSTALL') && $db !== '@test@') {
-		$f = _DIR_TMP . $type . '.' . substr(md5($host . $port . $db), 0, 8) . '.out';
-	} elseif ($db == '@test@') {
-		$db = '';
-	}
+    $f = '';
+    // un fichier de identifiant par combinaison (type,host,port,db)
+    // pour ne pas declarer tout indisponible d'un coup
+    // si en cours d'installation ou si db=@test@ on ne pose rien
+    // car c'est un test de connexion
+    if (!defined('_ECRIRE_INSTALL') && $db !== '@test@') {
+        $f = _DIR_TMP . $type . '.' . substr(md5($host . $port . $db), 0, 8) . '.out';
+    } elseif ($db == '@test@') {
+        $db = '';
+    }
 
-	if (
-		$f
-		&& @file_exists($f)
-		&& (time() - @filemtime($f) < _CONNECT_RETRY_DELAY)
-	) {
-		spip_logger()->emergency("Echec : $f recent. Pas de tentative de connexion");
+    if (
+        $f
+        && @file_exists($f)
+        && (time() - @filemtime($f) < _CONNECT_RETRY_DELAY)
+    ) {
+        spip_logger()->emergency("Echec : $f recent. Pas de tentative de connexion");
 
-		return null;
-	}
+        return null;
+    }
 
-	if (!$prefixe) {
-		$prefixe = $GLOBALS['table_prefix'] ?? $db;
-	}
-	$h = charger_fonction($type, 'req', true);
-	if (!$h) {
-		spip_logger()->emergency("les requetes $type ne sont pas fournies");
+    if (!$prefixe) {
+        $prefixe = $GLOBALS['table_prefix'] ?? $db;
+    }
+    $h = charger_fonction($type, 'req', true);
+    if (!$h) {
+        spip_logger()->emergency("les requetes $type ne sont pas fournies");
 
-		return null;
-	}
-	if ($g = $h($host, $port, $login, $pass, $db, $prefixe)) {
-		if (!is_array($auth)) {
-			// compatibilite version 0.7 initiale
-			$g['ldap'] = $auth;
-			$auth = ['ldap' => $auth];
-		}
-		$g['authentification'] = $auth;
-		$g['type'] = $type;
-		$g['charset'] = $charset;
+        return null;
+    }
+    if ($g = $h($host, $port, $login, $pass, $db, $prefixe)) {
+        if (!is_array($auth)) {
+            // compatibilite version 0.7 initiale
+            $g['ldap'] = $auth;
+            $auth = ['ldap' => $auth];
+        }
+        $g['authentification'] = $auth;
+        $g['type'] = $type;
+        $g['charset'] = $charset;
 
-		return $GLOBALS['db_ok'] = $g;
-	}
-	// En cas d'indisponibilite du serveur, eviter de le bombarder
-	if ($f) {
-		@touch($f);
-		spip_logger($type)->emergency("Echec connexion serveur $type : host[$host] port[$port] login[$login] base[$db]");
-	}
-	return null;
+        return $GLOBALS['db_ok'] = $g;
+    }
+    // En cas d'indisponibilite du serveur, eviter de le bombarder
+    if ($f) {
+        @touch($f);
+        spip_logger($type)->emergency("Echec connexion serveur $type : host[$host] port[$port] login[$login] base[$db]");
+    }
+    return null;
 }
-
 
 /**
  * Première connexion au serveur principal de base de données
@@ -329,34 +324,35 @@ function spip_connect_db(
  *     - false si pas de charset connu pour la connexion
  *     - -1 charset non renseigné
  *     - nom du charset sinon
- **/
-function spip_connect_main($connexion, $charset_sql_connexion = '') {
-	if ($GLOBALS['spip_connect_version'] < 0.1 && _DIR_RESTREINT) {
-		include_spip('inc/headers');
-		redirige_url_ecrire('upgrade', 'reinstall=oui');
-	}
+ */
+function spip_connect_main($connexion, $charset_sql_connexion = '')
+{
+    if ($GLOBALS['spip_connect_version'] < 0.1 && _DIR_RESTREINT) {
+        include_spip('inc/headers');
+        redirige_url_ecrire('upgrade', 'reinstall=oui');
+    }
 
-	if (!($f = $connexion['select'])) {
-		return false;
-	}
-	// si le charset est fourni, l'utiliser
-	if ($charset_sql_connexion) {
-		return $charset_sql_connexion;
-	}
-	// sinon on regarde la table spip_meta
-	// en cas d'erreur select retourne la requette (is_string=true donc)
-	if (
-		!($r = $f('valeur', 'spip_meta', "nom='charset_sql_connexion'"))
-		|| is_string($r)
-	) {
-		return false;
-	}
-	if (!($f = $connexion['fetch'])) {
-		return false;
-	}
-	$r = $f($r);
+    if (!($f = $connexion['select'])) {
+        return false;
+    }
+    // si le charset est fourni, l'utiliser
+    if ($charset_sql_connexion) {
+        return $charset_sql_connexion;
+    }
+    // sinon on regarde la table spip_meta
+    // en cas d'erreur select retourne la requette (is_string=true donc)
+    if (
+        !($r = $f('valeur', 'spip_meta', "nom='charset_sql_connexion'"))
+        || is_string($r)
+    ) {
+        return false;
+    }
+    if (!($f = $connexion['fetch'])) {
+        return false;
+    }
+    $r = $f($r);
 
-	return (isset($r['valeur']) && $r['valeur']) ? $r['valeur'] : -1;
+    return (isset($r['valeur']) && $r['valeur']) ? $r['valeur'] : -1;
 }
 
 /**
@@ -370,18 +366,19 @@ function spip_connect_main($connexion, $charset_sql_connexion = '') {
  *
  * @param int|float|string|array $a Valeur à échapper
  * @return string Valeur échappée.
- **/
-function _q($a): string {
-	if (is_numeric($a)) {
-		return (string) $a;
-	} elseif (is_array($a)) {
-		return implode(',', array_map('_q', $a));
-	} elseif (is_scalar($a)) {
-		return ("'" . addslashes($a) . "'");
-	} elseif ($a === null) {
-		return "''";
-	}
-	throw new \RuntimeException('Can’t use _q with ' . gettype($a));
+ */
+function _q($a): string
+{
+    if (is_numeric($a)) {
+        return (string) $a;
+    } elseif (is_array($a)) {
+        return implode(',', array_map('_q', $a));
+    } elseif (is_scalar($a)) {
+        return ("'" . addslashes($a) . "'");
+    } elseif ($a === null) {
+        return "''";
+    }
+    throw new \RuntimeException('Can’t use _q with ' . gettype($a));
 }
 
 /**
@@ -396,76 +393,76 @@ function _q($a): string {
  * @param string $query
  * @return array
  */
-function query_echappe_textes($query, $uniqid = null) {
-	static $codeEchappements = null;
-	if (is_null($codeEchappements) || $uniqid) {
-		if (is_null($uniqid)) {
-			$uniqid = uniqid();
-		}
-		$uniqid = substr(md5((string) $uniqid), 0, 4);
-		$codeEchappements = ['\\\\' => "\x1@#{$uniqid}#@\x1", "\\'" => "\x2@#{$uniqid}#@\x2", '\\"' => "\x3@#{$uniqid}#@\x3", '%' => "\x4@#{$uniqid}#@\x4"];
-	}
-	if ($query === null) {
-		return $codeEchappements;
-	}
+function query_echappe_textes($query, $uniqid = null)
+{
+    static $codeEchappements = null;
+    if (is_null($codeEchappements) || $uniqid) {
+        if (is_null($uniqid)) {
+            $uniqid = uniqid();
+        }
+        $uniqid = substr(md5((string) $uniqid), 0, 4);
+        $codeEchappements = ['\\\\' => "\x1@#{$uniqid}#@\x1", "\\'" => "\x2@#{$uniqid}#@\x2", '\\"' => "\x3@#{$uniqid}#@\x3", '%' => "\x4@#{$uniqid}#@\x4"];
+    }
+    if ($query === null) {
+        return $codeEchappements;
+    }
 
-	// si la query contient deja des codes d'echappement on va s'emmeler les pinceaux et donc on ne touche a rien
-	// ce n'est pas un cas legitime
-	foreach ($codeEchappements as $codeEchappement) {
-		if (str_contains($query, (string) $codeEchappement)) {
-			return [$query, []];
-		}
-	}
+    // si la query contient deja des codes d'echappement on va s'emmeler les pinceaux et donc on ne touche a rien
+    // ce n'est pas un cas legitime
+    foreach ($codeEchappements as $codeEchappement) {
+        if (str_contains($query, (string) $codeEchappement)) {
+            return [$query, []];
+        }
+    }
 
-	$query_echappees = str_replace(array_keys($codeEchappements), array_values($codeEchappements), $query);
-	if (preg_match_all("/('[^']*')|(\"[^\"]*\")/S", $query_echappees, $textes)) {
-		$textes = reset($textes);
+    $query_echappees = str_replace(array_keys($codeEchappements), array_values($codeEchappements), $query);
+    if (preg_match_all("/('[^']*')|(\"[^\"]*\")/S", $query_echappees, $textes)) {
+        $textes = reset($textes);
 
-		$parts = [];
-		$currentpos = 0;
-		$k = 0;
-		while (count($textes)) {
-			$part = array_shift($textes);
-			$nextpos = strpos($query_echappees, (string) $part, $currentpos);
-			// si besoin recoller ensemble les doubles '' de sqlite (echappement des ')
-			while (count($textes) && str_ends_with((string) $part, "'")) {
-				$next = reset($textes);
-				if (
-					str_starts_with((string) $next, "'")
-					&& strpos($query_echappees, $part . $next, $currentpos) === $nextpos
-				) {
-					$part .= array_shift($textes);
-				}
-				else {
-					break;
-				}
-			}
-			$k++;
-			$parts[$k] = [
-				'texte' => $part,
-				'position' => $nextpos,
-				'placeholder' => '%' . $k . '$s',
-			];
-			$currentpos = $nextpos + strlen((string) $part);
-		}
+        $parts = [];
+        $currentpos = 0;
+        $k = 0;
+        while (count($textes)) {
+            $part = array_shift($textes);
+            $nextpos = strpos($query_echappees, (string) $part, $currentpos);
+            // si besoin recoller ensemble les doubles '' de sqlite (echappement des ')
+            while (count($textes) && str_ends_with((string) $part, "'")) {
+                $next = reset($textes);
+                if (
+                    str_starts_with((string) $next, "'")
+                    && strpos($query_echappees, $part . $next, $currentpos) === $nextpos
+                ) {
+                    $part .= array_shift($textes);
+                } else {
+                    break;
+                }
+            }
+            $k++;
+            $parts[$k] = [
+                'texte' => $part,
+                'position' => $nextpos,
+                'placeholder' => '%' . $k . '$s',
+            ];
+            $currentpos = $nextpos + strlen((string) $part);
+        }
 
-		// et on replace les parts une par une en commencant par la fin
-		while ($k > 0) {
-			$query_echappees = substr_replace($query_echappees, $parts[$k]['placeholder'], $parts[$k]['position'], strlen((string) $parts[$k]['texte']));
-			$k--;
-		}
-		$textes = array_column($parts, 'texte');
-	} else {
-		$textes = [];
-	}
+        // et on replace les parts une par une en commencant par la fin
+        while ($k > 0) {
+            $query_echappees = substr_replace($query_echappees, $parts[$k]['placeholder'], $parts[$k]['position'], strlen((string) $parts[$k]['texte']));
+            $k--;
+        }
+        $textes = array_column($parts, 'texte');
+    } else {
+        $textes = [];
+    }
 
-	// si il reste des quotes simples ou doubles, c'est qu'on s'est emmelle les pinceaux
-	// dans le doute on ne touche a rien
-	if (strpbrk($query_echappees, "'\"") !== false) {
-		return [$query, []];
-	}
+    // si il reste des quotes simples ou doubles, c'est qu'on s'est emmelle les pinceaux
+    // dans le doute on ne touche a rien
+    if (strpbrk($query_echappees, "'\"") !== false) {
+        return [$query, []];
+    }
 
-	return [$query_echappees, $textes];
+    return [$query_echappees, $textes];
 }
 
 /**
@@ -478,17 +475,17 @@ function query_echappe_textes($query, $uniqid = null) {
  * @param array $textes
  * @return string
  */
-function query_reinjecte_textes($query, $textes) {
-	// recuperer les codes echappements
-	$codeEchappements = query_echappe_textes(null);
+function query_reinjecte_textes($query, $textes)
+{
+    // recuperer les codes echappements
+    $codeEchappements = query_echappe_textes(null);
 
-	if (!empty($textes)) {
-		$query = sprintf($query, ...$textes);
-	}
+    if (!empty($textes)) {
+        $query = sprintf($query, ...$textes);
+    }
 
-	return str_replace(array_values($codeEchappements), array_keys($codeEchappements), $query);
+    return str_replace(array_values($codeEchappements), array_keys($codeEchappements), $query);
 }
-
 
 /**
  * Exécute une requête sur le serveur SQL
@@ -502,10 +499,10 @@ function query_reinjecte_textes($query, $textes) {
  * @return bool|mixed
  *     - false si on ne peut pas exécuter la requête
  *     - indéfini sinon.
- **/
-function spip_query($query, $serveur = '') {
+ */
+function spip_query($query, $serveur = '')
+{
+    $f = spip_connect_sql($GLOBALS['spip_sql_version'], 'query', $serveur, true);
 
-	$f = spip_connect_sql($GLOBALS['spip_sql_version'], 'query', $serveur, true);
-
-	return function_exists($f) ? $f($query, $serveur) : false;
+    return function_exists($f) ? $f($query, $serveur) : false;
 }

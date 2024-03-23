@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * SPIP, Système de publication pour l'internet
+ *
+ * Copyright © avec tendresse depuis 2001
+ * Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James
+ *
+ * Ce programme est un logiciel libre distribué sous licence GNU/GPL.
+ */
+
 namespace SpipRemix\Component\Dbal\Sqlite;
 
 use Psr\Log\LoggerInterface;
@@ -80,7 +89,6 @@ class Requeteur
             $t = trace_query_start();
         }
 
-        # $this->logger->debug("requete: $this->serveur >> $query"); // boum ? pourquoi ?
         if ($this->link) {
             // memoriser la derniere erreur PHP vue
             $last_error = (function_exists('error_get_last') ? error_get_last() : '');
@@ -121,7 +129,7 @@ class Requeteur
      * Obtient l'identifiant de la dernière ligne insérée ou modifiée
      *
      * @return string|false
-     **/
+     */
     public function last_insert_id()
     {
         return $this->link->lastInsertId();

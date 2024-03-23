@@ -1,23 +1,17 @@
 <?php
 
-/***************************************************************************\
- *  SPIP, Système de publication pour l'internet                           *
- *                                                                         *
- *  Copyright © avec tendresse depuis 2001                                 *
- *  Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James  *
- *                                                                         *
- *  Ce programme est un logiciel libre distribué sous licence GNU/GPL.     *
-\***************************************************************************/
+/**
+ * SPIP, Système de publication pour l'internet
+ *
+ * Copyright © avec tendresse depuis 2001
+ * Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James
+ *
+ * Ce programme est un logiciel libre distribué sous licence GNU/GPL.
+ */
 
 /**
  * Réparation de la base de données
- *
- * @package SPIP\Core\SQL\Reparation
  */
-
-if (!defined('_ECRIRE_INC_VERSION')) {
-	return;
-}
 
 /**
  * Action de réparation de la base de données
@@ -32,23 +26,23 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  *
  * @param string $titre Inutilisé
  * @param string $reprise Inutilisé
- **/
-function base_repair_dist($titre = '', $reprise = '') {
-
-	$res = admin_repair_tables();
-	if (!$res) {
-		$res = "<div class='error'>" . _T('avis_erreur_mysql') . ' ' . sql_errno() . ': ' . sql_error() . "</div>\n";
-	} else {
-		include_spip('inc/rubriques');
-		calculer_rubriques();
-		propager_les_secteurs();
-	}
-	include_spip('inc/minipres');
-	$res .= pipeline('base_admin_repair', $res);
-	echo minipres(
-		_T('texte_tentative_recuperation'),
-		$res . generer_form_ecrire('accueil', '', '', _T('public:accueil_site'))
-	);
+ */
+function base_repair_dist($titre = '', $reprise = '')
+{
+    $res = admin_repair_tables();
+    if (!$res) {
+        $res = "<div class='error'>" . _T('avis_erreur_mysql') . ' ' . sql_errno() . ': ' . sql_error() . "</div>\n";
+    } else {
+        include_spip('inc/rubriques');
+        calculer_rubriques();
+        propager_les_secteurs();
+    }
+    include_spip('inc/minipres');
+    $res .= pipeline('base_admin_repair', $res);
+    echo minipres(
+        _T('texte_tentative_recuperation'),
+        $res . generer_form_ecrire('accueil', '', '', _T('public:accueil_site'))
+    );
 }
 
 /**
@@ -59,63 +53,63 @@ function base_repair_dist($titre = '', $reprise = '') {
  *
  * @return string
  *     Code HTML expliquant les actions réalisées
- **/
-function admin_repair_tables() {
+ */
+function admin_repair_tables()
+{
+    $repair = sql_serveur('repair', '', true);
 
-	$repair = sql_serveur('repair', '', true);
+    // recreer les tables manquantes eventuelles
+    include_spip('base/create');
+    creer_base();
+    $tables = sql_alltable();
 
-	// recreer les tables manquantes eventuelles
-	include_spip('base/create');
-	creer_base();
-	$tables = sql_alltable();
+    $res = '';
+    foreach ($tables as $tab) {
+        $class = '';
+        $m = "<strong>$tab</strong> ";
+        spip_logger()->notice("Repare $tab");
+        // supprimer la meta avant de lancer la reparation
+        // car le repair peut etre long ; on ne veut pas boucler
+        effacer_meta('admin_repair');
+        if ($repair) {
+            $result_repair = sql_repair($tab);
+            if (!$result_repair) {
+                return false;
+            }
+        }
 
-	$res = '';
-	foreach ($tables as $tab) {
-		$class = '';
-		$m = "<strong>$tab</strong> ";
-		spip_logger()->notice("Repare $tab");
-		// supprimer la meta avant de lancer la reparation
-		// car le repair peut etre long ; on ne veut pas boucler
-		effacer_meta('admin_repair');
-		if ($repair) {
-			$result_repair = sql_repair($tab);
-			if (!$result_repair) {
-				return false;
-			}
-		}
+        // essayer de maj la table (creation de champs manquants)
+        maj_tables($tab);
 
-		// essayer de maj la table (creation de champs manquants)
-		maj_tables($tab);
+        $count = sql_countsel($tab);
 
-		$count = sql_countsel($tab);
+        if ($count > 1) {
+            $m .= '(' . _T('texte_compte_elements', ['count' => $count]) . ")\n";
+        } else {
+            if ($count == 1) {
+                $m .= '(' . _T('texte_compte_element', ['count' => $count]) . ")\n";
+            } else {
+                $m .= '(' . _T('texte_vide') . ")\n";
+            }
+        }
 
-		if ($count > 1) {
-			$m .= '(' . _T('texte_compte_elements', ['count' => $count]) . ")\n";
-		} else {
-			if ($count == 1) {
-				$m .= '(' . _T('texte_compte_element', ['count' => $count]) . ")\n";
-			} else {
-				$m .= '(' . _T('texte_vide') . ")\n";
-			}
-		}
+        if (
+            $repair
+            && $result_repair
+            && ($msg = implode(
+                ' ',
+                (is_resource($result_repair) || is_object($result_repair)) ? sql_fetch($result_repair) : $result_repair
+            ) . ' ')
+            && !str_contains($msg, ' OK ')
+        ) {
+            $class = " class='notice'";
+            $m .= '<br /><tt>' . spip_htmlentities($msg) . "</tt>\n";
+        } else {
+            $m .= ' ' . _T('texte_table_ok');
+        }
 
-		if (
-			$repair
-			&& $result_repair
-			&& ($msg = implode(
-				' ',
-				(is_resource($result_repair) || is_object($result_repair)) ? sql_fetch($result_repair) : $result_repair
-			) . ' ')
-			&& !str_contains($msg, ' OK ')
-		) {
-			$class = " class='notice'";
-			$m .= '<br /><tt>' . spip_htmlentities($msg) . "</tt>\n";
-		} else {
-			$m .= ' ' . _T('texte_table_ok');
-		}
+        $res .= "<div$class>$m</div>";
+    }
 
-		$res .= "<div$class>$m</div>";
-	}
-
-	return $res;
+    return $res;
 }
