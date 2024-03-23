@@ -29,6 +29,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     ```diff
     - include_spip('base/auxiliaires');
     - include_spip('base/serial');
-    + include_spip('base/objets');
+    - include_spip('base/objets');
     + lister_tables_objets_sql();
     ```
+
+- Réorganisation des fonctions d'abstraction
+  - `sql_select()`, `sql_insert()`, `sql_update()` et `sql_delete()` dans `inc/sql_manipulation`
+  - `sql_create()`, `sql_alter()` et `sql_drop()` dans `inc/sql_definition`
+
+### Deprecated
+
+- `sql_drop_table()`. Utiliser `sql_drop()`.

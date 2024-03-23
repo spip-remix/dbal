@@ -22,7 +22,10 @@
  * @version 1
  */
 define('SQL_ABSTRACT_VERSION', 1);
-include_spip('base/connect_sql');
+
+include_spip('inc/sql_manipulation');
+include_spip('inc/sql_definition');
+include_spip('inc/sql_administration');
 
 /**
  * Retourne la pile de fonctions utilisée lors de la précence d'une erreur SQL
@@ -175,108 +178,6 @@ function sql_set_charset($charset, $serveur = '', $option = true)
 }
 
 /**
- * Effectue une requête de selection
- *
- * Fonction de selection (SELECT), retournant la ressource interrogeable par sql_fetch.
- *
- * @api
- * @see sql_fetch()      Pour boucler sur les resultats de cette fonction
- *
- * @param array|string $select
- *     Liste des champs a recuperer (Select)
- * @param array|string $from
- *     Tables a consulter (From)
- * @param array|string $where
- *     Conditions a remplir (Where)
- * @param array|string $groupby
- *     critere de regroupement (Group by)
- * @param array|string $orderby
- *     Tableau de classement (Order By)
- * @param string $limit
- *     critere de limite (Limit)
- * @param string|array $having
- *     Tableau ou chaine des des post-conditions à remplir (Having)
- * @param string $serveur
- *     Le serveur sollicite (pour retrouver la connexion)
- * @param bool|string $option
- *     Peut avoir 3 valeurs :
- *
- *     - false -> ne pas l'exécuter mais la retourner,
- *     - continue -> ne pas echouer en cas de serveur sql indisponible,
- *     - true|array -> executer la requête.
- *     Le cas array est, pour une requete produite par le compilateur,
- *     un tableau donnnant le contexte afin d'indiquer le lieu de l'erreur au besoin
- *
- *
- * @return mixed
- *     Ressource SQL
- *
- *     - Ressource SQL pour sql_fetch, si la requete est correcte
- *     - false en cas d'erreur
- *     - Chaine contenant la requete avec $option=false
- *
- * Retourne false en cas d'erreur, apres l'avoir denoncee.
- * Les portages doivent retourner la requete elle-meme en cas d'erreur,
- * afin de disposer du texte brut.
- *
- */
-function sql_select(
-    $select = [],
-    $from = [],
-    $where = [],
-    $groupby = [],
-    $orderby = [],
-    $limit = '',
-    $having = [],
-    $serveur = '',
-    $option = true
-) {
-    $f = sql_serveur('select', $serveur, $option === 'continue' || $option === false);
-    if (!is_string($f) || !$f) {
-        return false;
-    }
-
-    $debug = (defined('_VAR_MODE') && _VAR_MODE == 'debug');
-    if ($option !== false && !$debug) {
-        $res = $f(
-            $select,
-            $from,
-            $where,
-            $groupby,
-            $orderby,
-            $limit,
-            $having,
-            $serveur,
-            is_array($option) ? true : $option
-        );
-    } else {
-        $query = $f($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, false);
-        if (!$option) {
-            return $query;
-        }
-        // le debug, c'est pour ce qui a ete produit par le compilateur
-        if (isset($GLOBALS['debug']['aucasou'])) {
-            [$table, $id,] = $GLOBALS['debug']['aucasou'];
-            $nom = $GLOBALS['debug_objets']['courant'] . $id;
-            $GLOBALS['debug_objets']['requete'][$nom] = $query;
-        }
-        $res = $f($select, $from, $where, $groupby, $orderby, $limit, $having, $serveur, true);
-    }
-
-    // en cas d'erreur
-    if (!is_string($res)) {
-        return $res;
-    }
-    // denoncer l'erreur SQL dans sa version brute
-    spip_sql_erreur($serveur);
-    // idem dans sa version squelette (prefixe des tables non substitue)
-    $contexte_compil = sql_error_backtrace(true);
-    erreur_squelette([sql_errno($serveur), sql_error($serveur), $res], $contexte_compil);
-
-    return false;
-}
-
-/**
  * Recupere la syntaxe de la requete select sans l'executer
  *
  * Passe simplement $option a false au lieu de true
@@ -373,48 +274,6 @@ function sql_countsel(
         return false;
     }
     $r = $f($from, $where, $groupby, $having, $serveur, $option !== false);
-    if ($r === false) {
-        spip_sql_erreur($serveur);
-    }
-
-    return $r;
-}
-
-/**
- * Modifie la structure de la base de données
- *
- * Effectue une opération ALTER.
- *
- * @example
- *     ```
- *     sql_alter('DROP COLUMN supprimer');
- *     ```
- *
- * @api
- * @param string $q
- *     La requête à exécuter (sans la préceder de 'ALTER ')
- * @param string $serveur
- *     Le serveur sollicite (pour retrouver la connexion)
- * @param bool|string $option
- *     Peut avoir 2 valeurs :
- *
- *     - true : exécuter la requete
- *     - 'continue' : ne pas échouer en cas de serveur sql indisponible
- * @return mixed
- *     2 possibilités :
- *
- *     - Incertain en cas d'exécution correcte de la requête
- *     - false en cas de serveur indiponible ou d'erreur
- *
- *     Ce retour n'est pas pertinent pour savoir si l'opération est correctement réalisée.
- */
-function sql_alter($q, $serveur = '', $option = true)
-{
-    $f = sql_serveur('alter', $serveur, $option === 'continue' || $option === false);
-    if (!is_string($f) || !$f) {
-        return false;
-    }
-    $r = $f($q, $serveur, $option !== false);
     if ($r === false) {
         spip_sql_erreur($serveur);
     }
@@ -661,54 +520,6 @@ function sql_free($res, $serveur = '', $option = true)
 /**
  * Insère une ligne dans une table
  *
- * @see sql_insertq()
- * @see sql_quote()
- * @note
- *   Cette fonction ne garantit pas une portabilité totale,
- *   et n'est là que pour faciliter des migrations de vieux scripts.
- *   Préférer sql_insertq.
- *
- * @param string $table
- *     Nom de la table SQL
- * @param string $noms
- *     Liste des colonnes impactées,
- * @param string $valeurs
- *     Liste des valeurs,
- * @param array $desc
- *     Tableau de description des colonnes de la table SQL utilisée
- *     (il sera calculé si nécessaire s'il n'est pas transmis).
- * @param string $serveur
- *     Nom du connecteur
- * @param bool|string $option
- *     Peut avoir 3 valeurs :
- *
- *     - false : ne pas l'exécuter mais la retourner,
- *     - true : exécuter la requête
- *     - 'continue' : ne pas échouer en cas de serveur sql indisponible
- *
- * @return bool|string
- *     - int|true identifiant de l'élément inséré (si possible), ou true, si réussite
- *     - texte de la requête si demandé,
- *     - False en cas d'erreur.
- */
-function sql_insert($table, $noms, $valeurs, $desc = [], $serveur = '', $option = true)
-{
-    $f = sql_serveur('insert', $serveur, $option === 'continue' || $option === false);
-    if (!is_string($f) || !$f) {
-        return false;
-    }
-    $r = $f($table, $noms, $valeurs, $desc, $serveur, $option !== false);
-    if ($r === false || $r === null) {
-        spip_sql_erreur($serveur);
-        $r = false;
-    }
-
-    return $r;
-}
-
-/**
- * Insère une ligne dans une table
- *
  * Protègera chaque valeur comme sql_quote.
  *
  * @api
@@ -805,56 +616,6 @@ function sql_insertq_multi($table, $couples = [], $desc = [], $serveur = '', $op
 }
 
 /**
- * Met à jour des enregistrements d'une table SQL
- *
- * Les valeurs ne sont pas échappées, ce qui permet de modifier une colonne
- * en utilisant la valeur d'une autre colonne ou une expression SQL.
- *
- * Il faut alors protéger avec sql_quote() manuellement les valeurs qui
- * en ont besoin.
- *
- * Dans les autres cas, préférer sql_updateq().
- *
- * @api
- * @see sql_updateq()
- *
- * @param string $table
- *     Nom de la table
- * @param array $exp
- *     Couples (colonne => valeur)
- * @param string|array $where
- *     Conditions a remplir (Where)
- * @param array $desc
- *     Tableau de description des colonnes de la table SQL utilisée
- *     (il sera calculé si nécessaire s'il n'est pas transmis).
- * @param string $serveur
- *     Nom de la connexion
- * @param bool|string $option
- *     Peut avoir 3 valeurs :
- *
- *     - false : ne pas l'exécuter mais la retourner,
- *     - true : exécuter la requête
- *     - 'continue' : ne pas échouer en cas de serveur sql indisponible
- * @return array|bool|string
- *     - string : texte de la requête si demandé
- *     - true si la requête a réussie, false sinon
- *     - array Tableau décrivant la requête et son temps d'exécution si var_profile est actif
- */
-function sql_update($table, $exp, $where = '', $desc = [], $serveur = '', $option = true)
-{
-    $f = sql_serveur('update', $serveur, $option === 'continue' || $option === false);
-    if (!is_string($f) || !$f) {
-        return false;
-    }
-    $r = $f($table, $exp, $where, $desc, $serveur, $option !== false);
-    if ($r === false) {
-        spip_sql_erreur($serveur);
-    }
-
-    return $r;
-}
-
-/**
  * Met à jour du contenu d’une table SQL
  *
  * Le contenu transmis à la fonction est protégé automatiquement
@@ -902,47 +663,6 @@ function sql_updateq($table, $exp, $where = '', $desc = [], $serveur = '', $opti
         return false;
     }
     $r = $f($table, $exp, $where, $desc, $serveur, $option !== false);
-    if ($r === false) {
-        spip_sql_erreur($serveur);
-    }
-
-    return $r;
-}
-
-/**
- * Supprime des enregistrements d'une table
- *
- * @example
- *     ```
- *     sql_delete('spip_articles', 'id_article='.sql_quote($id_article));
- *     ```
- *
- * @api
- * @param string $table
- *     Nom de la table SQL
- * @param string|array $where
- *     Conditions à vérifier
- * @param string $serveur
- *     Nom du connecteur
- * @param bool|string $option
- *     Peut avoir 3 valeurs :
- *
- *     - false : ne pas l'exécuter mais la retourner,
- *     - true : exécuter la requête
- *     - 'continue' : ne pas échouer en cas de serveur sql indisponible
- *
- * @return bool|string
- *     - int : nombre de suppressions réalisées,
- *     - texte de la requête si demandé,
- *     - false en cas d'erreur.
- */
-function sql_delete($table, $where = '', $serveur = '', $option = true)
-{
-    $f = sql_serveur('delete', $serveur, $option === 'continue' || $option === false);
-    if (!is_string($f) || !$f) {
-        return false;
-    }
-    $r = $f($table, $where, $serveur, $option !== false);
     if ($r === false) {
         spip_sql_erreur($serveur);
     }
@@ -1044,49 +764,11 @@ function sql_replace_multi($table, $tab_couples, $desc = [], $serveur = '', $opt
 }
 
 /**
- * Supprime une table SQL (structure et données)
- *
- * @api
- * @see sql_create()
- * @see sql_drop_view()
- *
- * @param string $table
- *     Nom de la table
- * @param bool $exist
- *     true pour ajouter un test sur l'existence de la table, false sinon
- * @param string $serveur
- *     Nom du connecteur
- * @param bool|string $option
- *     Peut avoir 3 valeurs :
- *
- *     - false : ne pas l'exécuter mais la retourner,
- *     - true : exécuter la requête
- *     - 'continue' : ne pas échouer en cas de serveur sql indisponible
- * @return bool|string
- *     - true en cas de succès,
- *     - texte de la requête si demandé,
- *     - false en cas d'erreur.
- */
-function sql_drop_table($table, $exist = false, $serveur = '', $option = true)
-{
-    $f = sql_serveur('drop_table', $serveur, $option === 'continue' || $option === false);
-    if (!is_string($f) || !$f) {
-        return false;
-    }
-    $r = $f($table, $exist, $serveur, $option !== false);
-    if ($r === false) {
-        spip_sql_erreur($serveur);
-    }
-
-    return $r;
-}
-
-/**
  * Supprime une vue SQL
  *
  * @api
  * @see sql_create_view()
- * @see sql_drop_table()
+ * @see sql_drop()
  *
  * @param string $table Nom de la vue SQL
  * @param bool $exist True pour ajouter un test d'existence avant de supprimer
@@ -1280,68 +962,6 @@ function sql_table_exists(string $table, bool $table_spip = true, $serveur = '',
     }
 
     return $f($vraie_table, $serveur, $option !== false);
-}
-
-/**
- * Crée une table dans la base de données
- *
- * @api
- * @example
- *     ```
- *     sql_create("spip_tables",
- *       array(
- *           "id_table" => "bigint(20) NOT NULL default '0'",
- *           "colonne1"=> "varchar(3) NOT NULL default 'oui'",
- *           "colonne2"=> "text NOT NULL default ''"
- *        ),
- *        array(
- *           'PRIMARY KEY' => "id_table",
- *           'KEY colonne1' => "colonne1"
- *        )
- *     );
- *     ```
- *
- * @param string $nom
- *     Nom de la table
- * @param array $champs
- *     Couples (colonne => description)
- * @param array $cles
- *     Clé (nomdelaclef => champ)
- * @param bool $autoinc
- *     Si un champ est clef primaire est numérique alors la propriété
- *     d’autoincrémentation sera ajoutée
- * @param bool $temporary
- *     true pour créer une table temporaire (au sens SQL)
- * @param string $serveur
- *     Nom du connecteur
- * @param bool|string $option
- *     Peut avoir 3 valeurs :
- *
- *     - false : ne pas l'exécuter mais la retourner,
- *     - 'continue' : ne pas échouer en cas de serveur SQL indisponible,
- *     - true : exécuter la requete.
- * @return bool
- *     true si succès, false en cas d'echec
- */
-function sql_create(
-    $nom,
-    $champs,
-    $cles = [],
-    $autoinc = false,
-    $temporary = false,
-    $serveur = '',
-    $option = true
-) {
-    $f = sql_serveur('create', $serveur, $option === 'continue' || $option === false);
-    if (!is_string($f) || !$f) {
-        return false;
-    }
-    $r = $f($nom, $champs, $cles, $autoinc, $temporary, $serveur, $option !== false);
-    if ($r === false) {
-        spip_sql_erreur($serveur);
-    }
-
-    return $r;
 }
 
 /**
@@ -2336,10 +1956,11 @@ function description_table($nom, $serveur = '')
 {
     static $trouver_table;
 
-    /* toujours utiliser trouver_table
-     qui renverra la description theorique
-     car sinon on va se comporter differement selon que la table est declaree
-     ou non
+    /**
+     * toujours utiliser trouver_table
+     * qui renverra la description theorique
+     * car sinon on va se comporter differement selon que la table est declaree
+     * ou non
      */
     if (!$trouver_table) {
         $trouver_table = charger_fonction('trouver_table', 'base');
@@ -2354,7 +1975,6 @@ function description_table($nom, $serveur = '')
         return $GLOBALS['tables_principales'][$nom];
     }
 
-    include_spip('base/objets');
     lister_tables_objets_sql();
 
     return $GLOBALS['tables_auxiliaires'][$nom] ?? false;

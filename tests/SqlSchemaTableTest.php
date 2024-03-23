@@ -18,7 +18,7 @@ class SqlSchemaTableTest extends TestCase
 	#[DataProvider('providerTablesData')]
 	public function testDropTablesSetup($table, $desc, $data): void
 	{
-		$this->assertTrue(sql_drop_table($table, true));
+		$this->assertTrue(sql_drop($table, true));
 	}
 
 	#[Depends('testDropTablesSetup')]
@@ -167,28 +167,28 @@ class SqlSchemaTableTest extends TestCase
 
 		// le bon texte avec multi
 		foreach ([
-				'fr' => 'Crac',
-				'en' => 'Krack',
-			] as $lg => $res) {
+			'fr' => 'Crac',
+			'en' => 'Krack',
+		] as $lg => $res) {
 			$multi = sql_getfetsel(sql_multi('grrrr', $lg), 'spip_test_milou', 'id_milou=' . sql_quote(2));
 			$this->assertEquals($res, $multi, 'sql_multi mal rendu');
 		}
 
 		// le bon texte avec multi et accents
 		foreach ([
-				'fr' => 'Aérien',
-				'en' => 'Aérieny',
-			] as $lg => $res) {
+			'fr' => 'Aérien',
+			'en' => 'Aérieny',
+		] as $lg => $res) {
 			$multi = sql_getfetsel(sql_multi('alcool', $lg), 'spip_test_haddock', 'id_haddock=' . sql_quote(2));
 			$this->assertEquals($res, $multi, 'sql_multi avec accents, mal rendu');
 		}
 
 		// le bon texte avec multi et debut et fin de chaine
 		foreach ([
-				'fr' => 'Un début de chaine : Vinasse, et [la fin]',
-				'en' => 'Un début de chaine : Vinassy, et [la fin]',
-				'de' => 'Un début de chaine : Vinasse, et [la fin]',
-			] as $lg => $res) {
+			'fr' => 'Un début de chaine : Vinasse, et [la fin]',
+			'en' => 'Un début de chaine : Vinassy, et [la fin]',
+			'de' => 'Un début de chaine : Vinasse, et [la fin]',
+		] as $lg => $res) {
 			$multi = sql_getfetsel(sql_multi('alcool', $lg), 'spip_test_haddock', 'id_haddock=' . sql_quote(4));
 			$this->assertEquals($res, $multi, 'sql_multi avec crochets, mal rendu');
 		}
@@ -268,29 +268,29 @@ class SqlSchemaTableTest extends TestCase
 	function testMathFunctions()
 	{
 		foreach ([
-				'COUNT' => 3,
-				'SUM' => 9000,
-				'AVG' => 3000,
-			] as $func => $expected) {
+			'COUNT' => 3,
+			'SUM' => 9000,
+			'AVG' => 3000,
+		] as $func => $expected) {
 			$nb = sql_getfetsel("{$func}(un_int) AS nb", ['spip_test_tintin']);
 			$this->assertEquals($expected, $nb, "Selection {$func} en echec");
 		}
 
 		foreach ([
-				'EXP(0)' => exp(0),
-				'ROUND(3.56)' => round(3.56),
-				'ROUND(3.5684,2)' => round(3.5684, 2),
-				'SQRT(9)' => 3,
-				//'1/2'=>(0), // Le standard SQL : entier divise par entier = division entiere (pas trouve la reference)
-				'1.0/2' => (1 / 2), // Le standart SQL : reel divise par entier = reel
-				//'4/3'=>1,
-				'ROUND(4.0/3,2)' => round(4 / 3, 2),
-				'1.5/2' => (1.5 / 2),
-				'2.0/2' => (2.0 / 2),
-				'2/2' => (2 / 2),
-				'md5(8)' => md5('8'),
-				'md5(' . sql_quote('a') . ')' => md5('a'),
-			] as $func => $expected) {
+			'EXP(0)' => exp(0),
+			'ROUND(3.56)' => round(3.56),
+			'ROUND(3.5684,2)' => round(3.5684, 2),
+			'SQRT(9)' => 3,
+			//'1/2'=>(0), // Le standard SQL : entier divise par entier = division entiere (pas trouve la reference)
+			'1.0/2' => (1 / 2), // Le standart SQL : reel divise par entier = reel
+			//'4/3'=>1,
+			'ROUND(4.0/3,2)' => round(4 / 3, 2),
+			'1.5/2' => (1.5 / 2),
+			'2.0/2' => (2.0 / 2),
+			'2/2' => (2 / 2),
+			'md5(8)' => md5('8'),
+			'md5(' . sql_quote('a') . ')' => md5('a'),
+		] as $func => $expected) {
 			$nb = sql_getfetsel("{$func} AS nb", ['spip_test_tintin'], ['id_tintin=' . sql_quote(1)]);
 			$this->assertEquals($expected, $nb, "Selection {$func} en echec");
 		}
@@ -304,9 +304,9 @@ class SqlSchemaTableTest extends TestCase
 	function testStringFunctions()
 	{
 		foreach ([
-				'CONCAT(' . sql_quote('cou') . ',' . sql_quote('cou') . ')' => 'coucou',
-				'CONCAT(' . sql_quote('cou,') . ',' . sql_quote('cou') . ')' => 'cou,cou',
-			] as $func => $expected) {
+			'CONCAT(' . sql_quote('cou') . ',' . sql_quote('cou') . ')' => 'coucou',
+			'CONCAT(' . sql_quote('cou,') . ',' . sql_quote('cou') . ')' => 'cou,cou',
+		] as $func => $expected) {
 			$nb = sql_getfetsel("{$func} AS nb", ['spip_test_tintin'], ['id_tintin=' . sql_quote(1)]);
 			$this->assertEquals($expected, $nb, "Selection {$func} en echec");
 		}
@@ -424,7 +424,7 @@ class SqlSchemaTableTest extends TestCase
 
 		$table_before = 'spip_test_tintin';
 		$table_after = 'spip_test_castafiore';
-		sql_drop_table($table_after, true);
+		sql_drop($table_after, true);
 		$this->assertEmpty(sql_showtable($table_after));
 		$this->assertIsArray(sql_showtable($table_before));
 
@@ -488,7 +488,7 @@ class SqlSchemaTableTest extends TestCase
 	public function testAlterPrimary()
 	{
 		$table = 'spip_test_kirikou';
-		sql_drop_table($table, true);
+		sql_drop($table, true);
 
 		// creer une table pour jouer
 		sql_create(
@@ -517,7 +517,7 @@ class SqlSchemaTableTest extends TestCase
 		$this->assertIsArray($desc, 'sql_alter rate ADD PRIMARY KEY (plus de table ou sql_showtable en erreur?)');
 		$this->assertArrayHasKey('PRIMARY KEY', $desc['key'], 'sql_alter rate ADD PRIMARY KEY');
 
-		sql_drop_table($table, true);
+		sql_drop($table, true);
 	}
 
 	/**
@@ -552,7 +552,7 @@ class SqlSchemaTableTest extends TestCase
 	#[DataProvider('providerTablesData')]
 	public function testDropTables($table, $desc, $data): void
 	{
-		$this->assertTrue(sql_drop_table($table, false));
+		$this->assertTrue(sql_drop($table, false));
 	}
 
 	/**

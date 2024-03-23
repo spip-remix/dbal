@@ -16,8 +16,6 @@
  */
 define('_VERSION_ARCHIVE', '1.3');
 
-include_spip('base/serial');
-include_spip('base/objets');
 lister_tables_objets_sql();
 
 include_spip('public/interfaces'); // pour table_jointures
@@ -463,7 +461,7 @@ function base_preparer_table_dest($table, $desc, $serveur_dest, $init = false)
                 sql_delete($table, "nom='version_installee'", $serveur_dest);
             }
         } else {
-            sql_drop_table($table, '', $serveur_dest);
+            sql_drop($table, '', $serveur_dest);
             spip_logger('dump')->notice("drop table '$table' sur serveur '$serveur_dest'");
         }
         $desc_dest = false;
@@ -683,7 +681,7 @@ function base_copier_tables($status_file, $tables, $serveur_source, $serveur_des
                     } // on a pas fini, mais le temps imparti est ecoule
                 }
                 if ($drop_source) {
-                    sql_drop_table($table, '', $serveur_source);
+                    sql_drop($table, '', $serveur_source);
                     $logger->notice("drop $table sur serveur source '$serveur_source'");
                 }
                 $status['tables_copiees'][$table] = ($status['tables_copiees'][$table] ? -$status['tables_copiees'][$table] : 'zero');

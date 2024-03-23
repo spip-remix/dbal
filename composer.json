@@ -35,14 +35,19 @@
             "SpipRemix\\Component\\Dbal\\": "src/"
         },
         "files": [
-            "base/connect_sql.php",
-            "base/objets.php"
+            "bootstrap/connect_sql.php",
+            "bootstrap/objets.php"
         ]
     },
     "autoload-dev": {
         "psr-4": {
             "SpipRemix\\Component\\Dbal\\Test\\": "tests/"
-        }
+        },
+        "files": [
+            "inc/sql_manipulation.php",
+            "inc/sql_definition.php",
+            "inc/sql_administration.php"
+        ]
     },
     "config": {
         "platform": {

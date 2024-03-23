@@ -13,7 +13,6 @@
  * Création ou mise à jour des tables
  */
 include_spip('inc/acces');
-include_spip('base/objets');
 include_spip('base/typedoc');
 include_spip('base/abstract_sql');
 

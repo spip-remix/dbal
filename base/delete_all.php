@@ -27,7 +27,7 @@ function base_delete_all_dist($titre)
     $res = [];
     if (is_array($delete)) {
         foreach ($delete as $table) {
-            if (sql_drop_table($table)) {
+            if (sql_drop($table)) {
                 $res[] = $table;
             } else {
                 spip_logger()->error("SPIP n'a pas pu detruire $table.");

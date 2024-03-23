@@ -478,7 +478,7 @@ function serie_alter($serie, $q = [], $meta = '', $table = 'meta', $redirect = '
  */
 function upgrade_test()
 {
-    sql_drop_table('spip_test', true);
+    sql_drop('spip_test', true);
     sql_create('spip_test', ['a' => 'int']);
     sql_alter('TABLE spip_test ADD b INT');
     sql_insertq('spip_test', ['b' => 1], ['field' => ['b' => 'int']]);

@@ -24,8 +24,6 @@ use Psr\Log\LogLevel;
  * Gestion de l'obtention des descriptions de tables SQL
  */
 
-include_spip('base/objets');
-
 /**
  * Retourne la description d'une table SQL
  *

@@ -12,7 +12,7 @@ Ce programme est un logiciel libre distribué sous licence GNU/GPL.";
  */
 
 $finder = (new PhpCsFixer\Finder())
-    ->in([__DIR__ . '/src', __DIR__ . '/base', __DIR__ . '/req'])
+    ->in([__DIR__ . '/src/Sqlite', __DIR__ . '/base', __DIR__ . '/req', __DIR__ . '/inc', __DIR__ . '/bootstrap'])
 ;
 
 return (new PhpCsFixer\Config())

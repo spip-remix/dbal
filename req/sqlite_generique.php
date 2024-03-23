@@ -259,7 +259,7 @@ function spip_sqlite_alter($query, $serveur = '', $requeter = true)
         $def = $defr;
 
         switch ($cle) {
-                // suppression d'un index
+            // suppression d'un index
             case 'DROP KEY':
             case 'DROP INDEX':
                 $nom_index = $colonne_origine;
@@ -1630,7 +1630,7 @@ function spip_sqlite_selectdb($db, $serveur = '', $requeter = true)
         !is_file($f = _DIR_DB . $db . '.sqlite')
         && (!defined('_ECRIRE_INSTALL') || !_ECRIRE_INSTALL)
     ) {
-        spip_logger('sqlite')->emergency("Il est interdit de creer la base $db",);
+        spip_logger('sqlite')->emergency("Il est interdit de creer la base $db", );
 
         return false;
     }

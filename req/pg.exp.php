@@ -562,7 +562,8 @@ function spip_pg_select(
 
     $r = spip_pg_trace_query($query, $serveur);
 
-    return $r ?: $query;;
+    return $r ?: $query;
+    ;
 }
 
 // Le traitement des prefixes de table dans un Select se limite au FROM
