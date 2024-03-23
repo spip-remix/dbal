@@ -14,7 +14,7 @@ Spip Database Abstraction Layer
     Administration: SET, SHOW, ...,
     Manipulation: SELECT, UPDATE, INSERT, DELETE, ...)
 - [ ] : Connecteurs "réseaux" TCP/Socket UNIX/Fichier/Autres
-- [ ] : Exécuteurs de requêtes SQL (Connector)
+- [ ] : Exécuteurs de requêtes SQL (Connector), transactions
 - [y] : Descripteurs de schéma (~~Schema~~, ~~Table~~, ~~Field~~, Constraint, autres paramètres, ...)
 - [ ] : Détecteur d'extensions PHP
 - [ ] : Détecteur de versions serveurs, extensions & clients lib-c

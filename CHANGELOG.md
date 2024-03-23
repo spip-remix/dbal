@@ -15,3 +15,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Description minimale d'un champ de base de données (Field)
 - Convertisseur de tableau de définition
 - Factory de schéma
+
+### Removed
+
+- `base/index.php`
+- `base/serial.php`
+- `base/auxiliaires.php`
+
+### Changed
+
+- Suppresion d'un `@todo` vieux de 11 ans.
+
+    ```diff
+    - include_spip('base/auxiliaires');
+    - include_spip('base/serial');
+    + include_spip('base/objets');
+    + lister_tables_objets_sql();
+    ```

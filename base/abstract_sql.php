@@ -2342,7 +2342,8 @@ function description_table($nom, $serveur = '') {
 		return $GLOBALS['tables_principales'][$nom];
 	}
 
-	include_spip('base/auxiliaires');
+	include_spip('base/objets');
+    lister_tables_objets_sql();
 
 	return $GLOBALS['tables_auxiliaires'][$nom] ?? false;
 }

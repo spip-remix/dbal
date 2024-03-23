@@ -22,7 +22,9 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 define('_VERSION_ARCHIVE', '1.3');
 
 include_spip('base/serial');
-include_spip('base/auxiliaires');
+include_spip('base/objets');
+lister_tables_objets_sql();
+
 include_spip('public/interfaces'); // pour table_jointures
 
 include_fichiers_fonctions();
