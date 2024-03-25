@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace SpipRemix\Component\Dbal;
 
 /**
- * Undocumented interface
+ * Undocumented interface.
  *
  * @author JamesRezo <james@rezo.net>
  */
@@ -38,11 +38,9 @@ interface FactoryInterface
     public function createTable(string ...$parameters): TableInterface;
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
-     * @param string|boolean|null ...$parameters
-     *
-     * @return FieldInterface
+     * @param string[]|string $parameters
      */
-    public function createField(string|bool|null ...$parameters): FieldInterface;
+    public function createField(array|string|bool ...$parameters): FieldInterface;
 }

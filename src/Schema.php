@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace SpipRemix\Component\Dbal;
 
+use SpipRemix\Component\Dbal\Exception\SchemaException;
+
 class Schema implements SchemaInterface
 {
     /**
@@ -24,7 +26,7 @@ class Schema implements SchemaInterface
         private string $prefix = 'spip',
     ) {
         if ($name == '') {
-            throw new \Exception('Un schéma doit avoir un nom.');
+            SchemaException::throw(...['name' => $name]);
         }
     }
 

@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace SpipRemix\Component\Dbal;
 
+use SpipRemix\Component\Dbal\Exception\TableException;
+
 /**
  * Undocumented class.
  *
@@ -33,7 +35,7 @@ class Table implements TableInterface
         private string $name,
     ) {
         if ($name == '') {
-            throw new \Exception('Une table doit avoir un nom.');
+            TableException::throw(...['name' => $name]);
         }
     }
 

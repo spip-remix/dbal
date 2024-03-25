@@ -16,6 +16,11 @@ use SpipRemix\Component\Dbal\TableInterface;
  */
 class StubFactory implements FactoryInterface
 {
+    public static function createFromArray(array $definitions): SchemaInterface
+    {
+        return new StubSchema;
+    }
+
     public function createSchema(string ...$parameters): SchemaInterface
     {
         return new StubSchema;
@@ -26,7 +31,7 @@ class StubFactory implements FactoryInterface
         return new StubTable;
     }
 
-    public function createField(string|bool|null ...$parameters): FieldInterface
+    public function createField(array|string|bool|null ...$parameters): FieldInterface
     {
         return new StubField;
     }

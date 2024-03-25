@@ -13,15 +13,28 @@ declare(strict_types=1);
 namespace SpipRemix\Component\Dbal\Converter;
 
 use SpipRemix\Component\Dbal\FactoryInterface;
-use SpipRemix\Component\Dbal\Field;
-use SpipRemix\Component\Dbal\Schema;
 use SpipRemix\Component\Dbal\SchemaInterface;
-use SpipRemix\Component\Dbal\Table;
 
 /**
  * Undocumented class.
  *
- * @template T of array{name:non-empty-string,prefix:non-empty-string,tables:list{array{name:non-empty-string,fields:list{array{name:non-empty-string,dataType:non-empty-string,default?:?non-empty-string,nullable?:bool}}}}}
+ * @template T of array{
+ *  name:non-empty-string,
+ *  prefix:non-empty-string,
+ *  tables:list{array{
+ *      name:non-empty-string,
+ *      fields:list{array{
+ *          name:non-empty-string,
+ *          dataType:non-empty-string,
+ *          default?:?non-empty-string,
+ *          nullable?:bool,
+ *      },
+ *      keys?:list{array{
+ *          name:non-empty-string,
+ *          dataType:non-empty-string,
+ *      }},
+ *  }},
+ * }}
  *
  * @author JamesRezo <james@rezo.net>
  */

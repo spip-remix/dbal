@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace SpipRemix\Component\Dbal\Test\Unit\Converter;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use SpipRemix\Component\Dbal\Exception\AbstractDbalException;
+use SpipRemix\Component\Dbal\Exception\FieldException;
 use SpipRemix\Component\Dbal\Factory;
 use SpipRemix\Component\Dbal\Field;
 use SpipRemix\Component\Dbal\Schema;
@@ -15,6 +18,7 @@ use SpipRemix\Component\Dbal\Test\Unit\TestCase;
 #[CoversClass(Schema::class)]
 #[CoversClass(Table::class)]
 #[CoversClass(Field::class)]
+#[CoversClass(AbstractDbalException::class)]
 class FactoryTest extends TestCase
 {
     public function testCreateSchema(): void
@@ -55,7 +59,8 @@ class FactoryTest extends TestCase
 
     public function testCanNotCreateSchema(): void
     {
-        $this->expectExceptionMessage('Un schéma doit avoir un nom et un préfixe.');
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('Paramètres invalides.');
 
         // Given
         $factory = new Factory();
@@ -69,13 +74,14 @@ class FactoryTest extends TestCase
 
     public function testCanNotCreateTable(): void
     {
-        $this->expectExceptionMessage('Une table doit avoir un nom.');
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('Paramètres invalides.');
 
         // Given
         $factory = new Factory();
 
         // When
-        $factory->createTable();
+        $factory->createTable(...['name' => '']);
 
         // Then
         // Throws an exception
@@ -83,15 +89,50 @@ class FactoryTest extends TestCase
 
     public function testCanNotCreateField(): void
     {
-        $this->expectExceptionMessage('Un champ doit avoir et nom et un dataType valide.');
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('Paramètres invalides.');
 
         // Given
         $factory = new Factory();
 
         // When
-        $factory->createField();
+        $factory->createField(...['name' => 'test']);
 
         // Then
-        // Throws an exception
+        // Throws a PHP UnexpectedValueException
+    }
+
+    public static function dataCanNotCreateFieldWithNonStringValues(): array
+    {
+        return [
+            'empty-string' => [
+                'expected' => '',
+                'name' => '',
+            ],
+            'bool' => [
+                'expected' => 'true',
+                'name' => true,
+            ],
+            'array' => [
+                'expected' => 'test',
+                'name' => ['test'],
+            ],
+        ];
+    }
+
+    #[DataProvider('dataCanNotCreateFieldWithNonStringValues')]
+    public function testCanNotCreateFieldWithNonStringValues($expected, $name): void
+    {
+        $this->expectException(FieldException::class);
+        $this->expectExceptionMessage('Un champ doit avoir un nom et un dataType valide. "'.$expected.'" et "TEST" donnés');
+
+        // Given
+        $factory = new Factory();
+
+        // When
+        $factory->createField(...['name' => $name, 'dataType' => 'TEST']);
+
+        // Then
+        // Throws a FieldException
     }
 }

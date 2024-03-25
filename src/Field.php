@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace SpipRemix\Component\Dbal;
 
+use SpipRemix\Component\Dbal\Exception\FieldException;
+
 /**
  * SQL Column(field) definition for SPIP.
  *
@@ -29,7 +31,12 @@ class Field implements FieldInterface
     ) {
         $exploded = $this->explodeDatatype($name, $dataType);
         if (\is_null($exploded)) {
-            throw new \Exception('Un champ doit avoir et nom et un dataType valide.');
+            FieldException::throw(...[
+                'name' => $name,
+                'dataType' => $dataType,
+                'default' => $default ?? 'null',
+                'nullable' => \var_export($nullable, true),
+            ]);
         }
 
         $this->default = $default ?? ($exploded['default'] ?? \null);
@@ -84,9 +91,7 @@ class Field implements FieldInterface
     /**
      * Convert the dataType into $dataType, $default, $nullable..
      *
-     * @param string $dataType
-     *
-     * @return array{name:non-empty-string,dataType:non-empty-string,default?:?non-empty-string,nullable?:bool}|null
+     * @return array{name:non-empty-string,dataType:non-empty-string,default?:non-empty-string,nullable?:bool}|null
      */
     private function explodeDatatype(string $name, string $dataType): ?array
     {
@@ -96,17 +101,21 @@ class Field implements FieldInterface
         $formattedDataType = ['name' => $name];
 
         $nullable = str_contains(strtoupper($dataType), 'NOT NULL');
+
         $dataType = (string) preg_replace(', ?NOT NULL,i', '', $dataType);
+
         $default = str_contains(strtoupper($dataType), 'DEFAULT');
         if ($default && preg_match(',DEFAULT (.+) ?,i', $dataType, $matches)) {
             /** @var list{non-empty-string,non-empty-string} $matches */
             $formattedDataType['default'] = $matches[1];
             $dataType = (string) preg_replace(',' . $matches[0] . ',i', '', $dataType);
         }
+
         $dataType = trim($dataType);
         if ($dataType == '') {
             return null;
         }
+
         $formattedDataType['dataType'] = $dataType;
         $formattedDataType['nullable'] = $nullable;
 

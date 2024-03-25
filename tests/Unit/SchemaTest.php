@@ -6,10 +6,13 @@ namespace SpipRemix\Component\Dbal\Test\Unit;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use SpipRemix\Component\Dbal\Exception\AbstractDbalException;
+use SpipRemix\Component\Dbal\Exception\SchemaException;
 use SpipRemix\Component\Dbal\Schema;
 use SpipRemix\Component\Dbal\TableInterface;
 
 #[CoversClass(Schema::class)]
+#[CoversClass(AbstractDbalException::class)]
 class SchemaTest extends TestCase
 {
     public function testInstantiation(): void
@@ -29,7 +32,8 @@ class SchemaTest extends TestCase
     public function testCannotInstantiateWithoutName(): void
     {
         // Given
-        $this->expectExceptionMessage('Un schéma doit avoir un nom.');
+        $this->expectException(SchemaException::class);
+        $this->expectExceptionMessage('Un schéma doit avoir un nom valide. "" donné');
 
         // When
         new Schema('');

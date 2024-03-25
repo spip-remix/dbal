@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace SpipRemix\Component\Dbal\Test\Unit;
 
-use PHPUnit\Framework\Attributes\CoversClass;   
+use PHPUnit\Framework\Attributes\CoversClass;
+use SpipRemix\Component\Dbal\Exception\AbstractDbalException;
+use SpipRemix\Component\Dbal\Exception\FieldException;
 use SpipRemix\Component\Dbal\Field;
 use SpipRemix\Component\Dbal\TableInterface;
 use SpipRemix\Component\Dbal\Test\Fixtures\StubTable;
 
 #[CoversClass(Field::class)]
+#[CoversClass(AbstractDbalException::class)]
 class FieldTest extends TestCase
 {
     public function testInstantiation(): void
@@ -50,7 +53,7 @@ class FieldTest extends TestCase
     public function testCannotInstantiateWithoutName(): void
     {
         // Given
-        $this->expectExceptionMessage('Un champ doit avoir et nom et un dataType valide.');
+        $this->expectExceptionMessage('Un champ doit avoir un nom et un dataType valide. "" et "" donnés');
 
         // When
         new Field('', '');
@@ -62,7 +65,8 @@ class FieldTest extends TestCase
     public function testCannotInstantiateWithInvalidDataType(): void
     {
         // Given
-        $this->expectExceptionMessage('Un champ doit avoir et nom et un dataType valide.');
+        $this->expectException(FieldException::class);
+        $this->expectExceptionMessage('Un champ doit avoir un nom et un dataType valide. "test" et "DEFAULT \'\' NOT NULL" donnés');
 
         // When
         new Field('test', 'DEFAULT \'\' NOT NULL');

@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace SpipRemix\Component\Dbal\Test\Unit;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use SpipRemix\Component\Dbal\Exception\AbstractDbalException;
+use SpipRemix\Component\Dbal\Exception\TableException;
 use SpipRemix\Component\Dbal\FieldInterface;
 use SpipRemix\Component\Dbal\Table;
 use SpipRemix\Component\Dbal\Test\Fixtures\StubField;
 use SpipRemix\Component\Dbal\Test\Fixtures\StubSchema;
 
 #[CoversClass(Table::class)]
+#[CoversClass(AbstractDbalException::class)]
 class TableTest extends TestCase
 {
     public function testInstantiation(): void
@@ -33,7 +36,8 @@ class TableTest extends TestCase
     public function testCannotInstantiateWithoutName(): void
     {
         // Given
-        $this->expectExceptionMessage('Une table doit avoir un nom.');
+        $this->expectException(TableException::class);
+        $this->expectExceptionMessage('Une table doit avoir un nom valide. "" donné');
 
         // When
         new Table('');

@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 namespace SpipRemix\Component\Dbal;
 
+use SpipRemix\Component\Dbal\Exception\FieldException;
+use SpipRemix\Component\Dbal\Exception\SchemaException;
+use SpipRemix\Component\Dbal\Exception\TableException;
+
 /**
  * Undocumented class
  *
@@ -22,7 +26,7 @@ class Factory implements FactoryInterface
     public function createSchema(string ...$parameters): SchemaInterface
     {
         if (!isset($parameters['name'], $parameters['prefix'])) {
-            throw new \Exception('Un schéma doit avoir un nom et un préfixe.');
+            SchemaException::throw(...$parameters);
         }
 
         return new Schema($parameters['name'], $parameters['prefix']);
@@ -30,20 +34,27 @@ class Factory implements FactoryInterface
 
     public function createTable(string ...$parameters): TableInterface
     {
-        if (!isset($parameters['name'])) {
-            throw new \Exception('Une table doit avoir un nom.');
+        if (!isset($parameters['name'])
+            || empty($parameters['name'])
+        ) {
+            TableException::throw($parameters['name']);
         }
 
         return new Table($parameters['name']);
     }
 
-    public function createField(string|bool|null ...$parameters): FieldInterface
+    public function createField(array|string|bool ...$parameters): FieldInterface
     {
-        if (!isset($parameters['name'], $parameters['dataType'])) {
-            throw new \Exception('Un champ doit avoir et nom et un dataType valide.');
+        if (!isset($parameters['name'], $parameters['dataType'])
+            || (!is_string($parameters['name']) || empty($parameters['name']))
+            || (!is_string($parameters['dataType']) || empty($parameters['dataType']))
+            || (isset($parameters['default']) && empty($parameters['default']))
+            || (isset($parameters['nullable']) && !\is_bool($parameters['nullable']))
+        ) {
+            FieldException::throw(...$parameters);
         }
 
-        /** @var array{name:non-empty-string,dataType:non-empty-string,default?:?non-empty-string,nullable?:bool} $parameters */
+        /** @var array{name:non-empty-string,dataType:non-empty-string,default?:non-empty-string,nullable?:bool} $parameters */
         return new Field(...$parameters);
     }
 }
