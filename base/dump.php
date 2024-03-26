@@ -523,7 +523,7 @@ function base_preparer_table_dest($table, $desc, $serveur_dest, $init = false)
  */
 function base_copier_tables($status_file, $tables, $serveur_source, $serveur_dest, $options = [])
 {
-    $status = [];
+    $status = '';
     $callback_progression = $options['callback_progression'] ?? '';
     $max_time = $options['max_time'] ?? 0;
     $drop_source = $options['drop_source'] ?? false;

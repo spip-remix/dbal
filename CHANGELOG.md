@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Description minimale d'un champ de base de données (Field)
 - Convertisseur de tableau de définition
 - Factory de schéma
+- Convertisseur des globales SPIP<=4
 
 ### Removed
 
@@ -36,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Réorganisation des fonctions d'abstraction
   - `sql_select()`, `sql_insert()`, `sql_update()` et `sql_delete()` dans `inc/sql_manipulation`
   - `sql_create()`, `sql_alter()` et `sql_drop()` dans `inc/sql_definition`
+- Réorganisation de la séquance de démarrage du composant
+  - `bootstrap/connect_sql.php` et `bootstrap/objets.php`
 
 ### Deprecated
 

@@ -41,13 +41,13 @@ use SpipRemix\Component\Dbal\SchemaInterface;
 class ArrayConverter implements ConverterInterface
 {
     /** @var T */
-    private array $arraySchema;
+    protected array $arraySchema;
 
     /**
      * @param T $arraySchema
      */
     public function __construct(
-        private FactoryInterface $factory,
+        protected FactoryInterface $factory,
         array $arraySchema,
     ) {
         $this->arraySchema = $arraySchema;

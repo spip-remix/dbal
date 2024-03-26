@@ -6,22 +6,12 @@ parameters:
 			path: base/abstract_sql.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with string\\|true will always evaluate to false\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
 			message: "#^Cannot access offset 'n' on array\\|string\\|false\\.$#"
 			count: 1
 			path: base/abstract_sql.php
 
 		-
 			message: "#^Function description_table\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function erreur_squelette not found\\.$#"
 			count: 1
 			path: base/abstract_sql.php
 
@@ -92,21 +82,6 @@ parameters:
 
 		-
 			message: "#^Function sql_countsel\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_create\\(\\) has parameter \\$champs with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_create\\(\\) has parameter \\$cles with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_delete\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: base/abstract_sql.php
 
@@ -286,11 +261,6 @@ parameters:
 			path: base/abstract_sql.php
 
 		-
-			message: "#^Function sql_insert\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
 			message: "#^Function sql_insertq\\(\\) has parameter \\$couples with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: base/abstract_sql.php
@@ -346,36 +316,6 @@ parameters:
 			path: base/abstract_sql.php
 
 		-
-			message: "#^Function sql_select\\(\\) has parameter \\$from with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_select\\(\\) has parameter \\$groupby with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_select\\(\\) has parameter \\$having with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_select\\(\\) has parameter \\$orderby with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_select\\(\\) has parameter \\$select with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_select\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
 			message: "#^Function sql_serveur\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: base/abstract_sql.php
@@ -397,26 +337,6 @@ parameters:
 
 		-
 			message: "#^Function sql_test_int\\(\\) should return bool but returns int\\|false\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_update\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_update\\(\\) has parameter \\$exp with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_update\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_update\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: base/abstract_sql.php
 
@@ -487,7 +407,7 @@ parameters:
 
 		-
 			message: "#^Trying to invoke non\\-falsy\\-string but it might not be a callable\\.$#"
-			count: 44
+			count: 35
 			path: base/abstract_sql.php
 
 		-
@@ -536,42 +456,12 @@ parameters:
 			path: base/create.php
 
 		-
-			message: "#^Constant _ACCESS_FILE_NAME not found\\.$#"
-			count: 1
-			path: base/delete_all.php
-
-		-
-			message: "#^Constant _CACHE_RUBRIQUES not found\\.$#"
-			count: 1
-			path: base/delete_all.php
-
-		-
-			message: "#^Constant _FILE_CHMOD not found\\.$#"
-			count: 1
-			path: base/delete_all.php
-
-		-
-			message: "#^Constant _FILE_CONNECT not found\\.$#"
-			count: 1
-			path: base/delete_all.php
-
-		-
-			message: "#^Constant _FILE_META not found\\.$#"
-			count: 1
-			path: base/delete_all.php
-
-		-
 			message: "#^Function base_delete_all_dist\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: base/delete_all.php
 
 		-
-			message: "#^Function pipeline invoked with 2 parameters, 0 required\\.$#"
-			count: 1
-			path: base/delete_all.php
-
-		-
-			message: "#^Function spip_unlink not found\\.$#"
+			message: "#^Function spip_unlink invoked with 1 parameter, 0 required\\.$#"
 			count: 5
 			path: base/delete_all.php
 
@@ -613,11 +503,6 @@ parameters:
 		-
 			message: "#^Cannot access offset mixed on mixed\\.$#"
 			count: 2
-			path: base/dump.php
-
-		-
-			message: "#^Constant _DIR_DUMP not found\\.$#"
-			count: 1
 			path: base/dump.php
 
 		-
@@ -741,11 +626,6 @@ parameters:
 			path: base/dump.php
 
 		-
-			message: "#^Function include_fichiers_fonctions not found\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
 			message: "#^Function lister_tables_noerase\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: base/dump.php
@@ -761,22 +641,12 @@ parameters:
 			path: base/dump.php
 
 		-
-			message: "#^Function pipeline invoked with 2 parameters, 0 required\\.$#"
-			count: 3
-			path: base/dump.php
-
-		-
 			message: "#^Function singulier_ou_pluriel not found\\.$#"
 			count: 1
 			path: base/dump.php
 
 		-
 			message: "#^Function sinon not found\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function sous_repertoire not found\\.$#"
 			count: 1
 			path: base/dump.php
 
@@ -796,7 +666,7 @@ parameters:
 			path: base/dump.php
 
 		-
-			message: "#^Parameter \\#2 \\$exist of function sql_drop_table expects bool, string given\\.$#"
+			message: "#^Parameter \\#2 \\$exist of function sql_drop expects bool, string given\\.$#"
 			count: 2
 			path: base/dump.php
 
@@ -851,7 +721,7 @@ parameters:
 			path: base/repair.php
 
 		-
-			message: "#^Function generer_form_ecrire not found\\.$#"
+			message: "#^Function generer_form_ecrire invoked with 4 parameters, 0 required\\.$#"
 			count: 1
 			path: base/repair.php
 
@@ -861,17 +731,12 @@ parameters:
 			path: base/repair.php
 
 		-
-			message: "#^Function pipeline invoked with 2 parameters, 0 required\\.$#"
-			count: 1
-			path: base/repair.php
-
-		-
 			message: "#^Function propager_les_secteurs not found\\.$#"
 			count: 1
 			path: base/repair.php
 
 		-
-			message: "#^Function spip_htmlentities not found\\.$#"
+			message: "#^Function spip_htmlentities invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: base/repair.php
 
@@ -896,11 +761,6 @@ parameters:
 			path: base/trouver_table.php
 
 		-
-			message: "#^Constant _DIR_CACHE not found\\.$#"
-			count: 2
-			path: base/trouver_table.php
-
-		-
 			message: "#^Function base_trouver_table_dist\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: base/trouver_table.php
@@ -916,7 +776,7 @@ parameters:
 			path: base/trouver_table.php
 
 		-
-			message: "#^Function spip_unlink not found\\.$#"
+			message: "#^Function spip_unlink invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: base/trouver_table.php
 
@@ -952,16 +812,6 @@ parameters:
 
 		-
 			message: "#^Constant _CACHE_PLUGINS_PATH not found\\.$#"
-			count: 1
-			path: base/upgrade.php
-
-		-
-			message: "#^Constant _CACHE_RUBRIQUES not found\\.$#"
-			count: 1
-			path: base/upgrade.php
-
-		-
-			message: "#^Constant _DIR_TMP not found\\.$#"
 			count: 1
 			path: base/upgrade.php
 
@@ -1076,7 +926,7 @@ parameters:
 			path: base/upgrade.php
 
 		-
-			message: "#^Function spip_unlink not found\\.$#"
+			message: "#^Function spip_unlink invoked with 1 parameter, 0 required\\.$#"
 			count: 7
 			path: base/upgrade.php
 
@@ -3417,11 +3267,6 @@ parameters:
 
 		-
 			message: "#^Function req_sqlite_dist\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: req/sqlite_generique.php
-
-		-
-			message: "#^Function sous_repertoire not found\\.$#"
 			count: 1
 			path: req/sqlite_generique.php
 

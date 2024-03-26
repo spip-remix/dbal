@@ -12,6 +12,43 @@
 /**
  * Utilitaires indispensables autour des serveurs SQL
  */
+if (!defined('_DIR_RESTREINT')) {
+    define('_DIR_RESTREINT', 'ecrire/');
+}
+if (!defined('_DIR_TMP')) {
+    define('_DIR_TMP', 'tmp/');
+}
+if (!defined('_DIR_CACHE')) {
+    define('_DIR_CACHE', _DIR_TMP . 'cache/');
+}
+if (!defined('_DIR_DUMP')) {
+    define('_DIR_DUMP', _DIR_TMP . 'dump/');
+}
+if (!defined('_DIR_CONNECT')) {
+    define('_DIR_CONNECT', 'config/');
+}
+if (!defined('_FILE_CONNECT')) {
+    define('_FILE_CONNECT', 'config/connect.php');
+}
+if (!defined('_FILE_CONNECT_TMP')) {
+    define('_FILE_CONNECT_TMP', 'config/tmp_connect.php');
+}
+if (!defined('_FILE_CHMOD')) {
+    define('_FILE_CHMOD', 'config/chmod.php');
+}
+if (!defined('_FILE_META')) {
+    define('_FILE_META', 'tmp/meta_cache.php');
+}
+if (!defined('_ACCESS_FILE_NAME')) {
+    define('_ACCESS_FILE_NAME', '.htaccess');
+}
+if (!defined('_CACHE_RUBRIQUES')) {
+    /** Fichier cache pour le navigateur de rubrique du bandeau */
+    define('_CACHE_RUBRIQUES', _DIR_TMP . 'menu-rubriques-cache.txt');
+}
+if (!defined('_VAR_MODE')) {
+    define('_VAR_MODE', '');
+}
 
 /**
  * Connexion à un serveur de base de données

@@ -1,5 +1,25 @@
 <?php
 
+global
+    $table_date,
+    $table_des_tables,
+    $table_prefix,
+    $table_primary,
+    $table_titre,
+    $tables_auxiliaires,
+    $tables_jointures,
+    $tables_principales
+;
+
+$exceptions_des_tables = [];
+$tables_principales = [];
+$table_des_tables = [];
+$tables_auxiliaires = [];
+$table_primary = [];
+$table_date = [];
+$table_titre = [];
+$tables_jointures = [];
+
 /**
  * SPIP, Système de publication pour l'internet
  *
@@ -54,7 +74,7 @@ function lister_tables_objets_sql(?string $table_sql = null, $desc = [])
     static $plugin_hash = null;
 
     // plugins hash connu ? non si _CACHE_PLUGINS_OPT est pas encore chargé.
-    $_PLUGINS_HASH = defined('_PLUGINS_HASH') ? _PLUGINS_HASH : '!_CACHE_PLUGINS_OPT';
+    $_PLUGINS_HASH = defined('_PLUGINS_HASH') ? constant('_PLUGINS_HASH') : '!_CACHE_PLUGINS_OPT';
 
     // prealablement recuperer les tables_principales
     if (is_null($infos_tables) || $plugin_hash !== $_PLUGINS_HASH) {

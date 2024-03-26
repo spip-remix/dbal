@@ -39,6 +39,7 @@ class Field implements FieldInterface
             ]);
         }
 
+        $this->dataType = $exploded['dataType']; // \strtoupper($exploded['dataType']);
         $this->default = $default ?? ($exploded['default'] ?? \null);
         $this->nullable = $nullable ?: ($exploded['nullable'] ?? \false);
     }

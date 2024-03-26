@@ -8,7 +8,7 @@ Spip Database Abstraction Layer
 - [x] : Composerisation
 - [x] : Pluginisation
 - [ ] : Documentation
-- [ ] : Nettoyage fichiers
+- [/] : Nettoyage fichiers
 - [ ] : Producteurs de reqête SQL (
     Builder Définition: ALTER, CREATE, DROP, ...,
     Administration: SET, SHOW, ...,
@@ -19,7 +19,7 @@ Spip Database Abstraction Layer
 - [ ] : Détecteur d'extensions PHP
 - [ ] : Détecteur de versions serveurs, extensions & clients lib-c
 - [ ] : Vérifier autres extensions PHP utiles & config composer
-- [/] : Convertisseurs (Tableaux de définition, Formats historiques)
+- [x] : Convertisseurs (Tableaux de définition, Formats historiques)
 - [ ] : Gestion des exceptions PHP
 - [ ] : Spécificités des serveurs
 - [ ] : Versions de Schéma et Migrateurs
@@ -27,6 +27,7 @@ Spip Database Abstraction Layer
 - [ ] : Backups & Restaurations
 - [ ] : Autres (Réparations, Optimisations)
 - [ ] : ORM
+- [ ] : Description du CMS minimal
 
 ## Nettoyage de fichiers
 

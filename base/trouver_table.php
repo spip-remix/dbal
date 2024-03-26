@@ -73,7 +73,7 @@ use Psr\Log\LogLevel;
  */
 function base_trouver_table_dist($nom, $serveur = '', $table_spip = true, array $options = [])
 {
-    $desc_cache = null;
+    $desc_cache = '';
     static $nom_cache_desc_sql = [];
 
     if (
