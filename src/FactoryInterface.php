@@ -12,15 +12,64 @@ declare(strict_types=1);
 
 namespace SpipRemix\Component\Dbal;
 
+use SpipRemix\Component\Dbal\Connection\ConnectionInterface;
+
 /**
- * Undocumented interface.
+ * Fabrique d'objets de base de données.
  *
  * @author JamesRezo <james@rezo.net>
  */
 interface FactoryInterface
 {
     /**
-     * Undocumented function.
+     * Créer une connection SQL.
+     *
+     * @example https://github.com/spip-remix/dbal/blob/0.1/docs/Connecteurs.md#configuration Exemples de configuration
+     *
+     * @param array{
+     *      driver:non-empty-string,
+     *      schema?:non-empty-string,
+     *      hostname?:non-empty-string,
+     *      port?:non-negative-int,
+     *      socket?:non-empty-string,
+     *      filename?:non-empty-string,
+     *      username?:?string,
+     *      password?:?string,
+     *      alter_username?:?string,
+     *      alter_password?:?string,
+     *      readonly_username?:?string,
+     *      readonly_password?:?string,
+     * } $connection
+     */
+    public function createConnectionFromArray(array $connection): ConnectionInterface;
+
+    /**
+     * Créer un schéma à partir d'un tableau PHP.
+     *
+     * @param array{
+     *  name:non-empty-string,
+     *  prefix:non-empty-string,
+     *  tables?:list{
+     *      name:non-empty-string,
+     *      fields:list{array{
+     *          name:non-empty-string,
+     *          dataType:non-empty-string,
+     *          default?:non-empty-string,
+     *          nullable?:bool,
+     *      }},
+     *      keys?:list{array{
+     *          name:non-empty-string,
+     *          dataType:non-empty-string,
+     *      }},
+     *  },
+     * } $definitions
+     *
+     * @return SchemaInterface
+     */
+    public function createSchemaFromArray(array $definitions): SchemaInterface;
+
+    /**
+     * Instancier un schéma (un base).
      *
      * @param non-empty-string ...$parameters
      *
@@ -29,7 +78,7 @@ interface FactoryInterface
     public function createSchema(string ...$parameters): SchemaInterface;
 
     /**
-     * Undocumented function.
+     * Instancier une table.
      *
      * @param non-empty-string ...$parameters
      *
@@ -38,7 +87,7 @@ interface FactoryInterface
     public function createTable(string ...$parameters): TableInterface;
 
     /**
-     * Undocumented function.
+     * Instancier une colonne (un champ).
      *
      * @param string[]|string $parameters
      */

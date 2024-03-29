@@ -21,6 +21,18 @@ use SpipRemix\Component\Dbal\Test\Unit\TestCase;
 #[CoversClass(AbstractDbalException::class)]
 class FactoryTest extends TestCase
 {
+    public function testCreateSchemaFromArray(): void
+    {
+        // Given
+        $arraySchema = $this->getSchema();
+
+        // When
+        $actual = (new Factory)->createSchemaFromArray($arraySchema);
+
+        // Then
+        $this->assertEquals('spip', $actual->getName());
+    }
+
     public function testCreateSchema(): void
     {
         // Given

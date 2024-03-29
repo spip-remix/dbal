@@ -51,6 +51,7 @@ class LegacyConverter extends ArrayConverter
     public function __construct(
         FactoryInterface $factory,
         array $arraySchema,
+        private string $schema = 'spip',
         private string $prefix = 'spip',
     ) {
         $this->prefix = $prefix ?: 'spip';
@@ -69,7 +70,7 @@ class LegacyConverter extends ArrayConverter
         $liste = array_keys($legacy);
 
         $converted = [
-            'name' => 'unknown_at_this_point',
+            'name' => $this->schema,
             'prefix' => $this->prefix,
             'tables' => [],
         ];

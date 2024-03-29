@@ -54,3 +54,5 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 - [X] : Suppression du code commenté
 - [ ] : Dossier `definitions/` pour les tableaux déscripteurs de schéma
 - [ ] : Dossier `inc/` pour l'@api PHP legacy
+
+## Connecteurs "réseaux" TCP/Socket UNIX/Fichier

@@ -63,4 +63,40 @@ trait ConnectionTrait
             }
         }
     }
+
+    /**
+     * Undocumented function
+     *
+     * @param array<string,string>|null $fake
+     */
+    protected function iniParametersDetector(?array $fake = \null): void
+    {
+        $iniParameters = [
+            'pdo_mysql.default_socket',
+            'mysqli.default_socket',
+            'mysqli.default_host',
+            'mysqli.default_port',
+            'mysqli.default_pw',
+            'mysqli.default_user',
+        ];
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array<string,string>|null $fake
+     */
+    protected function commonEnvVars(?array $fake = \null): void
+    {
+        $envVars = [
+            'MYSQL_ROOT_PASSWORD',
+            'MYSQL_DATABASE',
+            'MYSQL_USER',
+            'MYSQL_PASSWORD',
+            'PGHOST',
+            'PGDATABASE',
+            'PGUSER',
+            'PGPASSWORD'
+        ];
+    }
 }
