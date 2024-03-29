@@ -6,6 +6,11 @@ parameters:
 			path: base/abstract_sql.php
 
 		-
+			message: "#^Cannot access offset '1' on array\\<string\\>\\|\\(callable\\(\\)\\: mixed\\)\\.$#"
+			count: 1
+			path: base/abstract_sql.php
+
+		-
 			message: "#^Cannot access offset 'n' on array\\|string\\|false\\.$#"
 			count: 1
 			path: base/abstract_sql.php
@@ -82,11 +87,6 @@ parameters:
 
 		-
 			message: "#^Function sql_countsel\\(\\) has parameter \\$where with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_error_backtrace\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: base/abstract_sql.php
 
@@ -316,12 +316,7 @@ parameters:
 			path: base/abstract_sql.php
 
 		-
-			message: "#^Function sql_serveur\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Function sql_serveur\\(\\) should return array\\|string but returns array\\|bool\\|string\\.$#"
+			message: "#^Function sql_serveur\\(\\) should return array\\<string\\>\\|\\(callable\\(\\)\\: mixed\\) but returns ''\\|'0'\\|array\\|bool\\.$#"
 			count: 1
 			path: base/abstract_sql.php
 
@@ -356,6 +351,11 @@ parameters:
 			path: base/abstract_sql.php
 
 		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 35
+			path: base/abstract_sql.php
+
+		-
 			message: "#^Offset 'file' does not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\}\\.$#"
 			count: 2
 			path: base/abstract_sql.php
@@ -381,11 +381,6 @@ parameters:
 			path: base/abstract_sql.php
 
 		-
-			message: "#^Parameter \\#1 \\$version of function spip_connect_sql expects string, int given\\.$#"
-			count: 1
-			path: base/abstract_sql.php
-
-		-
 			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, array\\|string given\\.$#"
 			count: 2
 			path: base/abstract_sql.php
@@ -403,11 +398,6 @@ parameters:
 		-
 			message: "#^Strict comparison using \\=\\=\\= between bool and 'continue' will always evaluate to false\\.$#"
 			count: 1
-			path: base/abstract_sql.php
-
-		-
-			message: "#^Trying to invoke non\\-falsy\\-string but it might not be a callable\\.$#"
-			count: 35
 			path: base/abstract_sql.php
 
 		-
@@ -441,11 +431,6 @@ parameters:
 			path: base/create.php
 
 		-
-			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: base/create.php
-
-		-
 			message: "#^Parameter \\#4 \\$autoinc of function sql_create expects bool, bool\\|string given\\.$#"
 			count: 2
 			path: base/create.php
@@ -459,16 +444,6 @@ parameters:
 			message: "#^Function base_delete_all_dist\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: base/delete_all.php
-
-		-
-			message: "#^Function spip_unlink invoked with 1 parameter, 0 required\\.$#"
-			count: 5
-			path: base/delete_all.php
-
-		-
-			message: "#^Argument of an invalid type array\\|string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: base/dump.php
 
 		-
 			message: "#^Cannot access an offset on mixed\\.$#"
@@ -506,11 +481,6 @@ parameters:
 			path: base/dump.php
 
 		-
-			message: "#^Function _T not found\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
 			message: "#^Function base_copier_tables\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: base/dump.php
@@ -541,27 +511,7 @@ parameters:
 			path: base/dump.php
 
 		-
-			message: "#^Function base_liste_table_for_dump\\(\\) has parameter \\$exclude_tables with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function base_liste_table_for_dump\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function base_lister_toutes_tables\\(\\) has parameter \\$exclude with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function base_lister_toutes_tables\\(\\) has parameter \\$tables with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function base_lister_toutes_tables\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Function base_liste_table_for_dump\\(\\) should return array\\{array\\<string\\>, array\\{non\\-empty\\-string, array\\<string\\>\\}\\} but returns array\\{array\\<int\\<0, max\\>, \\(int\\|string\\)\\>, array\\<int\\|string, non\\-empty\\-array\\<int\\<0, max\\>, \\(int\\|string\\)\\>\\>\\}\\.$#"
 			count: 1
 			path: base/dump.php
 
@@ -581,31 +531,6 @@ parameters:
 			path: base/dump.php
 
 		-
-			message: "#^Function base_saisie_tables\\(\\) has parameter \\$exclude with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function base_saisie_tables\\(\\) has parameter \\$post with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function base_saisie_tables\\(\\) has parameter \\$tables with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function base_saisie_tables\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function base_vider_tables_destination_copie\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
 			message: "#^Function base_vider_tables_destination_copie\\(\\) has parameter \\$exclure_tables with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: base/dump.php
@@ -616,47 +541,12 @@ parameters:
 			path: base/dump.php
 
 		-
-			message: "#^Function determine_upload not found\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
 			message: "#^Function effacer_meta not found\\.$#"
 			count: 1
 			path: base/dump.php
 
 		-
-			message: "#^Function lister_tables_noerase\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function lister_tables_noexport\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function lister_tables_noimport\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function singulier_ou_pluriel not found\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
 			message: "#^Function sinon not found\\.$#"
-			count: 1
-			path: base/dump.php
-
-		-
-			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
-			count: 11
-			path: base/dump.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|string given\\.$#"
 			count: 1
 			path: base/dump.php
 
@@ -696,11 +586,6 @@ parameters:
 			path: base/repair.php
 
 		-
-			message: "#^Function _T not found\\.$#"
-			count: 7
-			path: base/repair.php
-
-		-
 			message: "#^Function admin_repair_tables\\(\\) should return string but returns false\\.$#"
 			count: 1
 			path: base/repair.php
@@ -722,11 +607,6 @@ parameters:
 
 		-
 			message: "#^Function generer_form_ecrire invoked with 4 parameters, 0 required\\.$#"
-			count: 1
-			path: base/repair.php
-
-		-
-			message: "#^Function minipres not found\\.$#"
 			count: 1
 			path: base/repair.php
 
@@ -767,16 +647,6 @@ parameters:
 
 		-
 			message: "#^Function base_trouver_table_dist\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: base/trouver_table.php
-
-		-
-			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
-			count: 2
-			path: base/trouver_table.php
-
-		-
-			message: "#^Function spip_unlink invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: base/trouver_table.php
 
@@ -823,11 +693,6 @@ parameters:
 		-
 			message: "#^Constant _TIME_OUT not found\\.$#"
 			count: 1
-			path: base/upgrade.php
-
-		-
-			message: "#^Function _T not found\\.$#"
-			count: 3
 			path: base/upgrade.php
 
 		-
@@ -921,16 +786,6 @@ parameters:
 			path: base/upgrade.php
 
 		-
-			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
-			count: 11
-			path: base/upgrade.php
-
-		-
-			message: "#^Function spip_unlink invoked with 1 parameter, 0 required\\.$#"
-			count: 7
-			path: base/upgrade.php
-
-		-
 			message: "#^Function spip_version_compare not found\\.$#"
 			count: 3
 			path: base/upgrade.php
@@ -966,6 +821,391 @@ parameters:
 			path: base/upgrade.php
 
 		-
+			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Function _q\\(\\) has parameter \\$a with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Function query_echappe_textes\\(\\) has parameter \\$uniqid with no type specified\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Function query_echappe_textes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Function query_reinjecte_textes\\(\\) has parameter \\$textes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Function redirige_url_ecrire invoked with 2 parameters, 0 required\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Function spip_connect_db\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Function spip_connect_main\\(\\) has parameter \\$connexion with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Function spip_connect_sql\\(\\) never returns string so it can be removed from the return type\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Function spip_connect_sql\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Offset string on string on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Parameter \\#1 \\$function of function function_exists expects string, array\\|bool\\|string given\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Parameter \\#1 \\$query of function query_echappe_textes expects string, null given\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Parameter \\#3 \\$offset of function substr_replace expects array\\|int, int\\<0, max\\>\\|false given\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Right side of && is always false\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between \\*NEVER\\* and null will always evaluate to false\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Trying to invoke non\\-falsy\\-string but it might not be a callable\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Variable \\$old in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: bootstrap/connect_sql.php
+
+		-
+			message: "#^Access to property \\$descr on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 6
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$from on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 3
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$from_type on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$group on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$having on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$id_boucle on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$id_table on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$join on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$limit on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$nom on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$order on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$primary on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$select on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 3
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$show on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$sql_serveur on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 2
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Access to property \\$where on an unknown class Spip\\\\Compilateur\\\\Noeud\\\\Boucle\\.$#"
+			count: 3
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Argument of an invalid type array\\|string supplied for foreach, only iterables are supported\\.$#"
+			count: 3
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function array_set_merge\\(\\) has parameter \\$table with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function array_set_merge\\(\\) has parameter \\$valeur with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function base_auxiliaires\\(\\) has parameter \\$tables_auxiliaires with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function base_serial\\(\\) has parameter \\$tables_principales with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function calculer_select not found\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function id_table_objet\\(\\) should return string\\|null but returns int\\|string\\|null\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function instituer_boucle not found\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function lister_tables_auxiliaires\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function lister_tables_objets_sql\\(\\) has parameter \\$desc with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function lister_tables_objets_sql\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function lister_tables_objets_surnoms\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function lister_tables_principales\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function lister_tables_spip\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function lister_toutes_tables\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function lister_types_surnoms\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function objet_lister_enfants\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function objet_lister_enfants_par_type\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function objet_lister_parents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function objet_lister_parents_par_type\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function objet_type_decrire_infos_enfants\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function objet_type_decrire_infos_parents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function renseigner_table_objet_interfaces\\(\\) has parameter \\$infos with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function renseigner_table_objet_interfaces\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function renseigner_table_objet_sql\\(\\) has parameter \\$infos with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Function renseigner_table_objet_sql\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Instantiated class Spip\\\\Compilateur\\\\Noeud\\\\Boucle not found\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$objet of function objet_type_decrire_infos_parents expects string, string\\|null given\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function rtrim expects string, string\\|null given\\.$#"
+			count: 3
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strlen expects string, string\\|null given\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$table_sql of function renseigner_table_objet_interfaces expects string, int\\|string given\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of function table_objet expects string, string\\|null given\\.$#"
+			count: 2
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of function table_objet_sql expects string, string\\|null given\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Trying to invoke non\\-falsy\\-string but it might not be a callable\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Trying to invoke string but it might not be a callable\\.$#"
+			count: 6
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Variable \\$parent might not be defined\\.$#"
+			count: 1
+			path: bootstrap/objets.php
+
+		-
+			message: "#^Variable \\$table might not be defined\\.$#"
+			count: 5
+			path: bootstrap/objets.php
+
+		-
 			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 2
 			path: req/mysql.php
@@ -976,7 +1216,7 @@ parameters:
 			path: req/mysql.php
 
 		-
-			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array\\|string results in an error\\.$#"
+			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array\\<string\\>\\|string results in an error\\.$#"
 			count: 1
 			path: req/mysql.php
 
@@ -1043,11 +1283,6 @@ parameters:
 		-
 			message: "#^Function req_mysql_dist\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: req/mysql.php
-
-		-
-			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
-			count: 10
 			path: req/mysql.php
 
 		-
@@ -1411,16 +1646,6 @@ parameters:
 			path: req/mysql.php
 
 		-
-			message: "#^Function trace_query_end not found\\.$#"
-			count: 2
-			path: req/mysql.php
-
-		-
-			message: "#^Function trace_query_start not found\\.$#"
-			count: 2
-			path: req/mysql.php
-
-		-
 			message: "#^Function utf8_noplanes not found\\.$#"
 			count: 2
 			path: req/mysql.php
@@ -1698,11 +1923,6 @@ parameters:
 		-
 			message: "#^Function req_pg_dist\\(\\) has parameter \\$prefixe with no type specified\\.$#"
 			count: 1
-			path: req/pg.exp.php
-
-		-
-			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
-			count: 19
 			path: req/pg.exp.php
 
 		-
@@ -2801,16 +3021,6 @@ parameters:
 			path: req/pg.exp.php
 
 		-
-			message: "#^Function trace_query_end not found\\.$#"
-			count: 1
-			path: req/pg.exp.php
-
-		-
-			message: "#^Function trace_query_start not found\\.$#"
-			count: 1
-			path: req/pg.exp.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: req/pg.exp.php
@@ -3006,11 +3216,6 @@ parameters:
 			path: req/sqlite_fonctions.php
 
 		-
-			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: req/sqlite_fonctions.php
-
-		-
 			message: "#^Instantiated class Spip\\\\Texte\\\\Collecteur\\\\Multis not found\\.$#"
 			count: 1
 			path: req/sqlite_fonctions.php
@@ -3071,7 +3276,7 @@ parameters:
 			path: req/sqlite_generique.php
 
 		-
-			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array\\|string results in an error\\.$#"
+			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array\\<string\\>\\|string results in an error\\.$#"
 			count: 1
 			path: req/sqlite_generique.php
 
@@ -3268,11 +3473,6 @@ parameters:
 		-
 			message: "#^Function req_sqlite_dist\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: req/sqlite_generique.php
-
-		-
-			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
-			count: 13
 			path: req/sqlite_generique.php
 
 		-
@@ -3821,21 +4021,6 @@ parameters:
 			path: src/Sqlite/Requeteur.php
 
 		-
-			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: src/Sqlite/Requeteur.php
-
-		-
-			message: "#^Function trace_query_end not found\\.$#"
-			count: 1
-			path: src/Sqlite/Requeteur.php
-
-		-
-			message: "#^Function trace_query_start not found\\.$#"
-			count: 1
-			path: src/Sqlite/Requeteur.php
-
-		-
 			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Requeteur\\:\\:executer_requete\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Sqlite/Requeteur.php
@@ -3874,11 +4059,6 @@ parameters:
 			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Sqlite\\:\\:last_insert_id\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Sqlite/Sqlite.php
-
-		-
-			message: "#^Function spip_logger invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: src/Sqlite/Traducteur.php
 
 		-
 			message: "#^Method SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Traducteur\\:\\:_remplacerDateParTime\\(\\) has parameter \\$matches with no value type specified in iterable type array\\.$#"
@@ -3923,9 +4103,4 @@ parameters:
 		-
 			message: "#^Property SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Traducteur\\:\\:\\$query \\(string\\) does not accept string\\|null\\.$#"
 			count: 3
-			path: src/Sqlite/Traducteur.php
-
-		-
-			message: "#^Property SpipRemix\\\\Component\\\\Dbal\\\\Sqlite\\\\Traducteur\\:\\:\\$textes type has no value type specified in iterable type array\\.$#"
-			count: 1
 			path: src/Sqlite/Traducteur.php

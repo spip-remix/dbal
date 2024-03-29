@@ -6,5 +6,6 @@ parameters:
     paths:
         - src/Sqlite
         - base
+        - bootstrap
         - req
     level: max
