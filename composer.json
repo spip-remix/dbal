@@ -22,7 +22,8 @@
     "require-dev": {
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
-        "spip-remix/sdk": "^0.1.x-dev"
+        "spip-remix/sdk": "^0.1.x-dev",
+        "symfony/filesystem": "^6.4"
     },
     "suggest": {
         "ext-mysqli": "*",
@@ -44,6 +45,8 @@
             "SpipRemix\\Component\\Dbal\\Test\\": "tests/"
         },
         "files": [
+            "vendor/spip-remix/sdk/src/stub-nodb.php",
+            "base/abstract_sql.php",
             "inc/sql_manipulation.php",
             "inc/sql_definition.php",
             "inc/sql_administration.php"
