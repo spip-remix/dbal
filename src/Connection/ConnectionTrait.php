@@ -12,11 +12,20 @@ declare(strict_types=1);
 
 namespace SpipRemix\Component\Dbal\Connection;
 
+/**
+ * Méthodes communes aux connections SQL.
+ *
+ * @author JamesRezo <james@rezo.net>
+ */
 trait ConnectionTrait
 {
-    public const ALL_BRANDS = ['mysql', 'sqlite', 'pgsql', ];
+    // public const ALL_BRANDS = ['mysql', 'sqlite', 'pgsql', ]; // PHP8.2
+    /** @var string[] */
+    protected array $ALL_BRANDS = ['mysql', 'sqlite', 'pgsql', ];
 
-    public const ALL_EXTENSIONS = [
+    // public const ALL_EXTENSIONS = [ // PHP8.2
+    /** @var string[] */
+    public array $ALL_EXTENSIONS = [
         // \PDO drivers
         'pdo_mysql', 'pdo_sqlite', 'pdo_pgsql',
         // vendor drivers
@@ -27,7 +36,7 @@ trait ConnectionTrait
     protected array $brands = [];
 
     /** @var string[] */
-    protected array $instaledExtensions = [];
+    protected array $installedExtensions = [];
 
     /**
      * @internal Pour les T.U. : Tricher sur les extensions présentes dans PHP.
@@ -36,19 +45,19 @@ trait ConnectionTrait
      */
     protected function extensionDetector(?array $fake = \null): void
     {
-        if (empty($instaledExtensions)) {
+        if (empty($this->installedExtensions)) {
             $this->brands = [];
             $loaded =  $fake ?? \array_map('strtolower', \get_loaded_extensions());
-            foreach(self::ALL_EXTENSIONS as $ext) {
+            foreach($this->ALL_EXTENSIONS as $ext) {
                 if (\in_array($ext, $loaded)) {
                     $brand = \array_filter(
-                        self::ALL_BRANDS,
+                        $this->ALL_BRANDS,
                         fn($brand) => \str_contains($ext, $brand)
                     );
-                    $brand = \array_shift($brand);
+                    $brand = (string) \array_shift($brand);
                     if (!\in_array($brand, $this->brands)) {
                         $this->brands[] = $brand;
-                        $this->instaledExtensions[] = $ext;
+                        $this->installedExtensions[] = $ext;
                     }
                 }
             }

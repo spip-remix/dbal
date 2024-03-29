@@ -16,6 +16,8 @@ use SpipRemix\Contracts\Exception\ExceptionInterface;
 
 /**
  * Undocumented class.
+ *
+ * @author JamesRezo <james@rezo.net>
  */
 abstract class AbstractDbalException extends \UnexpectedValueException implements ExceptionInterface
 {

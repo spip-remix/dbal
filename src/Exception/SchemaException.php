@@ -17,7 +17,7 @@ namespace SpipRemix\Component\Dbal\Exception;
  *
  * @codeCoverageIgnore
  *
- * @author JamesRezo <jaames@rezo.net>
+ * @author JamesRezo <james@rezo.net>
  */
 final class SchemaException extends AbstractDbalException
 {

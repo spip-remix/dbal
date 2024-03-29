@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Convertisseur de tableau de définition
 - Factory de schéma
 - Convertisseur des globales SPIP<=4
+- ConnectionTrait, détecteur d'exensions PHP
+- ConnectionInterface
 
 ### Removed
 

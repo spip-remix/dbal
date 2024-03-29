@@ -19,7 +19,7 @@ class FakeDetector
     {
         return [
             'brands' => $this->brands,
-            'installed' => $this->instaledExtensions,
+            'installed' => $this->installedExtensions,
         ];
     }
 }
